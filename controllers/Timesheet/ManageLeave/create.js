@@ -11,15 +11,28 @@ async function create(req, res) {
       return res.status(400).json({ message: errorMessages });
     }
 
-    const {
-      employeeId,
-      leaveType,
-      appliedOn,
-      startDate,
-      endDate,
-      totalDays,
-      reason,
-    } = req.body;
+    const { employeeId, leaveType, startDate, endDate, reason } = req.body;
+
+    // Calculate the total days between startDate and endDate
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    const timeDifference = end - start; // Difference in milliseconds
+    const totalDays = Math.ceil(timeDifference / (1000 * 60 * 60 * 24)) + 1;
+
+    const appliedOn = new Date(
+      Date.UTC(
+        new Date().getUTCFullYear(),
+        new Date().getUTCMonth(),
+        new Date().getUTCDate(),
+        0,
+        0,
+        0,
+        0
+      )
+    );
+
+    const formattedAppliedOn = appliedOn.toISOString();
 
     const existingLeave = await ManageLeave.findOne({
       employeeId,
@@ -34,18 +47,18 @@ async function create(req, res) {
       });
     }
 
-    // Create a new employee instance
+    // Create a new leave instance
     const newManageLeave = new ManageLeave({
       employeeId,
       leaveType,
-      appliedOn,
+      appliedOn: formattedAppliedOn,
       startDate,
       endDate,
-      totalDays,
+      totalDays, // Store the calculated totalDays
       reason,
     });
 
-    // Save the employee to the database
+    // Save the leave to the database
     await newManageLeave.save();
 
     return res.status(201).json({
