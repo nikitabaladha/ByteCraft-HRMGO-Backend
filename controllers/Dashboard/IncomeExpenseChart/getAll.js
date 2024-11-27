@@ -1,48 +1,61 @@
-const IncomeExpenseChart = require("../../../models/IncomeExpenseChart");
-
 async function getAll(req, res) {
   try {
     const { start_month, end_month } = req.query;
 
-    if (!start_month || !end_month) {
-      return res.status(400).json({
-        hasError: true,
-        message: "Start month and end month are required",
-      });
-    }
+    let incomeExpenseData;
 
-    // Convert the months to Date objects
-    const startDate = new Date(start_month);
-    const endDate = new Date(end_month);
-    endDate.setMonth(endDate.getMonth() + 1);
+    if (start_month && end_month) {
+      const startDate = new Date(start_month);
+      const endDate = new Date(end_month);
+      endDate.setMonth(endDate.getMonth() + 1);
 
-    // Fetch the data for the selected date range
-    const incomeExpenseData = await IncomeExpenseChart.aggregate([
-      {
-        $match: {
-          categories: {
-            $gte: startDate,
-            $lt: endDate,
+      incomeExpenseData = await IncomeExpenseChart.aggregate([
+        {
+          $match: {
+            categories: {
+              $gte: startDate,
+              $lt: endDate,
+            },
           },
         },
-      },
-      {
-        $project: {
-          _id: 0,
-          categories: 1,
-          incomeData: 1,
-          expenseData: 1,
+        {
+          $project: {
+            _id: 0,
+            categories: 1,
+            incomeData: 1,
+            expenseData: 1,
+          },
         },
-      },
-      {
-        $sort: { categories: 1 }, // Sort by categories (month)
-      },
-    ]);
+        {
+          $sort: { categories: 1 },
+        },
+      ]);
+    } else {
+      incomeExpenseData = await IncomeExpenseChart.aggregate([
+        {
+          $sort: { categories: -1 }, // Sort by latest first
+        },
+        {
+          $limit: 6, // Fetch the latest 6 entries
+        },
+        {
+          $sort: { categories: 1 }, // Re-sort in ascending order
+        },
+        {
+          $project: {
+            _id: 0,
+            categories: 1,
+            incomeData: 1,
+            expenseData: 1,
+          },
+        },
+      ]);
+    }
 
     if (!incomeExpenseData.length) {
       return res.status(404).json({
         hasError: true,
-        message: "No data found for the selected date range",
+        message: "No data found",
       });
     }
 
