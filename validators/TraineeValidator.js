@@ -1,49 +1,64 @@
 const Joi = require("joi");
 
-const branchValidationSchema = Joi.object({
-  employeeId: Joi.string()
-    .required()
-    .regex(/^[0-9a-fA-F]{24}$/) // Validates MongoDB ObjectId format
-    .messages({
-      "string.pattern.base": "Invalid employee ID format.",
-    }),
-  name: Joi.string()
-    .required()
-    .messages({
-      "any.required": "Branch name is required.",
-      "string.base": "Branch name must be a string.",
-    }),
+// Country-specific regex for contact numbers (e.g., +1 for USA, +91 for India, etc.)
+const contactNumberPattern = /^\+\d{1,3}[- ]?\d{6,14}$/;
+
+const traineeValidationSchema = Joi.object({
+  branch: Joi.string().min(2).max(100).required().messages({
+    // "string.base": "Branch must be a string",
+    // "string.empty": "Branch cannot be empty",
+    // "string.min": "Branch must be at least 2 characters long",
+    // "string.max": "Branch must be less than or equal to 100 characters",
+    "any.required": "Branch is required",
+  }),
+
+  firstName: Joi.string().min(3).max(100).required().messages({
+    "string.base": "First name must be a string",
+    "string.empty": "First name cannot be empty",
+    "string.min": "First name must be at least 3 characters long",
+    "string.max": "First name must be less than or equal to 100 characters",
+    "any.required": "First name is required",
+  }),
+
+  lastName: Joi.string().min(3).max(100).required().messages({
+    "string.base": "Last name must be a string",
+    "string.empty": "Last name cannot be empty",
+    "string.min": "Last name must be at least 3 characters long",
+    "string.max": "Last name must be less than or equal to 100 characters",
+    "any.required": "Last name is required",
+  }),
+
   contactNumber: Joi.string()
-    .required()
-    .pattern(/^(\+?\d{1,3}[- ]?)?\d{10}$/)
-    .messages({
-      "any.required": "Contact number is required.",
-      "string.pattern.base": "Invalid contact number format.",
-    }),
-  email: Joi.string()
-    .required()
-    .email()
-    .messages({
-      "any.required": "Email is required.",
-      "string.email": "Invalid email address format.",
-    }),
-  expertise: Joi.string()
+    .pattern(contactNumberPattern)
     .required()
     .messages({
-      "any.required": "Expertise is required.",
-      "string.base": "Expertise must be a string.",
+      "string.pattern.base":
+        "Contact number must start with a country code (e.g., +91, +1) and contain 6-14 digits after the code.",
+      "string.empty": "Contact number cannot be empty",
+      "any.required": "Contact number is required",
     }),
-  Address: Joi.string()
-    .required()
-    .messages({
-      "any.required": "Address is required.",
-      "string.base": "Address must be a string.",
-    }),
+
+  email: Joi.string().email().required().messages({
+    "string.email": "Email must be a valid email address",
+    "string.empty": "Email cannot be empty",
+    "any.required": "Email is required",
+  }),
+
+  expertise: Joi.string().min(3).max(100).required().messages({
+    "string.base": "Expertise must be a string",
+    "string.empty": "Expertise cannot be empty",
+    "string.min": "Expertise must be at least 3 characters long",
+    "string.max": "Expertise must be less than or equal to 100 characters",
+    "any.required": "Expertise is required",
+  }),
+
+  address: Joi.string().min(5).max(200).required().messages({
+    "string.base": "Address must be a string",
+    "string.empty": "Address cannot be empty",
+    "string.min": "Address must be at least 5 characters long",
+    "string.max": "Address must be less than or equal to 200 characters",
+    "any.required": "Address is required",
+  }),
 });
 
-// Export a validation function
-const validateBranch = (branchData) => {
-  return branchValidationSchema.validate(branchData, { abortEarly: false });
-};
-
-module.exports = { validateBranch };
+module.exports = traineeValidationSchema;

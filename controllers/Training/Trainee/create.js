@@ -1,12 +1,63 @@
-const Branch = require("../../../models/Trainee");
-const Employee = require("../../../models/Employee");
-const { validateBranch } = require("../validators/branchValidator");
+// const Trainee = require("../../../models/Trainee");
+// const traineeValidationSchema = require("../../../validators/TraineeValidator");
 
-// Controller for creating a new branch
-const createBranch = async (req, res) => {
+// const createTrainee = async (req, res) => {
+//   try {
+//     // Validate request data
+//     const { error } = traineeValidationSchema.validate(req.body);
+//     if (error) {
+//       return res.status(400).json({
+//         success: false,
+//         errors: error.details.map((detail) => detail.message),
+//       });
+//     }
+
+//     const { name, lastName, Lastname, lastname, contactNumber, email, expertise, address } = req.body;
+
+//     // Ensure lastName is not null or empty
+//     if (!lastName || lastName.trim() === "") {
+//       return res.status(400).json({
+//         success: false,
+//         error: "lastName cannot be empty",
+//       });
+//     }
+
+//     // Create a new Trainee
+//     const trainee = new Trainee({
+//       name,
+//       lastName,
+//       Lastname,
+//       lastname,
+//       contactNumber,
+//       email,
+//       expertise,
+//       address,
+//     });
+
+//     await trainee.save();
+
+//     res.status(201).json({
+//       success: true,
+//       message: "Trainee created successfully",
+//     });
+//   } catch (err) {
+//     res.status(500).json({
+//       success: false,
+//       error: err.message,
+//     });
+//   }
+// };
+
+
+// module.exports = createTrainee;
+
+const Trainee = require("../../../models/Trainee"); // Path to the Trainee model
+const traineeValidationSchema = require("../../../validators/TraineeValidator");
+
+const createTrainee = async (req, res) => {
   try {
-    // Validate request data
-    const { error } = validateBranch(req.body);
+    // Validate request body using Joi
+    const { error } = traineeValidationSchema.validate(req.body);
     if (error) {
       return res.status(400).json({
         success: false,
@@ -14,39 +65,35 @@ const createBranch = async (req, res) => {
       });
     }
 
-    const { employeeId, name, contactNumber, email, expertise, Address } = req.body;
+    const { branch, firstName, lastName, contactNumber, email, expertise, address } = req.body;
 
-    // Check if employeeId exists in the Employee table
-    const employee = await Employee.findById(employeeId);
-    if (!employee) {
-      return res.status(404).json({
+    // Check for duplicate email and contact number
+    const existingTrainee = await Trainee.findOne({ email });
+    if (existingTrainee) {
+      return res.status(400).json({
         success: false,
-        message: "Employee not found",
+        error: "A trainee with this email already exists.",
       });
     }
 
-    // Create a new Branch
-    const branch = new Branch({
-      employeeId,
-      name,
+    // Create a new Trainee
+    const trainee = new Trainee({
+      branch,
+      firstName,
+      lastName,
       contactNumber,
       email,
       expertise,
-      Address,
+      address,
+      name: `${firstName} ${lastName}`,
     });
 
-    await branch.save();
+    await trainee.save();
 
-    // Populate the branch field from the Employee model
-    const branchWithEmployeeDetails = await Branch.findById(branch._id).populate({
-      path: "employeeId",
-      select: "branch name email", // Include the fields you want from Employee
-    });
-
-    res.status(201).json({
+    return res.status(201).json({
       success: true,
-      data: branchWithEmployeeDetails,
-      message: "Branch created successfully",
+      message: "Trainee created successfully",
+      trainee,
     });
   } catch (err) {
     res.status(500).json({
@@ -56,4 +103,5 @@ const createBranch = async (req, res) => {
   }
 };
 
-module.exports = { createBranch };
+module.exports = createTrainee ;
+

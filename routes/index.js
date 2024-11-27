@@ -26,6 +26,7 @@ const competencyListRoutes = require("./competencyList");
 
 const indicatorRoutes = require("./indicator");
 const appraisalRoutes = require("./appraisal");
+const traineeRoutes = require("./Trainee")
 
 module.exports = (app) => {
   app.post("/api/signup", signup);
@@ -66,4 +67,6 @@ module.exports = (app) => {
   app.use("/api", indicatorRoutes);
 
   app.use("/api", appraisalRoutes);
+
+  app.use("/api", traineeRoutes);
 };

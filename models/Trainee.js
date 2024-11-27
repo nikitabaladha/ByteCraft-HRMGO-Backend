@@ -1,24 +1,26 @@
-// HRMGO-Backend\models\Branch.js
 const mongoose = require("mongoose");
 
-const BranchSchema = new mongoose.Schema(
+const TraineeSchema = new mongoose.Schema(
   {
-    employeeId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Employee", // Refers to the Employee model
-        required: true,
-      },
-    name: {
+    branch: {
       type: String,
       required: true,
-      unique: true,
+    },
+    firstName: {
+      type: String,
+      required: true,
+    },
+    lastName: {
+      type: String,
+      required: true,
+      default: 'Unknown',
     },
     contactNumber: {
       type: String,
       required: true,
       validate: {
         validator: function (v) {
-          return /^(\+?\d{1,3}[- ]?)?\d{10}$/.test(v); // Validation for a valid phone number
+          return /^(\+?\d{1,3}[- ]?)?\d{10}$/.test(v); // Validate phone numbers
         },
         message: (props) => `${props.value} is not a valid contact number!`,
       },
@@ -29,24 +31,26 @@ const BranchSchema = new mongoose.Schema(
       unique: true,
       validate: {
         validator: function (v) {
-          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); // Basic email validation
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); // Validate email format
         },
         message: (props) => `${props.value} is not a valid email address!`,
       },
     },
     expertise: {
-        type: String, // Array of expertise areas (e.g., subjects or topics the trainer specializes in)
-        required: true,
-      },
-      Address: {
-        type: String, // Array of certification names or titles
-        required: true,
-      },
+      type: String,
+      required: true,
+    },
+    address: {
+      type: String,
+      required: true,
+    },
   },
   {
-    timestamps: true,
+    timestamps: true, // Automatically add createdAt and updatedAt fields
   }
 );
 
-const Branch = mongoose.model("Branch", BranchSchema);
-module.exports = Branch;
+// Export the model
+const Trainee = mongoose.models.Trainee || mongoose.model("Trainee", TraineeSchema);
+
+module.exports = Trainee;
