@@ -1,3 +1,5 @@
+const IncomeExpenseChart = require("../../../models/IncomeExpenseChart");
+
 async function getAll(req, res) {
   try {
     const { start_month, end_month } = req.query;

@@ -3,22 +3,20 @@ const Employee = require("../../../../models/Employee");
 
 async function getAll(req, res) {
   try {
-    // Fetch all marked attendance records with employee details
     const markedAttendanceRecords = await MarkedAttendance.find()
       .populate({
-        path: "employeeId", // Populate the employeeId field
-        select: "name", // Only fetch the name field from the Employee model
+        path: "employeeId",
+        select: "name",
       })
-      .select("employeeId date hrs"); // Fetch only employeeId, date, and hrs fields from MarkedAttendance
+      .select("employeeId date hrs");
 
     const records = await MarkedAttendance.find().populate("employeeId");
-    console.log(records); // Ensure the `employeeId` field resolves to actual Employee data
+    console.log(records);
 
-    // Map the data to include employee name instead of employeeId
     const response = markedAttendanceRecords.map((record) => ({
-      employee: record.employeeId.name, // Extract the employee's name
-      date: record.date.toISOString().split("T")[0], // Format the date (YYYY-MM-DD)
-      hours: record.hrs, // Include the total working hours
+      employee: record.employeeId.name,
+      date: record.date.toISOString().split("T")[0],
+      hours: record.hrs,
     }));
 
     return res.status(200).json({
