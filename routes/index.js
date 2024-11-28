@@ -23,6 +23,8 @@ const MarkedAttendance = require("./markedAttendance");
 const indicatorRoutes = require("./indicator");
 const appraisalRoutes = require("./appraisal");
 
+const hrAdminSetupRoutes = require("./hrAdminSetup");
+
 module.exports = (app) => {
   app.post("/api/signup", signup);
   app.post("/api/login", login);
@@ -56,4 +58,6 @@ module.exports = (app) => {
   app.use("/api", indicatorRoutes);
 
   app.use("/api", appraisalRoutes);
+
+  app.use("/api", hrAdminSetupRoutes);
 };

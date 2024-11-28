@@ -17,6 +17,8 @@ async function create(req, res) {
     const records = Array.isArray(req.body) ? req.body : [req.body];
     const createdRecords = [];
 
+    console.log("Received data:", req.body);
+
     for (const record of records) {
       const { error, value } = MarkedAttendanceValidator.validate(record);
 
@@ -32,6 +34,19 @@ async function create(req, res) {
       const formattedDate = new Date(date);
       const formattedClockIn = new Date(clockIn);
       const formattedClockOut = new Date(clockOut);
+
+      // Check if attendance for this employee and date already exists
+      const existingAttendance = await MarkedAttendance.findOne({
+        employeeId,
+        date: formattedDate,
+      });
+
+      if (existingAttendance) {
+        console.log(
+          `Attendance already exists for ${employeeId} on ${formattedDate}`
+        );
+        continue; // Skip this record if attendance already exists
+      }
 
       // Calculate total working hours (clockOut - clockIn)
       const totalWorkingDuration = formattedClockOut - formattedClockIn;
@@ -57,17 +72,14 @@ async function create(req, res) {
         earlyLeavingDuration = idealClockOut - formattedClockOut;
       }
 
-      // Overtime only occurs if the clockOut is after the idealClockOut time
       if (formattedClockOut > idealClockOut) {
         overtimeDuration = formattedClockOut - idealClockOut;
       }
 
-      // Format durations
       const late = formatDuration(lateDuration);
       const earlyLeaving = formatDuration(earlyLeavingDuration);
       const overtime = formatDuration(overtimeDuration);
 
-      // Create a new MarkedAttendance record
       const newMarkedAttendance = new MarkedAttendance({
         employeeId,
         date: formattedDate,
