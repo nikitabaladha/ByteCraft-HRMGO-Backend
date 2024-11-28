@@ -8,7 +8,7 @@ async function create(req, res) {
     const { employeeId, awardType, date, gift, description } = req.body;
 
     // Validate the Award data using Joi schema
-    const { error } = AwardValidator.validate(req.body);
+    const { error } = AwardValidator.AwardCreateValidator.validate(req.body);
 
     if (error?.details?.length) {
       const errorMessages = error.details.map((err) => err.message).join(", ");
@@ -24,7 +24,6 @@ async function create(req, res) {
       description,
     });
 
-    // Save the Award to the database
     await newAward.save();
 
     return res.status(201).json({

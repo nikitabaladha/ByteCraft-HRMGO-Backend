@@ -1,8 +1,12 @@
 // Use require instead of import
 const createAward = require("./Award/create");
-const getAll = require("./Award/getAll");
+const getAllAward = require("./Award/getAll");
+const updateAwardById = require("./Award/updateById");
+const deleteAwardById = require("./Award/deleteById");
 
 module.exports = {
   createAward,
-  getAll,
+  getAllAward,
+  updateAwardById,
+  deleteAwardById,
 };
