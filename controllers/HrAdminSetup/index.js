@@ -14,6 +14,11 @@ const getAllPromotion = require("./Promotion/getAll");
 const updatePromotionById = require("./Promotion/updateById");
 const deletePromotionById = require("./Promotion/deleteById");
 
+const createComplaint = require("./Complaint/create");
+const getAllComplaint = require("./Complaint/getAll");
+const updateComplaintById = require("./Complaint/updateById");
+const deleteComplaintById = require("./Complaint/deleteById");
+
 module.exports = {
   createAward,
   getAllAward,
@@ -29,4 +34,9 @@ module.exports = {
   getAllPromotion,
   updatePromotionById,
   deletePromotionById,
+
+  createComplaint,
+  getAllComplaint,
+  updateComplaintById,
+  deleteComplaintById,
 };

@@ -18,6 +18,11 @@ const {
   getAllPromotion,
   updatePromotionById,
   deletePromotionById,
+
+  createComplaint,
+  getAllComplaint,
+  updateComplaintById,
+  deleteComplaintById,
 } = require("../controllers/HrAdminSetup");
 
 // Define routes
@@ -35,5 +40,10 @@ router.post("/promotion", Middleware, createPromotion);
 router.get("/promotion", Middleware, getAllPromotion);
 router.put("/promotion/:id", Middleware, updatePromotionById);
 router.delete("/promotion/:id", Middleware, deletePromotionById);
+
+router.post("/complaint", Middleware, createComplaint);
+router.get("/complaint", Middleware, getAllComplaint);
+router.put("/complaint/:id", Middleware, updateComplaintById);
+router.delete("/complaint/:id", Middleware, deleteComplaintById);
 
 module.exports = router;
