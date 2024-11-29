@@ -19,6 +19,11 @@ const getAllComplaint = require("./Complaint/getAll");
 const updateComplaintById = require("./Complaint/updateById");
 const deleteComplaintById = require("./Complaint/deleteById");
 
+const createWarning = require("./Warning/create");
+const getAllWarning = require("./Warning/getAll");
+const updateWarningById = require("./Warning/updateById");
+const deleteWarningById = require("./Warning/deleteById");
+
 module.exports = {
   createAward,
   getAllAward,
@@ -39,4 +44,9 @@ module.exports = {
   getAllComplaint,
   updateComplaintById,
   deleteComplaintById,
+
+  createWarning,
+  getAllWarning,
+  updateWarningById,
+  deleteWarningById,
 };

@@ -23,6 +23,11 @@ const {
   getAllComplaint,
   updateComplaintById,
   deleteComplaintById,
+
+  createWarning,
+  getAllWarning,
+  updateWarningById,
+  deleteWarningById,
 } = require("../controllers/HrAdminSetup");
 
 // Define routes
@@ -45,5 +50,10 @@ router.post("/complaint", Middleware, createComplaint);
 router.get("/complaint", Middleware, getAllComplaint);
 router.put("/complaint/:id", Middleware, updateComplaintById);
 router.delete("/complaint/:id", Middleware, deleteComplaintById);
+
+router.post("/warning", Middleware, createWarning);
+router.get("/warning", Middleware, getAllWarning);
+router.put("/warning/:id", Middleware, updateWarningById);
+router.delete("/warning/:id", Middleware, deleteWarningById);
 
 module.exports = router;
