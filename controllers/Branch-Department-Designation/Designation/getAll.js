@@ -17,7 +17,7 @@ async function getAll(req, res) {
 
     return res.status(200).json({
       message: "Designations fetched successfully!",
-      designations: designations.map((designation) => ({
+      data: designations.map((designation) => ({
         id: designation._id,
         designationName: designation.designationName,
         departmentId: designation.departmentId._id,

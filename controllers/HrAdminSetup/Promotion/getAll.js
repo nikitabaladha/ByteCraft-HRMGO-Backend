@@ -23,6 +23,7 @@ async function getAll(req, res) {
       promotionDate: promotion.promotionDate,
       description: promotion.description,
       id: promotion._id,
+      designationId: promotion.designationId._id,
     }));
 
     return res.status(200).json({
