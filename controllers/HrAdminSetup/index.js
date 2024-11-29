@@ -9,6 +9,11 @@ const getAllResignation = require("./Resignation/getAll");
 const updateResignationById = require("./Resignation/updateById");
 const deleteResignationById = require("./Resignation/deleteById");
 
+const createPromotion = require("./Promotion/create");
+const getAllPromotion = require("./Promotion/getAll");
+const updatePromotionById = require("./Promotion/updateById");
+const deletePromotionById = require("./Promotion/deleteById");
+
 module.exports = {
   createAward,
   getAllAward,
@@ -19,4 +24,9 @@ module.exports = {
   getAllResignation,
   updateResignationById,
   deleteResignationById,
+
+  createPromotion,
+  getAllPromotion,
+  updatePromotionById,
+  deletePromotionById,
 };

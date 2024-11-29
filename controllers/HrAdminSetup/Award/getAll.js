@@ -7,7 +7,7 @@ async function getAll(req, res) {
 
     if (!awards.length) {
       return res.status(404).json({
-        hasError: false,
+        hasError: true,
         message: "No awards found",
         data: [],
       });
