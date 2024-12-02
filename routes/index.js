@@ -6,7 +6,6 @@ const login = require("../controllers/User/login");
 const dashboardRoutes = require("./dashboard");
 const meetingRoutes = require("./meeting");
 const attendanceRoutes = require("./attendance");
-// const announcementRoutes = require("./announcement");
 const calendarRoutes = require("./calendar");
 const incomeExpenseChartRoutes = require("./incomeExpenseChart");
 
@@ -34,8 +33,6 @@ module.exports = (app) => {
   app.use("/api", meetingRoutes); // This mounts the meeting routes
 
   app.use("/api", attendanceRoutes); // This mounts the attendanceRoutes routes
-
-  // app.use("/api", announcementRoutes); // This mounts the announcementRoutes routes
 
   app.use("/api", calendarRoutes); // This mounts the calendarRoutes routes
 
