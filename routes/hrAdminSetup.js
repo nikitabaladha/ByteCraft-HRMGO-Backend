@@ -38,6 +38,11 @@ const {
   getAllAnnouncement,
   updateAnnouncementById,
   deleteAnnouncementById,
+
+  createHoliday,
+  getAllHoliday,
+  updateHolidayById,
+  deleteHolidayById,
 } = require("../controllers/HrAdminSetup");
 
 // Define routes
@@ -76,4 +81,8 @@ router.get("/announcement", Middleware, getAllAnnouncement);
 router.put("/announcement/:id", Middleware, updateAnnouncementById);
 router.delete("/announcement/:id", Middleware, deleteAnnouncementById);
 
+router.post("/holiday", Middleware, createHoliday);
+router.get("/holiday", Middleware, getAllHoliday);
+router.put("/holiday/:id", Middleware, updateHolidayById);
+router.delete("/holiday/:id", Middleware, deleteHolidayById);
 module.exports = router;

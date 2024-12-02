@@ -34,6 +34,11 @@ const getAllAnnouncement = require("./Announcement/getAll");
 const updateAnnouncementById = require("./Announcement/updateById");
 const deleteAnnouncementById = require("./Announcement/deleteById");
 
+const createHoliday = require("./Holiday/create");
+const getAllHoliday = require("./Holiday/getAll");
+const updateHolidayById = require("./Holiday/updateById");
+const deleteHolidayById = require("./Holiday/deleteById");
+
 module.exports = {
   createAward,
   getAllAward,
@@ -69,4 +74,9 @@ module.exports = {
   getAllAnnouncement,
   updateAnnouncementById,
   deleteAnnouncementById,
+
+  createHoliday,
+  getAllHoliday,
+  updateHolidayById,
+  deleteHolidayById,
 };
