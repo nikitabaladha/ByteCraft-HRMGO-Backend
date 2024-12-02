@@ -11,8 +11,8 @@ const getAllMeeting = require("./Meeting/getAll");
 const createAttendance = require("./Attendance/create");
 const getAllAttendance = require("./Attendance/getAll");
 
-const createAnnouncement = require("./Announcement/create");
-const getAllAnnouncement = require("./Announcement/getAll");
+// const createAnnouncement = require("./Announcement/create");
+// const getAllAnnouncement = require("./Announcement/getAll");
 
 const createCalendar = require("./Calendar/create");
 const getAllCalendar = require("./Calendar/getAll");
@@ -33,8 +33,8 @@ module.exports = {
   createAttendance,
   getAllAttendance,
 
-  createAnnouncement,
-  getAllAnnouncement,
+  // createAnnouncement,
+  // getAllAnnouncement,
 
   createCalendar,
   getAllCalendar,
