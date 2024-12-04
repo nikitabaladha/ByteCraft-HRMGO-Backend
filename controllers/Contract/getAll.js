@@ -22,10 +22,17 @@ async function getAll(req, res) {
       contractType: contract.contractTypeId
         ? contract.contractTypeId.contractName
         : "N/A",
+
+      contractTypeId: contract.contractTypeId
+        ? contract.contractTypeId._id
+        : "N/A",
+
+      employeeId: contract.employeeId ? contract.employeeId._id : "N/A",
       startDate: contract.startDate,
       endDate: contract.endDate,
       status: contract.status,
       id: contract._id,
+      description: contract.description,
     }));
 
     return res.status(200).json({

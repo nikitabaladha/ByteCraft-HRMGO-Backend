@@ -11,8 +11,6 @@ async function create(req, res) {
       return res.status(400).json({ message: errorMessages });
     }
 
-    console.log("Received contractTypeId:", req.body.contractTypeId);
-
     const {
       employeeId,
       subject,
