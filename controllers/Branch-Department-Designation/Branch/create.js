@@ -23,7 +23,7 @@ async function create(req, res) {
 
     return res.status(201).json({
       message: "Branch created successfully!",
-      branch: newBranch,
+      data: newBranch,
     });
   } catch (error) {
     console.error("Error creating branch:", error);

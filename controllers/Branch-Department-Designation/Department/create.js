@@ -24,7 +24,7 @@ async function create(req, res) {
 
     return res.status(201).json({
       message: "Department created successfully!",
-      department: newDepartment,
+      data: newDepartment,
     });
   } catch (error) {
     console.error("Error creating department:", error);

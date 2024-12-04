@@ -12,6 +12,7 @@ const incomeExpenseChartRoutes = require("./incomeExpenseChart");
 const branchRoutes = require("./branch");
 const departmentRoutes = require("./department");
 const designationRoutes = require("./designation");
+const contractTypeRoute = require("./contractType");
 
 const employeeRoutes = require("./employee");
 
@@ -23,6 +24,7 @@ const indicatorRoutes = require("./indicator");
 const appraisalRoutes = require("./appraisal");
 
 const hrAdminSetupRoutes = require("./hrAdminSetup");
+const contractRoutes = require("./contract");
 
 module.exports = (app) => {
   app.post("/api/signup", signup);
@@ -44,6 +46,8 @@ module.exports = (app) => {
 
   app.use("/api", designationRoutes); // This mounts the designationRoutes routes
 
+  app.use("/api", contractTypeRoute); // This mounts the contractTypeRoutes routes
+
   app.use("/api", employeeRoutes); // This mounts the employeeRoutes routes
 
   app.use("/api", manageLeaveRoutes); // This mounts the manageLeaveRoutes routes
@@ -57,4 +61,6 @@ module.exports = (app) => {
   app.use("/api", appraisalRoutes);
 
   app.use("/api", hrAdminSetupRoutes);
+
+  app.use("/api", contractRoutes);
 };

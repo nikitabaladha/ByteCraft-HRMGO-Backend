@@ -24,7 +24,7 @@ async function create(req, res) {
 
     return res.status(201).json({
       message: "Designation created successfully!",
-      designation: newDesignation,
+      data: newDesignation,
     });
   } catch (error) {
     console.error("Error creating designation:", error);
