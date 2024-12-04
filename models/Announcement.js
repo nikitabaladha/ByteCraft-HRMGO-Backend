@@ -17,7 +17,7 @@ const AnnouncementSchema = new mongoose.Schema(
       required: true,
     },
     employeeId: {
-      type: [mongoose.Schema.Types.ObjectId], // Array of ObjectIds
+      type: [mongoose.Schema.Types.ObjectId],
       ref: "Employee",
       required: true,
     },

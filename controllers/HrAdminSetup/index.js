@@ -38,6 +38,7 @@ const createHoliday = require("./Holiday/create");
 const getAllHoliday = require("./Holiday/getAll");
 const updateHolidayById = require("./Holiday/updateById");
 const deleteHolidayById = require("./Holiday/deleteById");
+const getByStartEndDate = require("./Holiday/getByStartEndDate");
 
 module.exports = {
   createAward,
@@ -79,4 +80,5 @@ module.exports = {
   getAllHoliday,
   updateHolidayById,
   deleteHolidayById,
+  getByStartEndDate,
 };

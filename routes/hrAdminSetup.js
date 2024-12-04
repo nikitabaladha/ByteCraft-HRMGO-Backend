@@ -43,6 +43,7 @@ const {
   getAllHoliday,
   updateHolidayById,
   deleteHolidayById,
+  getByStartEndDate,
 } = require("../controllers/HrAdminSetup");
 
 // Define routes
@@ -85,4 +86,5 @@ router.post("/holiday", Middleware, createHoliday);
 router.get("/holiday", Middleware, getAllHoliday);
 router.put("/holiday/:id", Middleware, updateHolidayById);
 router.delete("/holiday/:id", Middleware, deleteHolidayById);
+router.get("/holiday-get-by-date", Middleware, getByStartEndDate);
 module.exports = router;
