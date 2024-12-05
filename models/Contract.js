@@ -55,10 +55,5 @@ const ContractSchema = new mongoose.Schema(
   }
 );
 
-ContractSchema.index(
-  { employeeId: 1, contractTypeId: 1, startDate: 1 },
-  { unique: true }
-);
-
 const Contract = mongoose.model("Contract", ContractSchema);
 module.exports = Contract;

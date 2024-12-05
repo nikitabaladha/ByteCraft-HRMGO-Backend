@@ -25,21 +25,6 @@ async function create(req, res) {
       notes,
     } = req.body;
 
-    // Check if the contract already exists
-    const existingContract = await Contract.findOne({
-      employeeId,
-      contractTypeId,
-      startDate,
-    });
-
-    if (existingContract) {
-      return res.status(409).json({
-        hasError: true,
-        message:
-          "Contract already exists for this employee with the same start date.",
-      });
-    }
-
     // Generate the next contract ID
     const lastContract = await Contract.findOne().sort({ id: -1 }).limit(1);
     const lastContractId = lastContract ? lastContract.id : "CON0000";
