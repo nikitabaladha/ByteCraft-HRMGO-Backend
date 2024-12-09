@@ -3,6 +3,7 @@ const Employee = require("../../../models/Employee");
 const Branch = require("../../../models/Branch");
 const Designation = require("../../../models/Designation");
 const Department = require("../../../models/Department");
+const Indicator = require("../../../models/Indicator");
 
 async function getAll(req, res) {
   try {
@@ -33,7 +34,10 @@ async function getAll(req, res) {
       department: appraisal.employeeId.departmentId.departmentName,
       designation: appraisal.employeeId.designationId.designationName,
       employee: appraisal.employeeId.name,
-      targetRating: appraisal.indicatorId.overAllRating,
+      targetRating: appraisal.indicatorId
+        ? appraisal.indicatorId.overAllRating
+        : null,
+
       overallRating: appraisal.overAllRating,
       appraisalDate: appraisal.appraisalDate,
       remarks: appraisal.remarks,

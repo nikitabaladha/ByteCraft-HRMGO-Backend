@@ -4,8 +4,12 @@ const deleteContractById = require("./Contract/deleteById");
 const updateContractById = require("./Contract/updateById");
 
 const createContractComment = require("./ContractComment/create");
-const getAllContractComment = require("./ContractComment/getAll");
+const getByContractId = require("./ContractComment/getByContractId");
 const deleteById = require("./ContractComment/deleteById");
+
+const createContractNote = require("./ContractNote/create");
+const getNoteByContractId = require("./ContractNote/getByContractId");
+const deleteNoteById = require("./ContractNote/deleteById");
 
 module.exports = {
   createContract,
@@ -14,6 +18,10 @@ module.exports = {
   updateContractById,
 
   createContractComment,
-  getAllContractComment,
+  getByContractId,
   deleteById,
+
+  createContractNote,
+  getNoteByContractId,
+  deleteNoteById,
 };

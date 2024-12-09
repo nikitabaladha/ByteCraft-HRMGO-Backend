@@ -6,7 +6,6 @@ const Designation = require("../../../models/Designation");
 
 async function getAll(req, res) {
   try {
-    // Fetch all indicators and populate the references for branchId, departmentId, designationId, and addedById
     const indicators = await Indicator.find()
       .populate("branchId", "branchName")
       .populate("departmentId", "departmentName")
@@ -18,15 +17,16 @@ async function getAll(req, res) {
       return res.status(404).json({ message: "No indicators found" });
     }
 
-    // Map the indicators to include relevant information and return the response
     const indicatorData = indicators.map((indicator) => ({
       id: indicator._id,
-      branch: indicator.branchId.branchName,
-      department: indicator.departmentId.departmentName,
-      designation: indicator.designationId.designationName,
-      addedBy: `${indicator.addedById.firstName} ${indicator.addedById.lastName}`,
-      competencies: indicator.competencies,
-      overAllRating: indicator.overAllRating,
+      branch: indicator.branchId?.branchName || "N/A",
+      department: indicator.departmentId?.departmentName || "N/A",
+      designation: indicator.designationId?.designationName || "N/A",
+      addedBy: indicator.addedById
+        ? `${indicator.addedById.firstName} ${indicator.addedById.lastName}`
+        : "N/A",
+      competencies: indicator.competencies || {},
+      overAllRating: indicator.overAllRating || 0,
       createdAt: indicator.createdAt,
       updatedAt: indicator.updatedAt,
     }));

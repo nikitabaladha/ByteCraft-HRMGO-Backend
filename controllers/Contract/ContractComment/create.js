@@ -11,13 +11,15 @@ async function create(req, res) {
     if (error) {
       const errorMessages = error.details.map((err) => err.message).join(", ");
       return res.status(400).json({
-        success: false,
+        hasError: true,
         message: errorMessages,
       });
     }
 
+    const userId = req.user.id;
+
     // Extract validated data from req.body
-    const { userId, contractId, comment } = req.body;
+    const { contractId, comment } = req.body;
 
     // Create a new ContractComment instance
     const newContractComment = new ContractComment({
@@ -31,7 +33,7 @@ async function create(req, res) {
 
     // Send a success response
     return res.status(201).json({
-      success: true,
+      hasErrors: false,
       message: "Contract Comment created successfully!",
       data: newContractComment,
     });
@@ -40,7 +42,7 @@ async function create(req, res) {
 
     // Handle server error
     return res.status(500).json({
-      success: false,
+      hasError: true,
       message: "Failed to create contract comment.",
       error: error.message,
     });
