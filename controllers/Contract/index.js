@@ -11,6 +11,9 @@ const createContractNote = require("./ContractNote/create");
 const getNoteByContractId = require("./ContractNote/getByContractId");
 const deleteNoteById = require("./ContractNote/deleteById");
 
+const getDescriptionByContractId = require("./ContractDescription/getDescriptionByContractId");
+const updateDescriptionById = require("./ContractDescription/updateDescriptionById");
+
 module.exports = {
   createContract,
   getAllContract,
@@ -24,4 +27,7 @@ module.exports = {
   createContractNote,
   getNoteByContractId,
   deleteNoteById,
+
+  getDescriptionByContractId,
+  updateDescriptionById,
 };

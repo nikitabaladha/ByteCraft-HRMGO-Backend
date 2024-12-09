@@ -17,6 +17,9 @@ const {
   createContractNote,
   getNoteByContractId,
   deleteNoteById,
+
+  getDescriptionByContractId,
+  updateDescriptionById,
 } = require("../controllers/Contract");
 
 router.post("/contract", Middleware, createContract);
@@ -31,5 +34,8 @@ router.delete("/contract-comment/:id", Middleware, deleteById);
 router.post("/contract-note", Middleware, createContractNote);
 router.get("/contract-note", Middleware, getNoteByContractId);
 router.delete("/contract-note/:id", Middleware, deleteNoteById);
+
+router.get("/contract-description", Middleware, getDescriptionByContractId);
+router.put("/contract-description/:id", Middleware, updateDescriptionById);
 
 module.exports = router;
