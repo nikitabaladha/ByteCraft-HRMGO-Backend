@@ -1,6 +1,6 @@
-const Contract = require("../../models/Contract");
-const Employee = require("../../models/Employee");
-const ContractType = require("../../models/ContractType");
+const Contract = require("../../../models/Contract");
+const Employee = require("../../../models/Employee");
+const ContractType = require("../../../models/ContractType");
 
 async function getAll(req, res) {
   try {

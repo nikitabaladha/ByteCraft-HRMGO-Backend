@@ -9,9 +9,6 @@ const ContractCreateValidator = Joi.object({
   endDate: Joi.date().required().greater(Joi.ref("startDate")),
   status: Joi.string().valid("Decline", "Accept", "Pending").default("Pending"),
   description: Joi.string().optional(),
-  attachmentUrl: Joi.array().items(Joi.string().uri()).optional(),
-  comments: Joi.array().items(Joi.string()).optional(),
-  notes: Joi.array().items(Joi.string()).optional(),
 });
 
 const ContractUpdateValidator = Joi.object({
@@ -23,9 +20,6 @@ const ContractUpdateValidator = Joi.object({
   endDate: Joi.date().required().greater(Joi.ref("startDate")),
   status: Joi.string().valid("Decline", "Accept", "Pending").default("Pending"),
   description: Joi.string().optional(),
-  attachmentUrl: Joi.array().items(Joi.string().uri()).optional(),
-  comments: Joi.array().items(Joi.string()).optional(),
-  notes: Joi.array().items(Joi.string()).optional(),
 });
 
 module.exports = { ContractCreateValidator, ContractUpdateValidator };

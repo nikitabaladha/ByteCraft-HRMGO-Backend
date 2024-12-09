@@ -1,5 +1,5 @@
-const ContractValidator = require("../../validators/ContractValidators/ContractValidator");
-const Contract = require("../../models/Contract");
+const ContractValidator = require("../../../validators/ContractValidators/ContractValidator");
+const Contract = require("../../../models/Contract");
 
 async function updateById(req, res) {
   try {
@@ -30,9 +30,6 @@ async function updateById(req, res) {
       endDate,
       status,
       description,
-      attachmentUrl,
-      comments,
-      notes,
     } = req.body;
 
     if (employeeId !== undefined) contract.employeeId = employeeId;
@@ -43,10 +40,6 @@ async function updateById(req, res) {
     if (endDate !== undefined) contract.endDate = endDate;
     if (status !== undefined) contract.status = status;
     if (description !== undefined) contract.description = description || "";
-    if (attachmentUrl !== undefined)
-      contract.attachmentUrl = attachmentUrl || [];
-    if (comments !== undefined) contract.comments = comments || [];
-    if (notes !== undefined) contract.notes = notes || [];
 
     // Save the updated contract
     await contract.save();

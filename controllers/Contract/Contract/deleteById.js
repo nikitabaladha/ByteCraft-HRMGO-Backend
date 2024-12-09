@@ -1,5 +1,5 @@
 // controllers/contract/delete.js
-const Contract = require("../../models/Contract");
+const Contract = require("../../../models/Contract");
 
 async function deleteById(req, res) {
   try {

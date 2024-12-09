@@ -40,15 +40,6 @@ const ContractSchema = new mongoose.Schema(
     description: {
       type: String,
     },
-    attachmentUrl: {
-      type: [String],
-    },
-    comments: {
-      type: [String],
-    },
-    notes: {
-      type: [String],
-    },
   },
   {
     timestamps: true,

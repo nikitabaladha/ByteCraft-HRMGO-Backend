@@ -1,5 +1,5 @@
-const ContractValidator = require("../../validators/ContractValidators/ContractValidator");
-const Contract = require("../../models/Contract");
+const ContractValidator = require("../../../validators/ContractValidators/ContractValidator");
+const Contract = require("../../../models/Contract");
 
 async function create(req, res) {
   try {
@@ -20,9 +20,6 @@ async function create(req, res) {
       endDate,
       status,
       description,
-      attachmentUrl,
-      comments,
-      notes,
     } = req.body;
 
     // Generate the next contract ID
@@ -44,9 +41,6 @@ async function create(req, res) {
       endDate,
       status,
       description: description || "", // Default to empty string if not provided
-      attachmentUrl: attachmentUrl || [], // Default to empty array if not provided
-      comments: comments || [], // Default to empty array if not provided
-      notes: notes || [], // Default to empty array if not provided
     });
 
     await newContract.save();
