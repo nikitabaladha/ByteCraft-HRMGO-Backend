@@ -30,6 +30,9 @@ const zoomMeetingSchema = new mongoose.Schema({
     enum: ["Starting", "Waiting", "End"],
     default: "waiting",
   },
+  meeting_code:{
+    type: Number
+  }
 });
 
 const ZoomMeeting = mongoose.model("ZoomMeeting", zoomMeetingSchema);

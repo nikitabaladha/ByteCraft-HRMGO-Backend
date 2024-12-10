@@ -6,7 +6,8 @@ const Middleware = require("../middleware/index.js");
 const {
   createZoomMeeting,
   getallzoomMeeting,
-  deletezoommeeting
+  deletezoommeeting,
+  updatezoommeetingstatus
 
 } = require("../controllers/ZoomMeeting");
 
@@ -14,6 +15,7 @@ const {
 router.post("/create_zoommeeting", Middleware, createZoomMeeting);
 router.get("/getall_zoommeeting",Middleware,getallzoomMeeting);
 router.delete("/delete_zoommeeting/:id",Middleware,deletezoommeeting)
+router.put("/update_meeting_status/:meetingId",Middleware,updatezoommeetingstatus)
 
 
 module.exports = router;

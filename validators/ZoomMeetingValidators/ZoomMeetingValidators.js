@@ -5,7 +5,7 @@ const zoomMeetingValidator = Joi.object({
   employeeNames: Joi.array().items(Joi.string().required()).required(),
   start_date: Joi.date().required(),
   duration: Joi.number().required(),
-  password: Joi.string().optional(),
+  password: Joi.string().optional().allow(''),
   join_url: Joi.string().uri().optional().allow(''),
   status: Joi.string()
     .valid("Starting", "Waiting", "End")
