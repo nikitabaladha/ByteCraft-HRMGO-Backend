@@ -1,6 +1,7 @@
 // ByteCraft-HRMGO-Backend\routes\contractType.js
 
 const express = require("express");
+
 const router = express.Router();
 const Middleware = require("../middleware/index.js");
 const upload = require("../controllers/uploadImages");
@@ -24,6 +25,8 @@ const {
 
   createContractAttachment,
   getAttachmentByContractId,
+  deleteAttachmentById,
+  downloadContractAttachment,
 } = require("../controllers/Contract");
 
 router.post("/contract", Middleware, createContract);
@@ -49,4 +52,12 @@ router.post(
   createContractAttachment
 );
 router.get("/contract-attachment", Middleware, getAttachmentByContractId);
+router.delete("/contract-attachment/:id", Middleware, deleteAttachmentById);
+
+router.get(
+  "/contract-attachment/download/:id",
+  Middleware,
+  downloadContractAttachment
+);
+
 module.exports = router;

@@ -16,6 +16,8 @@ const updateDescriptionById = require("./ContractDescription/updateDescriptionBy
 
 const createContractAttachment = require("./ContractAttachment/create");
 const getAttachmentByContractId = require("./ContractAttachment/getByContractId");
+const deleteAttachmentById = require("./ContractAttachment/deleteById");
+const downloadContractAttachment = require("./ContractAttachment/downloadContractAttachment");
 
 module.exports = {
   createContract,
@@ -36,4 +38,6 @@ module.exports = {
 
   createContractAttachment,
   getAttachmentByContractId,
+  deleteAttachmentById,
+  downloadContractAttachment,
 };
