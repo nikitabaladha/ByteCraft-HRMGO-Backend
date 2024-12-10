@@ -14,6 +14,8 @@ const deleteNoteById = require("./ContractNote/deleteById");
 const getDescriptionByContractId = require("./ContractDescription/getDescriptionByContractId");
 const updateDescriptionById = require("./ContractDescription/updateDescriptionById");
 
+const createContractAttachment = require("./ContractAttachment/create");
+
 module.exports = {
   createContract,
   getAllContract,
@@ -30,4 +32,6 @@ module.exports = {
 
   getDescriptionByContractId,
   updateDescriptionById,
+
+  createContractAttachment,
 };

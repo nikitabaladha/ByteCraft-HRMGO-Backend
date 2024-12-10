@@ -1,5 +1,7 @@
 require("dotenv").config();
 
+const path = require("path");
+
 const express = require("express");
 
 const bodyParser = require("body-parser");
@@ -20,6 +22,12 @@ app.use(
     origin: "http://localhost:3000",
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
+);
+
+// Serve static files from the contractAttachmentImages directory
+app.use(
+  "/Images/contractAttachmentImages",
+  express.static(path.join(__dirname, "Images/contractAttachmentImages"))
 );
 
 app.use(bodyParser.json());

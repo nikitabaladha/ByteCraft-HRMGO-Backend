@@ -3,6 +3,7 @@
 const express = require("express");
 const router = express.Router();
 const Middleware = require("../middleware/index.js");
+const upload = require("../controllers/uploadImages");
 
 const {
   createContract,
@@ -20,6 +21,8 @@ const {
 
   getDescriptionByContractId,
   updateDescriptionById,
+
+  createContractAttachment,
 } = require("../controllers/Contract");
 
 router.post("/contract", Middleware, createContract);
@@ -38,4 +41,10 @@ router.delete("/contract-note/:id", Middleware, deleteNoteById);
 router.get("/contract-description", Middleware, getDescriptionByContractId);
 router.put("/contract-description/:id", Middleware, updateDescriptionById);
 
+router.post(
+  "/contract-attachment",
+  Middleware,
+  upload.fields([{ name: "contractAttachmentUrl", maxCount: 1 }]),
+  createContractAttachment
+);
 module.exports = router;
