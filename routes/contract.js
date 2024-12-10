@@ -23,6 +23,7 @@ const {
   updateDescriptionById,
 
   createContractAttachment,
+  getAttachmentByContractId,
 } = require("../controllers/Contract");
 
 router.post("/contract", Middleware, createContract);
@@ -47,4 +48,5 @@ router.post(
   upload.fields([{ name: "contractAttachmentUrl", maxCount: 1 }]),
   createContractAttachment
 );
+router.get("/contract-attachment", Middleware, getAttachmentByContractId);
 module.exports = router;
