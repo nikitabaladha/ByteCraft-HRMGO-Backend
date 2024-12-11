@@ -29,12 +29,15 @@ const depositeRoutes=require("./Deposit");
 const expenseRoutes=require("./Expense");
 const transferBalanceRoutes=require("./TransferBalance");
 
-const ticketRoutes=require("./Ticket")
-const ticketReplyRoutes=require("./TicketReply")
+const ticketRoutes=require("./Ticket");
+const ticketReplyRoutes=require("./TicketReply");
 
-const meetingsRoutes=require("./Meetings")
+const meetingsRoutes=require("./Meetings");
 
-const zoommeeting=require("./zoommeeting")
+const zoommeeting=require("./zoommeeting");
+
+const companyPolicy=require("./companypolicy");
+
 
 
 module.exports = (app) => {
@@ -90,4 +93,6 @@ module.exports = (app) => {
   app.use("/api", meetingsRoutes); // This mounts the Meetings routes
 
   app.use("/api", zoommeeting); // This mounts the Zoom Meetings routes
+  
+  app.use("/api", companyPolicy); // This mounts the ComapnayPolicy routes
 };
