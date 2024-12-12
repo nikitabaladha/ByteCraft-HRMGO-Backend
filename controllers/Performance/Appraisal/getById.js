@@ -2,9 +2,8 @@ const Appraisal = require("../../../models/Appraisal");
 
 async function getById(req, res) {
   try {
-    const { id } = req.params; // Get the appraisal ID from the request parameters
+    const { id } = req.params;
 
-    // Find the appraisal by its ID and populate the necessary fields
     const appraisal = await Appraisal.findById(id)
       .populate("branchId", "branchName")
       .populate("employeeId", "name")
@@ -18,7 +17,6 @@ async function getById(req, res) {
       return res.status(404).json({ message: "Appraisal not found" });
     }
 
-    // Prepare the appraisal data to send in the response
     const appraisalData = {
       id: appraisal._id,
       branch: appraisal.branchId?.branchName,

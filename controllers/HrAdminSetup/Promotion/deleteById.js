@@ -5,7 +5,6 @@ async function deleteById(req, res) {
   try {
     const { id } = req.params;
 
-    // Validate the ID format
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({
         hasError: true,
@@ -13,7 +12,6 @@ async function deleteById(req, res) {
       });
     }
 
-    // Find and delete the promotion
     const promotion = await Promotion.findByIdAndDelete(id);
 
     if (!promotion) {

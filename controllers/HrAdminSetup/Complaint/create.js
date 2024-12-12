@@ -4,7 +4,6 @@ const ComplaintValidator = require("../../../validators/HrAdminSetupValidators/C
 
 async function create(req, res) {
   try {
-    // Validate the Complaint data using Joi schema before destructuring
     const { error } = ComplaintValidator.ComplaintCreateValidator.validate(
       req.body
     );
@@ -14,7 +13,6 @@ async function create(req, res) {
       return res.status(400).json({ hasError: true, message: errorMessages });
     }
 
-    // Destructure after validation
     const {
       complaintFromId,
       complaintAgainstId,
@@ -36,7 +34,6 @@ async function create(req, res) {
       });
     }
 
-    // Create a new Complaint
     const newComplaint = new Complaint({
       complaintFromId,
       complaintAgainstId,

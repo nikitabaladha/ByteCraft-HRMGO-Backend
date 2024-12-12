@@ -24,11 +24,9 @@ app.use(
   })
 );
 
-// Serve static files from the contractAttachmentImages directory
-app.use(
-  "/Images/contractAttachmentImages",
-  express.static(path.join(__dirname, "Images/contractAttachmentImages"))
-);
+app.use("/Images", express.static(path.join(__dirname, "Images")));
+
+app.use("/Documents", express.static(path.join(__dirname, "Documents")));
 
 app.use(bodyParser.json());
 

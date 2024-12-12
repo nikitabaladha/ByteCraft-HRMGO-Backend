@@ -3,7 +3,6 @@ const ContractNote = require("../../../models/ContractNote");
 
 async function create(req, res) {
   try {
-    // Validate the request body
     const { error } =
       ContractNoteValidator.ContractNoteCreateValidator.validate(req.body);
     if (error) {
@@ -16,20 +15,16 @@ async function create(req, res) {
 
     const userId = req.user.id;
 
-    // Extract validated data from req.body
     const { contractId, note } = req.body;
 
-    // Create a new ContractNote instance
     const newContractNote = new ContractNote({
       userId,
       contractId,
       note,
     });
 
-    // Save the comment to the database
     await newContractNote.save();
 
-    // Send a success response
     return res.status(201).json({
       success: true,
       message: "Contract Note created successfully!",
@@ -38,7 +33,6 @@ async function create(req, res) {
   } catch (error) {
     console.error("Error creating contract Note:", error);
 
-    // Handle server error
     return res.status(500).json({
       success: false,
       message: "Failed to create contract note.",

@@ -4,12 +4,10 @@ async function getByStartEndDate(req, res) {
   try {
     const { startDate, endDate } = req.query;
 
-    // Query filter
     const query = {};
     if (startDate) query.startDate = { $gte: new Date(startDate) };
     if (endDate) query.endDate = { $lte: new Date(endDate) };
 
-    // Find holidays based on the query
     const holidays = await Holiday.find(query);
 
     if (!holidays.length) {

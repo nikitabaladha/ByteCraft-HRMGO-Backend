@@ -7,7 +7,6 @@ async function create(req, res) {
     const { title, startDate, endDate, description, color } = req.body;
     const userId = req.user.id;
 
-    // Validate the Calendar data using Joi schema
     const { error } = CalendarValidator.validate(req.body);
 
     if (error?.details?.length) {
@@ -15,7 +14,6 @@ async function create(req, res) {
       return res.status(400).json({ message: errorMessages });
     }
 
-    // Create a new Calendar
     const newCalendar = new Calendar({
       title,
       startDate,
@@ -25,7 +23,6 @@ async function create(req, res) {
       color,
     });
 
-    // Save the Calendar to the database
     await newCalendar.save();
 
     return res.status(201).json({

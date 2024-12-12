@@ -1,5 +1,3 @@
-// controllers/Promotion/getAll.js
-const { trusted } = require("mongoose");
 const Promotion = require("../../../models/Promotion");
 
 async function getAll(req, res) {

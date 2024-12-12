@@ -1,4 +1,3 @@
-// controllers/Warning/delete.js
 const Warning = require("../../../models/Warning");
 
 async function deleteById(req, res) {

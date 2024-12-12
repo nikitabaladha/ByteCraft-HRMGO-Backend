@@ -1,4 +1,3 @@
-// controllers/Termination/getAll.js
 const Termination = require("../../../models/Termination");
 
 async function getAll(req, res) {

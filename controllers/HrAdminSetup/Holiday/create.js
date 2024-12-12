@@ -7,7 +7,6 @@ async function create(req, res) {
   try {
     const { occasion, startDate, endDate } = req.body;
 
-    // Validate the Holiday data using Joi schema
     const { error } = HolidayValidator.HolidayCreateValidator.validate(
       req.body
     );
@@ -30,7 +29,6 @@ async function create(req, res) {
       });
     }
 
-    // Create a new Holiday
     const newHoliday = new Holiday({
       occasion,
       startDate,

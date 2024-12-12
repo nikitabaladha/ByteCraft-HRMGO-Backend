@@ -4,7 +4,6 @@ async function deleteById(req, res) {
   try {
     const { id } = req.params;
 
-    // Check if the ContractNote exists
     const Note = await ContractNote.findById(id);
 
     if (!Note) {
@@ -14,10 +13,8 @@ async function deleteById(req, res) {
       });
     }
 
-    // Delete the ContractNote
     await ContractNote.findByIdAndDelete(id);
 
-    // Send success response
     return res.status(200).json({
       success: true,
       message: "Contract Note deleted successfully!",
@@ -25,7 +22,6 @@ async function deleteById(req, res) {
   } catch (error) {
     console.error("Error deleting contract Note:", error.message);
 
-    // Handle server error
     return res.status(500).json({
       success: false,
       message: "Failed to delete contract Note.",

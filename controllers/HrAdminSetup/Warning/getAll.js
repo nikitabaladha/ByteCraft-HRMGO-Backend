@@ -1,4 +1,3 @@
-// controllers/Warning/getAll.js
 const Warning = require("../../../models/Warning");
 
 async function getAll(req, res) {

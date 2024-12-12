@@ -3,10 +3,9 @@ const ResignationValidator = require("../../../validators/HrAdminSetupValidators
 
 async function updateById(req, res) {
   try {
-    const { id } = req.params; // Extract resignation ID from request parameters
-    const { resignationDate, lastWorkingDay, reason } = req.body; // Extract fields to update
+    const { id } = req.params;
+    const { resignationDate, lastWorkingDay, reason } = req.body;
 
-    // Validate the request body using the Joi validator
     const { error } = ResignationValidator.ResignationUpdateValidator.validate(
       req.body
     );
@@ -19,7 +18,6 @@ async function updateById(req, res) {
       });
     }
 
-    // Find the resignation by ID
     const resignation = await Resignation.findById(id);
 
     if (!resignation) {
@@ -29,13 +27,11 @@ async function updateById(req, res) {
       });
     }
 
-    // Update fields only if provided
     resignation.resignationDate =
       resignationDate || resignation.resignationDate;
     resignation.lastWorkingDay = lastWorkingDay || resignation.lastWorkingDay;
     resignation.reason = reason || resignation.reason;
 
-    // Save the updated resignation
     const updatedResignation = await resignation.save();
 
     return res.status(200).json({
@@ -46,7 +42,6 @@ async function updateById(req, res) {
   } catch (error) {
     console.error("Error updating resignation:", error.message);
 
-    // Return a 500 response in case of server error
     return res.status(500).json({
       hasError: true,
       message: "Server error. Please try again later.",

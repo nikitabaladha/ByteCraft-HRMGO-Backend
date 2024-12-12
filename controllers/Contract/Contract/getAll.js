@@ -15,13 +15,12 @@ async function getAll(req, res) {
       });
 
     const now = new Date();
-    const currentMonth = now.getMonth(); // 0-11
+    const currentMonth = now.getMonth();
     const currentYear = now.getFullYear();
 
     const startOfWeek = new Date(now);
-    startOfWeek.setDate(now.getDate() - now.getDay() + 1); // Adjust to Monday
+    startOfWeek.setDate(now.getDate() - now.getDay() + 1);
 
-    // Calculate the end of the current week (Sunday)
     const endOfWeek = new Date(startOfWeek);
     endOfWeek.setDate(startOfWeek.getDate() + 6);
 

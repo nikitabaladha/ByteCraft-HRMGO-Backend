@@ -13,7 +13,6 @@ async function create(req, res) {
       description,
     } = req.body;
 
-    // Validate the Promotion data using Joi schema
     const { error } = PromotionValidator.PromotionCreateValidator.validate(
       req.body
     );
@@ -37,7 +36,6 @@ async function create(req, res) {
       });
     }
 
-    // Create a new Promotion
     const newPromotion = new Promotion({
       employeeId,
       designationId,

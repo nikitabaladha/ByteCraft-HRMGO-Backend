@@ -1,10 +1,8 @@
-// controllers/Warning/create.js
 const Warning = require("../../../models/Warning");
 const WarningValidator = require("../../../validators/HrAdminSetupValidators/Warning.js");
 
 async function create(req, res) {
   try {
-    // Validate the Warning data using Joi schema before destructuring
     const { error } = WarningValidator.WarningCreateValidator.validate(
       req.body
     );
@@ -14,7 +12,6 @@ async function create(req, res) {
       return res.status(400).json({ hasError: true, message: errorMessages });
     }
 
-    // Destructure after validation
     const { warningById, warningToId, subject, warningDate, description } =
       req.body;
 
@@ -31,7 +28,6 @@ async function create(req, res) {
       });
     }
 
-    // Create a new Warning
     const newWarning = new Warning({
       warningById,
       warningToId,

@@ -2,8 +2,8 @@ const Appraisal = require("../../../models/Appraisal");
 
 async function update(req, res) {
   try {
-    const { id } = req.params; // ID of the appraisal to update
-    const { appraisalCompetencies } = req.body; // Updated competencies data
+    const { id } = req.params;
+    const { appraisalCompetencies } = req.body;
 
     if (!appraisalCompetencies) {
       return res.status(400).json({
@@ -12,7 +12,6 @@ async function update(req, res) {
       });
     }
 
-    // Find the existing Appraisal document
     const appraisal = await Appraisal.findById(id);
     if (!appraisal) {
       return res
@@ -20,19 +19,17 @@ async function update(req, res) {
         .json({ message: "Appraisal not found", hasError: true });
     }
 
-    // Function to update ratings for a specific category
     const updateCategoryRatings = (existing, updates) => {
       updates.forEach((update) => {
         const existingCompetency = existing.find(
           (comp) => comp.name === update.name
         );
         if (existingCompetency) {
-          existingCompetency.rating = update.rating; // Update the rating
+          existingCompetency.rating = update.rating;
         }
       });
     };
 
-    // Update each category if provided in the request
     if (appraisalCompetencies.organizational) {
       updateCategoryRatings(
         appraisal.appraisalCompetencies.organizational,
@@ -52,7 +49,6 @@ async function update(req, res) {
       );
     }
 
-    // Function to calculate the overall rating
     const calculateOverallRating = (competencies) => {
       let totalRating = 0;
       let totalCount = 0;
@@ -69,15 +65,12 @@ async function update(req, res) {
         : 0;
     };
 
-    // Update the overall rating
     appraisal.overAllRating = calculateOverallRating(
       appraisal.appraisalCompetencies
     );
 
-    // Save the updated appraisal
     const updatedAppraisal = await appraisal.save();
 
-    // Return the updated document
     res.status(200).json({
       message: "Appraisal updated successfully",
       data: updatedAppraisal,

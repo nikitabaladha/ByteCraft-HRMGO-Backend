@@ -5,7 +5,6 @@ async function create(req, res) {
   try {
     const { employeeId, resignationDate, lastWorkingDay, reason } = req.body;
 
-    // Validate the Resignation data using Joi schema
     const { error } = ResignationValidator.ResignationCreateValidator.validate(
       req.body
     );
@@ -15,7 +14,6 @@ async function create(req, res) {
       return res.status(400).json({ hasError: true, message: errorMessages });
     }
 
-    // Create a new Resignation
     const newResignation = new Resignation({
       employeeId,
       resignationDate,
@@ -33,7 +31,6 @@ async function create(req, res) {
   } catch (error) {
     console.error("Error creating resignation:", error.message);
 
-    // Handle duplicate key error (caused by the unique index)
     if (error.code === 11000) {
       return res.status(400).json({
         hasError: true,

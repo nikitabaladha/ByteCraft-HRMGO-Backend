@@ -24,7 +24,6 @@ async function updateById(req, res) {
     award.gift = gift || award.gift;
     award.description = description || award.description;
 
-    // Save the updated award
     await award.save();
 
     return res.status(200).json({

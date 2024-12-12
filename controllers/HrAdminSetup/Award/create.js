@@ -7,7 +7,6 @@ async function create(req, res) {
   try {
     const { employeeId, awardType, date, gift, description } = req.body;
 
-    // Validate the Award data using Joi schema
     const { error } = AwardValidator.AwardCreateValidator.validate(req.body);
 
     if (error?.details?.length) {
@@ -15,7 +14,6 @@ async function create(req, res) {
       return res.status(400).json({ message: errorMessages });
     }
 
-    // Create a new Award
     const newAward = new Award({
       employeeId,
       awardType,

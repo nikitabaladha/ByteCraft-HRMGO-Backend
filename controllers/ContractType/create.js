@@ -3,10 +3,8 @@
 const ContractTypeValidator = require("../../validators/ContractTypeValidator/ContractType");
 const ContractType = require("../../models/ContractType");
 
-// Create ContractType logic
 async function create(req, res) {
   try {
-    // Validate the Announcement data using Joi schema
     const { error } = ContractTypeValidator.validate(req.body);
 
     if (error?.details?.length) {
@@ -27,7 +25,6 @@ async function create(req, res) {
       });
     }
 
-    // Create and save the new ContractType
     const newContractType = new ContractType({
       contractName,
     });

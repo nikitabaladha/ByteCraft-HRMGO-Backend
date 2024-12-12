@@ -1,4 +1,3 @@
-// controllers/Termination/update.js
 const Termination = require("../../../models/Termination");
 const TerminationValidator = require("../../../validators/HrAdminSetupValidators/Termination.js");
 
@@ -29,7 +28,6 @@ async function updateById(req, res) {
       terminationDate || termination.terminationDate;
     termination.description = description || termination.description;
 
-    // Save the updated Termination
     await termination.save();
 
     return res.status(200).json({

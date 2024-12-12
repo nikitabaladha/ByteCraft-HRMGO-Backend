@@ -1,4 +1,3 @@
-// controllers/Termination/delete.js
 const Termination = require("../../../models/Termination");
 
 async function deleteById(req, res) {

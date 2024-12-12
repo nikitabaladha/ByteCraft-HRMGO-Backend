@@ -2,7 +2,6 @@ const Announcement = require("../../../models/Announcement");
 
 async function getAll(req, res) {
   try {
-    // Fetch announcements and populate related fields
     const announcements = await Announcement.find()
       .populate("branchId", "branchName")
       .populate("departmentId", "departmentName")
@@ -16,7 +15,6 @@ async function getAll(req, res) {
       });
     }
 
-    // Map data into the desired structure
     const formedAnnouncements = announcements.map((announcement) => ({
       id: announcement._id,
       title: announcement.title,
@@ -34,7 +32,6 @@ async function getAll(req, res) {
       description: announcement.description,
     }));
 
-    // Send the response
     return res.status(200).json({
       hasError: false,
       message: "Announcements retrieved successfully",

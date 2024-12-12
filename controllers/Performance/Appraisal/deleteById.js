@@ -4,7 +4,6 @@ async function deleteById(req, res) {
   try {
     const { id } = req.params;
 
-    // Find and delete the appraisal by its ID
     const appraisal = await Appraisal.findByIdAndDelete(id);
 
     if (!appraisal) {

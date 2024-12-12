@@ -1,4 +1,3 @@
-// controllers/Warning/update.js
 const Warning = require("../../../models/Warning");
 const WarningValidator = require("../../../validators/HrAdminSetupValidators/Warning.js");
 
@@ -29,8 +28,6 @@ async function updateById(req, res) {
     warning.subject = subject || warning.subject;
     warning.warningDate = warningDate || warning.warningDate;
     warning.description = description || warning.description;
-
-    // Save the updated warning
 
     const updatedWarning = await warning.save();
 

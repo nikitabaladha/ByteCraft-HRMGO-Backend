@@ -35,7 +35,6 @@ async function create(req, res) {
       const formattedClockIn = new Date(clockIn);
       const formattedClockOut = new Date(clockOut);
 
-      // Check if attendance for this employee and date already exists
       const existingAttendance = await MarkedAttendance.findOne({
         employeeId,
         date: formattedDate,
@@ -45,21 +44,18 @@ async function create(req, res) {
         console.log(
           `Attendance already exists for ${employeeId} on ${formattedDate}`
         );
-        continue; // Skip this record if attendance already exists
+        continue;
       }
 
-      // Calculate total working hours (clockOut - clockIn)
       const totalWorkingDuration = formattedClockOut - formattedClockIn;
       const totalWorkingHours = formatDuration(totalWorkingDuration);
 
-      // Construct ideal clock-in and clock-out times (9:00 AM - 6:00 PM)
       const idealClockIn = new Date(formattedDate);
-      idealClockIn.setUTCHours(9, 0, 0, 0); // 09:00:00 UTC
+      idealClockIn.setUTCHours(9, 0, 0, 0);
 
       const idealClockOut = new Date(formattedDate);
-      idealClockOut.setUTCHours(18, 0, 0, 0); // 18:00:00 UTC
+      idealClockOut.setUTCHours(18, 0, 0, 0);
 
-      // Calculate late, early leaving, and overtime
       let lateDuration = 0;
       let earlyLeavingDuration = 0;
       let overtimeDuration = 0;

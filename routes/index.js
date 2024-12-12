@@ -1,5 +1,3 @@
-// routes/index.js
-// const express = require("express");
 const signup = require("../controllers/User/signup");
 const login = require("../controllers/User/login");
 
@@ -30,31 +28,31 @@ module.exports = (app) => {
   app.post("/api/signup", signup);
   app.post("/api/login", login);
 
-  app.use("/api", dashboardRoutes); // This mounts the dashboard routes
+  app.use("/api", dashboardRoutes);
 
-  app.use("/api", meetingRoutes); // This mounts the meeting routes
+  app.use("/api", meetingRoutes);
 
-  app.use("/api", attendanceRoutes); // This mounts the attendanceRoutes routes
+  app.use("/api", attendanceRoutes);
 
-  app.use("/api", calendarRoutes); // This mounts the calendarRoutes routes
+  app.use("/api", calendarRoutes);
 
-  app.use("/api", incomeExpenseChartRoutes); // This mounts the incomeExpenseChartRoutes routes
+  app.use("/api", incomeExpenseChartRoutes);
 
-  app.use("/api", branchRoutes); // This mounts the branchRoutes routes
+  app.use("/api", branchRoutes);
 
-  app.use("/api", departmentRoutes); // This mounts the departmentRoutes routes
+  app.use("/api", departmentRoutes);
 
-  app.use("/api", designationRoutes); // This mounts the designationRoutes routes
+  app.use("/api", designationRoutes);
 
-  app.use("/api", contractTypeRoute); // This mounts the contractTypeRoutes routes
+  app.use("/api", contractTypeRoute);
 
-  app.use("/api", employeeRoutes); // This mounts the employeeRoutes routes
+  app.use("/api", employeeRoutes);
 
-  app.use("/api", manageLeaveRoutes); // This mounts the manageLeaveRoutes routes
+  app.use("/api", manageLeaveRoutes);
 
-  app.use("/api", timeSheetRoutes); // This mounts the timeSheetRoutes routes
+  app.use("/api", timeSheetRoutes);
 
-  app.use("/api", MarkedAttendance); // This mounts the MarkedAttendance routes
+  app.use("/api", MarkedAttendance);
 
   app.use("/api", indicatorRoutes);
 

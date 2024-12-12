@@ -1,4 +1,3 @@
-// controllers/Termination/create.js
 const Termination = require("../../../models/Termination");
 
 const TerminationValidator = require("../../../validators/HrAdminSetupValidators/Termination.js");
@@ -13,7 +12,6 @@ async function create(req, res) {
       description,
     } = req.body;
 
-    // Validate the Termination data using Joi schema
     const { error } = TerminationValidator.TerminationCreateValidator.validate(
       req.body
     );
@@ -23,7 +21,6 @@ async function create(req, res) {
       return res.status(400).json({ message: errorMessages });
     }
 
-    // Create a new Termination
     const newTermination = new Termination({
       employeeId,
       terminationType,

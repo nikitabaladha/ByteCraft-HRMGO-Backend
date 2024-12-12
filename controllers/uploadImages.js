@@ -3,19 +3,16 @@ const path = require("path");
 const fs = require("fs");
 const User = require("../models/User");
 
-// Directory to store uploaded contract attachment images
 const contractAttachmentDir = "./Images/contractAttachmentImages";
 
-// Ensure the directory exists, or create it
 if (!fs.existsSync(contractAttachmentDir)) {
   fs.mkdirSync(contractAttachmentDir, { recursive: true });
 }
 
-// Configure multer with storage, limits, and file filter
 const upload = multer({
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, contractAttachmentDir); // Directory to save files
+      cb(null, contractAttachmentDir);
     },
     filename: async (req, file, cb) => {
       try {
@@ -24,7 +21,7 @@ const upload = multer({
         let sanitizedUserName = "unknown_user";
 
         if (userId) {
-          const user = await User.findById(userId); // Fetch user details
+          const user = await User.findById(userId);
           if (user) {
             console.log(`User`, user);
             sanitizedUserName = `${user.firstName}_${user.lastName}`.replace(
@@ -34,7 +31,6 @@ const upload = multer({
           }
         }
 
-        // Generate the file name
         cb(
           null,
           `${sanitizedUserName}_${Date.now()}${path.extname(file.originalname)}`
@@ -45,13 +41,13 @@ const upload = multer({
       }
     },
   }),
-  limits: { fileSize: 5 * 1024 * 1024 }, // Limit file size to 5 MB
+  limits: { fileSize: 5 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
-    const allowedFileTypes = /jpeg|jpg|png/; // Allowed extensions
-    const mimeType = allowedFileTypes.test(file.mimetype); // Validate MIME type
+    const allowedFileTypes = /jpeg|jpg|png/;
+    const mimeType = allowedFileTypes.test(file.mimetype);
     const extName = allowedFileTypes.test(
       path.extname(file.originalname).toLowerCase()
-    ); // Validate extension
+    );
 
     if (mimeType && extName) {
       cb(null, true);

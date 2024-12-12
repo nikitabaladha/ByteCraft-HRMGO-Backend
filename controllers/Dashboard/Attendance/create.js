@@ -7,7 +7,6 @@ async function create(req, res) {
     const { name, status } = req.body;
     const userId = req.user.id;
 
-    // Validate the Attendance data using Joi schema
     const { error } = AttendanceValidator.validate(req.body);
 
     if (error?.details?.length) {
@@ -15,14 +14,12 @@ async function create(req, res) {
       return res.status(400).json({ message: errorMessages });
     }
 
-    // Create a new Attendance
     const newAttendance = new Attendance({
       name,
       status,
       userId,
     });
 
-    // Save the Attendance to the database
     await newAttendance.save();
 
     return res.status(201).json({

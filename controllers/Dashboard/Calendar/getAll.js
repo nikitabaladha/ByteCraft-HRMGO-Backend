@@ -2,10 +2,8 @@ const Calendar = require("../../../models/Calendar");
 
 async function getAll(req, res) {
   try {
-    // Extract userId from the logged-in user's token
     const userId = req.user.id;
 
-    // Fetch all Calendars for the logged-in user (use userId to filter)
     const calendars = await Calendar.find({ userId });
 
     if (!calendars || calendars.length === 0) {

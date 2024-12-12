@@ -1,10 +1,9 @@
 const Joi = require("joi");
 
 const AnnouncementValidator = Joi.object({
-  title: Joi.string().required(), // Validates that the title is a non-empty string
+  title: Joi.string().required(),
 
-  // Date field validation (ISO 8601 format date)
-  startDate: Joi.date().required(), // Validates that the date is a valid Date object
+  startDate: Joi.date().required(),
 
   endDate: Joi.date().required(),
 

@@ -5,7 +5,6 @@ async function updateDescriptionById(req, res) {
     const { id } = req.params;
     const { description } = req.body;
 
-    // Ensure description is provided
     if (!description) {
       return res.status(400).json({
         hasError: true,
@@ -13,7 +12,6 @@ async function updateDescriptionById(req, res) {
       });
     }
 
-    // Find the contract by its ID
     const existingContract = await Contract.findById(id);
     if (!existingContract) {
       return res
@@ -23,7 +21,6 @@ async function updateDescriptionById(req, res) {
 
     existingContract.description = description;
 
-    // Save the updated contract
     const updatedContract = await existingContract.save();
 
     return res.status(200).json({

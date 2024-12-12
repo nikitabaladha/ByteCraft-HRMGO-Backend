@@ -50,7 +50,6 @@ async function getAllByDateType(req, res) {
         const formattedClockOut = moment
           .utc(attendance.clockOut)
           .format("h:mm A");
-        //  do for late early leaving and overtime
 
         const formattedLate = attendance.late || "00:00:00";
         const formattedEarlyLeaving = attendance.earlyLeaving || "00:00:00";

@@ -30,7 +30,6 @@ async function updateById(req, res) {
     complaint.complaintDate = complaintDate || complaint.complaintDate;
     complaint.description = description || complaint.description;
 
-    // Save the updated Complaint
     await complaint.save();
 
     return res.status(200).json({

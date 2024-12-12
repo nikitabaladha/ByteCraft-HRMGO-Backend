@@ -8,7 +8,6 @@ async function create(req, res) {
     const { incomeData, expenseData, categories } = req.body;
     const userId = req.user.id;
 
-    // Validate the IncomeExpenseChart data using the validator
     const { error } = IncomeExpenseChartValidator.validate(req.body);
 
     if (error?.details?.length) {
@@ -16,7 +15,6 @@ async function create(req, res) {
       return res.status(400).json({ hasError: true, message: errorMessages });
     }
 
-    // Create a new IncomeExpenseChart with the validated data
     const newIncomeExpenseChart = new IncomeExpenseChart({
       incomeData,
       expenseData,
@@ -24,7 +22,6 @@ async function create(req, res) {
       userId,
     });
 
-    // Save the IncomeExpenseChart to the database
     await newIncomeExpenseChart.save();
 
     return res.status(201).json({

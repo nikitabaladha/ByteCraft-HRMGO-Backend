@@ -14,7 +14,6 @@ async function create(req, res) {
       return res.status(400).json({ message: errorMessages });
     }
 
-    // Create the new dashboard metric
     const newMetric = new DashboardMetric({
       userId,
       title,
@@ -22,7 +21,6 @@ async function create(req, res) {
       value,
     });
 
-    // Save the metric to the database
     await newMetric.save();
 
     return res.status(201).json({

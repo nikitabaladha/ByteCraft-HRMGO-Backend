@@ -2,9 +2,8 @@ const Indicator = require("../../../models/Indicator");
 
 async function getById(req, res) {
   try {
-    const { id } = req.params; // Get the indicatorId from the route parameter
+    const { id } = req.params;
 
-    // Find the indicator by its ID and populate the necessary fields
     const indicator = await Indicator.findById(id)
       .populate("branchId", "branchName")
       .populate("departmentId", "departmentName")
@@ -16,7 +15,6 @@ async function getById(req, res) {
       return res.status(404).json({ message: "Indicator not found" });
     }
 
-    // Prepare the indicator data to send in the response
     const indicatorData = {
       id: indicator._id,
       branch: indicator.branchId.branchName,

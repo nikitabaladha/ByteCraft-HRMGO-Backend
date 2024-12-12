@@ -25,7 +25,6 @@ const downloadContractAttachment = async (req, res) => {
         .json({ hasError: true, message: "File not found." });
     }
 
-    // Set the content type based on the file extension
     const ext = path.extname(filePath);
     const fileBuffer = fs.readFileSync(filePath);
     const base64Data = fileBuffer.toString("base64");

@@ -2,7 +2,6 @@ const ContractType = require("../../models/ContractType");
 
 async function getAll(req, res) {
   try {
-    // Fetch all contractTypes
     const contractTypes = await ContractType.find();
 
     if (contractTypes.length === 0) {

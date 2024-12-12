@@ -5,7 +5,6 @@ const Contract = require("../../../models/Contract");
 
 async function getByContractId(req, res) {
   try {
-    // Extract contractId from the request query
     const { contractId } = req.query;
 
     // Validate that contractId is provided
@@ -16,7 +15,6 @@ async function getByContractId(req, res) {
       });
     }
 
-    // Fetch all comments for the specified contractId
     const contractComments = await ContractComment.find({ contractId })
       .sort({ createdAt: -1 })
       .populate({
@@ -24,7 +22,6 @@ async function getByContractId(req, res) {
         select: "firstName lastName",
       });
 
-    // Check if comments exist
     if (!contractComments || contractComments.length === 0) {
       return res.status(404).json({
         hasError: true,
@@ -32,7 +29,6 @@ async function getByContractId(req, res) {
       });
     }
 
-    // Format the response data
     const comments = contractComments.map((comment) => {
       const relativeTime = formatDistance(comment.createdAt, new Date(), {
         addSuffix: true,
@@ -49,7 +45,6 @@ async function getByContractId(req, res) {
       };
     });
 
-    // Send the response
     return res.status(200).json({
       hasError: false,
       message: "Comments fetched successfully!",
@@ -58,7 +53,6 @@ async function getByContractId(req, res) {
   } catch (error) {
     console.error("Error fetching contract comments:", error.message);
 
-    // Handle server error
     return res.status(500).json({
       hasError: true,
       message: "Failed to fetch comments.",

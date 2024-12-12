@@ -14,7 +14,6 @@ async function updateById(req, res) {
       description,
     } = req.body;
 
-    // Validate the input data
     const { error } =
       AnnouncementValidator.AnnouncementUpdateValidator.validate(req.body);
     if (error?.details?.length) {
@@ -22,7 +21,6 @@ async function updateById(req, res) {
       return res.status(400).json({ message: errorMessages });
     }
 
-    // Find the announcement by ID
     const announcement = await Announcement.findById(id);
     if (!announcement) {
       return res
@@ -30,7 +28,6 @@ async function updateById(req, res) {
         .json({ hasError: true, message: "Announcement not found" });
     }
 
-    // Update fields if provided
     if (title) announcement.title = title;
     if (branchId) announcement.branchId = branchId;
     if (departmentId) announcement.departmentId = departmentId;
@@ -38,11 +35,9 @@ async function updateById(req, res) {
     if (endDate) announcement.endDate = endDate;
     if (description) announcement.description = description;
 
-    // Handle employeeId updates
     if (employeeId) {
       const employeeIds = Array.isArray(employeeId) ? employeeId : [employeeId];
 
-      // Check for duplicate employeeId values
       const uniqueEmployeeIds = [...new Set(employeeIds)];
       if (uniqueEmployeeIds.length !== employeeIds.length) {
         return res.status(400).json({
@@ -50,13 +45,11 @@ async function updateById(req, res) {
         });
       }
 
-      // Update employeeId with unique values
       announcement.employeeId = Array.from(
         new Set([...announcement.employeeId, ...uniqueEmployeeIds])
       );
     }
 
-    // Save the updated announcement
     const updatedAnnouncement = await announcement.save();
 
     return res.status(200).json({

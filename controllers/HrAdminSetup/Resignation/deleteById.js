@@ -1,4 +1,3 @@
-// controllers/Resignation/delete.js
 const Resignation = require("../../../models/Resignation");
 
 async function deleteById(req, res) {

@@ -23,12 +23,10 @@ async function updateById(req, res) {
         .json({ hasError: true, message: "Holiday not found" });
     }
 
-    // Update fields only if provided in the request body
     if (occasion !== undefined) holiday.occasion = occasion;
     if (startDate !== undefined) holiday.startDate = startDate;
     if (endDate !== undefined) holiday.endDate = endDate;
 
-    // Save the updated Holiday
     const updatedHoliday = await holiday.save();
 
     return res.status(200).json({

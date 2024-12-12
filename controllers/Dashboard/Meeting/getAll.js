@@ -2,10 +2,8 @@ const Meeting = require("../../../models/Meeting");
 
 async function getAll(req, res) {
   try {
-    // Extract userId from the logged-in user's token
     const userId = req.user.id;
 
-    // Fetch all meetings for the logged-in user (use userId to filter)
     const meetings = await Meeting.find({ userId });
 
     if (!meetings || meetings.length === 0) {

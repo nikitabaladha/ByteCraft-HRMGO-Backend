@@ -2,9 +2,8 @@ const Indicator = require("../../../models/Indicator");
 
 async function deleteById(req, res) {
   try {
-    const { id } = req.params; // Get the indicator ID from the route parameter
+    const { id } = req.params;
 
-    // Find and delete the indicator by its ID
     const indicator = await Indicator.findByIdAndDelete(id);
 
     if (!indicator) {

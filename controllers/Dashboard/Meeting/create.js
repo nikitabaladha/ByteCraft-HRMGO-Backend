@@ -7,7 +7,6 @@ async function create(req, res) {
     const { title, date, time } = req.body;
     const userId = req.user.id;
 
-    // Validate the meeting data using Joi schema
     const { error } = MeetingValidator.validate(req.body);
 
     if (error?.details?.length) {
@@ -15,7 +14,6 @@ async function create(req, res) {
       return res.status(400).json({ message: errorMessages });
     }
 
-    // Create a new meeting
     const newMeeting = new Meeting({
       title,
       date,
@@ -23,7 +21,6 @@ async function create(req, res) {
       userId,
     });
 
-    // Save the meeting to the database
     await newMeeting.save();
 
     return res.status(201).json({

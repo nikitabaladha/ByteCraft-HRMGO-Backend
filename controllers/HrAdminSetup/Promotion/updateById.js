@@ -19,7 +19,6 @@ async function updateById(req, res) {
       });
     }
 
-    // Find the promotion by ID
     const promotion = await Promotion.findById(id);
     if (!promotion) {
       return res.status(404).json({
@@ -28,13 +27,11 @@ async function updateById(req, res) {
       });
     }
 
-    // Update only the specified fields
     promotion.promotionTitle = promotionTitle || promotion.promotionTitle;
     promotion.promotionDate = promotionDate || promotion.promotionDate;
     promotion.designationId = designationId || promotion.designationId;
     promotion.description = description || promotion.description;
 
-    // Save the updated promotion
     await promotion.save();
 
     return res.status(200).json({
