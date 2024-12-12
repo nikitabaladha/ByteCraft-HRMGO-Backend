@@ -6,7 +6,6 @@ async function create(req, res) {
     const userId = req.user.id;
     const { contractId } = req.body;
 
-    // Check if the user is logged in
     if (!userId) {
       return res.status(403).json({
         hasError: true,
@@ -14,7 +13,6 @@ async function create(req, res) {
       });
     }
 
-    // Ensure files are available
     if (!req.files || !req.files.contractAttachmentUrl) {
       return res.status(400).json({
         hasError: true,
@@ -22,23 +20,19 @@ async function create(req, res) {
       });
     }
 
-    // Update the contractAttachmentPath to match your desired format
-    const contractAttachmentPath = "/Images/contractAttachmentImages"; // Updated path
-    const contractAttachmentUrl = `${contractAttachmentPath}/${req.files.contractAttachmentUrl[0].filename}`; // Build the URL
+    const contractAttachmentPath = "/Images/contractAttachmentImages";
+    const contractAttachmentUrl = `${contractAttachmentPath}/${req.files.contractAttachmentUrl[0].filename}`;
 
-    // Get the file size in bytes
-    const fileSizeInBytes = req.files.contractAttachmentUrl[0].size; // File size in bytes
-    const fileSizeInMB = (fileSizeInBytes / (1024 * 1024)).toFixed(2); // Convert to MB
+    const fileSizeInBytes = req.files.contractAttachmentUrl[0].size;
+    const fileSizeInMB = (fileSizeInBytes / (1024 * 1024)).toFixed(2);
 
-    // Create the contract attachment record with the file size
     const newContractAttachment = await ContractAttachment.create({
       userId,
-      contractAttachmentUrl, // Use the updated URL
+      contractAttachmentUrl,
       contractId,
-      fileSize: fileSizeInMB, // Store the file size in MB
+      fileSize: fileSizeInMB,
     });
 
-    // Return success response
     return res.status(201).json({
       hasError: false,
       message: "Contract attachment submitted successfully.",

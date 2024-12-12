@@ -2,7 +2,6 @@ const Department = require("../../../models/Department");
 
 async function getAll(req, res) {
   try {
-    // Fetch all departments and populate the branchId to include branchName
     const departments = await Department.find()
       .populate({
         path: "branchId",

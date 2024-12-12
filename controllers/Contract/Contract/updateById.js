@@ -5,7 +5,6 @@ async function updateById(req, res) {
   try {
     const { id } = req.params;
 
-    // Validate the request body
     const { error } = ContractValidator.ContractUpdateValidator.validate(
       req.body
     );
@@ -14,13 +13,11 @@ async function updateById(req, res) {
       return res.status(400).json({ message: errorMessages });
     }
 
-    // Find the existing contract
     const contract = await Contract.findById(id);
     if (!contract) {
       return res.status(404).json({ message: "Contract not found" });
     }
 
-    // Update fields if provided in the request body
     const {
       employeeId,
       subject,
@@ -39,7 +36,6 @@ async function updateById(req, res) {
     if (endDate !== undefined) contract.endDate = endDate;
     if (status !== undefined) contract.status = status;
 
-    // Save the updated contract
     await contract.save();
 
     return res.status(200).json({
