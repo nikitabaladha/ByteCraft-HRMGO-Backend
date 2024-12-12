@@ -29,7 +29,6 @@ async function updateById(req, res) {
       startDate,
       endDate,
       status,
-      description,
     } = req.body;
 
     if (employeeId !== undefined) contract.employeeId = employeeId;
@@ -39,7 +38,6 @@ async function updateById(req, res) {
     if (startDate !== undefined) contract.startDate = startDate;
     if (endDate !== undefined) contract.endDate = endDate;
     if (status !== undefined) contract.status = status;
-    if (description !== undefined) contract.description = description || "";
 
     // Save the updated contract
     await contract.save();

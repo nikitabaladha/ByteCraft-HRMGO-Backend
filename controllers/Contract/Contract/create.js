@@ -19,7 +19,6 @@ async function create(req, res) {
       startDate,
       endDate,
       status,
-      description,
     } = req.body;
 
     // Generate the next contract ID
@@ -40,7 +39,6 @@ async function create(req, res) {
       startDate,
       endDate,
       status,
-      description: description || "", // Default to empty string if not provided
     });
 
     await newContract.save();

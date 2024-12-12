@@ -39,6 +39,7 @@ const ContractSchema = new mongoose.Schema(
     },
     description: {
       type: String,
+      default: "",
     },
   },
   {
