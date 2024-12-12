@@ -3,7 +3,6 @@ const ContractValidator = require("../../../validators/ContractValidators/Contra
 
 async function create(req, res) {
   try {
-    // Validate the request body using a Joi validator
     const { error } = ContractValidator.ContractCreateValidator.validate(
       req.body
     );
@@ -15,7 +14,6 @@ async function create(req, res) {
       });
     }
 
-    // Extract data from the request body
     const {
       employeeId,
       subject,
@@ -27,7 +25,6 @@ async function create(req, res) {
       description,
     } = req.body;
 
-    // Generate the next contract ID
     const lastContract = await Contract.findOne().sort({ id: -1 }).limit(1);
     const lastContractId = lastContract ? lastContract.id : "CON0000000";
     const nextContractIdNumber =
@@ -36,7 +33,6 @@ async function create(req, res) {
       .toString()
       .padStart(7, "0")}`;
 
-    // Create a new Contract instance
     const newContract = new Contract({
       id: nextContractId,
       employeeId,
@@ -49,7 +45,6 @@ async function create(req, res) {
       description,
     });
 
-    // Save the contract to the database
     await newContract.save();
 
     return res.status(201).json({

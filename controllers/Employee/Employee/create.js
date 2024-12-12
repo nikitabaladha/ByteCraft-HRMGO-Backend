@@ -148,10 +148,7 @@ const EmployeeValidator = require("../../../validators/EmployeeValidators/Employ
 const path = require("path");
 
 async function create(req, res) {
-  console.log("Received files:", req.files); // Debug uploaded files
-  console.log("Request body:", req.body);
   try {
-    // Validate the request body using Joi validator
     const { error } = EmployeeValidator.EmployeeCreateValidator.validate(
       req.body
     );
@@ -161,7 +158,6 @@ async function create(req, res) {
       return res.status(400).json({ message: errorMessages });
     }
 
-    // Ensure files are available
     if (!req.files || !req.files.employeePhotoUrl) {
       return res.status(400).json({
         hasError: true,
@@ -169,10 +165,9 @@ async function create(req, res) {
       });
     }
 
-    // Path to match your desired format
     const employeeImagePath = "/Images/employeePhoto";
 
-    const employeePhotoUrl = `${employeeImagePath}/${req.files.employeePhotoUrl[0].filename}`; // Build the URL
+    const employeePhotoUrl = `${employeeImagePath}/${req.files.employeePhotoUrl[0].filename}`;
 
     const employeeCertificatePath = "/Documents/employeeCertificates";
 
@@ -201,7 +196,6 @@ async function create(req, res) {
       taxPayerId,
     } = req.body;
 
-    // Generate the next employee ID
     const lastEmployee = await Employee.findOne().sort({ id: -1 }).limit(1);
     const lastEmployeeId = lastEmployee ? lastEmployee.id : "EMP0000000";
     const nextEmployeeIdNumber =
@@ -210,7 +204,6 @@ async function create(req, res) {
       .toString()
       .padStart(7, "0")}`;
 
-    // Create a new employee instance
     const newEmployee = new Employee({
       id: nextEmployeeId,
       name,
@@ -235,7 +228,6 @@ async function create(req, res) {
       taxPayerId,
     });
 
-    // Save the employee to the database
     await newEmployee.save();
 
     return res.status(201).json({
