@@ -4,7 +4,6 @@ async function getByBranchDepartment(req, res) {
   const { branchId, departmentId } = req.query;
 
   try {
-    // Validate if both branchId and departmentId are provided
     if (!branchId || !departmentId) {
       return res.status(400).json({
         hasError: true,
@@ -12,7 +11,6 @@ async function getByBranchDepartment(req, res) {
       });
     }
 
-    // Fetch employees based on branchId and departmentId
     const employees = await Employee.find({ branchId, departmentId });
 
     if (employees.length === 0) {

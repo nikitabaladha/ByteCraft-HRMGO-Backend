@@ -8,6 +8,7 @@ async function updateById(req, res) {
     const { error } = ContractValidator.ContractUpdateValidator.validate(
       req.body
     );
+
     if (error) {
       const errorMessages = error.details.map((err) => err.message).join(", ");
       return res.status(400).json({ message: errorMessages });

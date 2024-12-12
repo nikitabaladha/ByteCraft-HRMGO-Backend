@@ -4,6 +4,8 @@ const getAllEmployee = require("./Employee/getAll");
 const getAllName = require("./Employee/getAllName");
 const getFilteredEmployees = require("./Employee/getFilteredEmployees");
 const getByBranchDepartment = require("./Employee/getByBranchDepartment");
+const updateById = require("./Employee/updateById");
+const deleteById = require("./Employee/deleteById");
 
 module.exports = {
   createEmployee,
@@ -11,4 +13,6 @@ module.exports = {
   getAllName,
   getFilteredEmployees,
   getByBranchDepartment,
+  updateById,
+  deleteById,
 };
