@@ -4,6 +4,7 @@ const path = require("path");
 async function create(req, res) {
   try {
     const userId = req.user.id;
+
     const { contractId } = req.body;
 
     if (!userId) {

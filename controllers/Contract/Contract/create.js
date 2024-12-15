@@ -6,6 +6,7 @@ async function create(req, res) {
     const { error } = ContractValidator.ContractCreateValidator.validate(
       req.body
     );
+
     if (error) {
       const errorMessages = error.details.map((err) => err.message).join(", ");
       return res.status(400).json({

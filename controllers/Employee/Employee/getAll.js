@@ -21,8 +21,6 @@ async function getAllEmployees(req, res) {
       phone: emp.phone,
       dateOfBirth: emp.dateOfBirth,
       gender: emp.gender,
-      email: emp.email,
-      password: emp.password,
       address: emp.address,
       branchName: emp.branchId?.branchName || "N/A",
       departmentName: emp.departmentId?.departmentName || "N/A",
@@ -40,12 +38,13 @@ async function getAllEmployees(req, res) {
       bankIdentifierCode: emp.bankIdentifierCode,
       branchLocation: emp.branchLocation,
       taxPayerId: emp.taxPayerId,
+      email: emp.email,
     }));
 
     return res.status(200).json({
       hasError: false,
       message: "Employees fetched successfully.",
-      employees: formattedEmployees,
+      data: formattedEmployees,
     });
   } catch (error) {
     console.error("Error fetching employees:", error);

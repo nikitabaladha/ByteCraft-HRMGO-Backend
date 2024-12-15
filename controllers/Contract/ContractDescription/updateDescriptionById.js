@@ -13,6 +13,7 @@ async function updateDescriptionById(req, res) {
     }
 
     const existingContract = await Contract.findById(id);
+
     if (!existingContract) {
       return res
         .status(404)

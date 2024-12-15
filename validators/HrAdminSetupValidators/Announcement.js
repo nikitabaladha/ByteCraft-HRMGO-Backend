@@ -22,6 +22,7 @@ const AnnouncementCreateValidator = Joi.object({
   }),
   title: Joi.string().required().messages({
     "any.required": "Announcement title is required.",
+    "string.empty": "Title cannot be empty.",
   }),
   startDate: Joi.date().iso().required().messages({
     "any.required": "Announcement start date is required.",

@@ -5,7 +5,6 @@ const IncomeExpenseChartValidator = require("../../../validators/DashboardValida
 
 async function create(req, res) {
   try {
-    const { incomeData, expenseData, categories } = req.body;
     const userId = req.user.id;
 
     const { error } = IncomeExpenseChartValidator.validate(req.body);
@@ -14,6 +13,8 @@ async function create(req, res) {
       const errorMessages = error.details.map((err) => err.message).join(", ");
       return res.status(400).json({ hasError: true, message: errorMessages });
     }
+
+    const { incomeData, expenseData, categories } = req.body;
 
     const newIncomeExpenseChart = new IncomeExpenseChart({
       incomeData,

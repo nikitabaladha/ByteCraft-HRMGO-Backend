@@ -5,6 +5,7 @@ async function create(req, res) {
   try {
     const { error } =
       ContractNoteValidator.ContractNoteCreateValidator.validate(req.body);
+
     if (error) {
       const errorMessages = error.details.map((err) => err.message).join(", ");
       return res.status(400).json({

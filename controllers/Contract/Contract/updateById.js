@@ -15,6 +15,7 @@ async function updateById(req, res) {
     }
 
     const contract = await Contract.findById(id);
+
     if (!contract) {
       return res.status(404).json({ message: "Contract not found" });
     }

@@ -5,6 +5,7 @@ const CalendarValidator = require("../../../validators/DashboardValidators/Calen
 async function create(req, res) {
   try {
     const { title, startDate, endDate, description, color } = req.body;
+
     const userId = req.user.id;
 
     const { error } = CalendarValidator.validate(req.body);

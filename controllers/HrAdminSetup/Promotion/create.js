@@ -5,14 +5,6 @@ const PromotionValidator = require("../../../validators/HrAdminSetupValidators/P
 
 async function create(req, res) {
   try {
-    const {
-      employeeId,
-      designationId,
-      promotionTitle,
-      promotionDate,
-      description,
-    } = req.body;
-
     const { error } = PromotionValidator.PromotionCreateValidator.validate(
       req.body
     );
@@ -21,6 +13,14 @@ async function create(req, res) {
       const errorMessages = error.details.map((err) => err.message).join(", ");
       return res.status(400).json({ hasError: true, message: errorMessages });
     }
+
+    const {
+      employeeId,
+      designationId,
+      promotionTitle,
+      promotionDate,
+      description,
+    } = req.body;
 
     const existingPromotion = await Promotion.findOne({
       employeeId,

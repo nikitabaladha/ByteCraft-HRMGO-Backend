@@ -1,7 +1,7 @@
 const Employee = require("../../../models/Employee");
 const EmployeeValidator = require("../../../validators/EmployeeValidators/EmployeeValidator");
 const path = require("path");
-
+const saltFunction = require("../../../validators/saltFunction.js");
 async function create(req, res) {
   try {
     const { error } = EmployeeValidator.EmployeeCreateValidator.validate(
@@ -10,7 +10,7 @@ async function create(req, res) {
 
     if (error?.details?.length) {
       const errorMessages = error.details.map((err) => err.message).join(", ");
-      return res.status(400).json({ message: errorMessages });
+      return res.status(400).json({ hasError: true, message: errorMessages });
     }
 
     if (!req.files || !req.files.employeePhotoUrl) {
@@ -21,16 +21,14 @@ async function create(req, res) {
     }
 
     const employeeImagePath = "/Images/employeePhoto";
-
     const employeePhotoUrl = `${employeeImagePath}/${req.files.employeePhotoUrl[0].filename}`;
 
     const employeeCertificatePath = "/Documents/employeeCertificates";
-
     const employeeCertificateUrl = `${employeeCertificatePath}/${req.files.employeeCertificateUrl[0].filename}`;
 
     const employeeResumePath = "/Documents/employeeResume";
-
     const employeeResumeUrl = `${employeeResumePath}/${req.files.employeeResumeUrl[0].filename}`;
+
     const {
       name,
       phone,
@@ -51,6 +49,23 @@ async function create(req, res) {
       taxPayerId,
     } = req.body;
 
+    const existingEmployee = await Employee.findOne({
+      email,
+      branchId,
+      departmentId,
+      designationId,
+    });
+
+    if (existingEmployee) {
+      return res.status(400).json({
+        hasError: true,
+        message:
+          "Employee already exists with the same email, branch, department, and designation.",
+      });
+    }
+
+    const { hashedPassword, salt } = saltFunction.hashPassword(password);
+
     const lastEmployee = await Employee.findOne().sort({ id: -1 }).limit(1);
     const lastEmployeeId = lastEmployee ? lastEmployee.id : "EMP0000000";
     const nextEmployeeIdNumber =
@@ -66,7 +81,8 @@ async function create(req, res) {
       dateOfBirth,
       gender,
       email,
-      password,
+      password: hashedPassword,
+      salt,
       address,
       branchId,
       departmentId,

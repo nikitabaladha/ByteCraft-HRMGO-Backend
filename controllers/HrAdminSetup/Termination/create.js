@@ -4,14 +4,6 @@ const TerminationValidator = require("../../../validators/HrAdminSetupValidators
 
 async function create(req, res) {
   try {
-    const {
-      employeeId,
-      terminationType,
-      noticeDate,
-      terminationDate,
-      description,
-    } = req.body;
-
     const { error } = TerminationValidator.TerminationCreateValidator.validate(
       req.body
     );
@@ -20,6 +12,14 @@ async function create(req, res) {
       const errorMessages = error.details.map((err) => err.message).join(", ");
       return res.status(400).json({ message: errorMessages });
     }
+
+    const {
+      employeeId,
+      terminationType,
+      noticeDate,
+      terminationDate,
+      description,
+    } = req.body;
 
     const newTermination = new Termination({
       employeeId,

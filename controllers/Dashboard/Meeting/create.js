@@ -4,7 +4,6 @@ const MeetingValidator = require("../../../validators/DashboardValidators/Meetin
 
 async function create(req, res) {
   try {
-    const { title, date, time } = req.body;
     const userId = req.user.id;
 
     const { error } = MeetingValidator.validate(req.body);
@@ -13,6 +12,8 @@ async function create(req, res) {
       const errorMessages = error.details.map((err) => err.message).join(", ");
       return res.status(400).json({ message: errorMessages });
     }
+
+    const { title, date, time } = req.body;
 
     const newMeeting = new Meeting({
       title,
