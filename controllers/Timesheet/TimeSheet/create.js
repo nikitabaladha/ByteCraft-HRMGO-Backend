@@ -5,6 +5,7 @@ const TimeSheet = require("../../../models/TimeSheet");
 async function create(req, res) {
   try {
     const { error } = TimeSheetValidator.validate(req.body);
+
     if (error?.details?.length) {
       const errorMessages = error.details.map((err) => err.message).join(", ");
       return res.status(400).json({ message: errorMessages });
