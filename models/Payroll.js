@@ -7,7 +7,7 @@ const Employee = require('./Employee');
 const PayrollSchema = new mongoose.Schema({
   employeeId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Employee',  // Reference to Employee collection
+    ref: 'Employee', 
     required: true
   },
   payrollType: {
@@ -15,17 +15,17 @@ const PayrollSchema = new mongoose.Schema({
     required: true
   },
   salary: {
-    type: Number,  // Salary as an integer
+    type: Number,  
     required: true
   },
   netSalary: {
-    type: Number,  // Net Salary as an integer
+    type: Number,  
     required: true
   },
   status: {
-    type: String,  // Status as a string (e.g., "active", "inactive", "paid", etc.)
+    type: String,  
     required: true,
-    default: 'unpaid',  // Default status set to 'paid'
+    default: 'unpaid',  
     enum:["paid","unpaid","inactive"],
   },
   paydate: {

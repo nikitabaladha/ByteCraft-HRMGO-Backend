@@ -1,25 +1,29 @@
 const Employee = require("../../../models/Employee");
+const mongoose = require("mongoose");
 
-async function getEmployeeNameById(req, res) {
+async function getEmployeeById(req, res) {
   try {
-    const { id } = req.params;  // Employee ID will come from the URL parameter
+    const { id } = req.params;
 
-    // Fetch the employee by ID, selecting only the 'name' field
-    const employee = await Employee.findOne({ id }).select('name'); // Only return 'name' field
-
-    if (!employee) {
-      return res.status(404).json({
-        message: "Employee not found",
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        message: "Invalid employee ID format.",
       });
     }
 
-    // Return the employee's name
+    const employee = await Employee.findById(id);
+
+    if (!employee) {
+      return res.status(404).json({
+        message: "Employee not found.",
+      });
+    }
+
     return res.status(200).json({
-      name: employee.name,
-      hasError: false,
+      employeeName: employee.name,
     });
   } catch (error) {
-    console.error("Error fetching employee by ID:", error);
+    console.error("Error fetching employee:", error);
     return res.status(500).json({
       message: "Failed to fetch employee.",
       error: error.message,
@@ -27,4 +31,4 @@ async function getEmployeeNameById(req, res) {
   }
 }
 
-module.exports = getEmployeeNameById;
+module.exports =  getEmployeeById ;

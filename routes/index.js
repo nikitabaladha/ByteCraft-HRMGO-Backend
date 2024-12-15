@@ -16,6 +16,7 @@ const departmentRoutes = require("./department");
 const employeeRoutes = require("./employee");
 const setSalaryRoutes  = require("./setSalary");
 const payslipRoutes    = require("./payslip");
+const employeeSetSalaryRoutes=require("./EmployeeSetSalary")
 
 const manageLeaveRoutes = require("./manageLeave");
 const timeSheetRoutes = require("./timeSheet");
@@ -95,4 +96,7 @@ module.exports = (app) => {
   app.use("/api", zoommeeting); // This mounts the Zoom Meetings routes
   
   app.use("/api", companyPolicy); // This mounts the ComapnayPolicy routes
+
+  app.use("/api", employeeSetSalaryRoutes); // This mounts employeeSetSalary the  routes
+
 };

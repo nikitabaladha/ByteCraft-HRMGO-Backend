@@ -22,6 +22,6 @@ router.get(
   Middleware,
   getByBranchDepartment
 );
-router.get('/getemployeeemployee/:id', getEmployeeNamebyid);
+router.get("/getemployeeemployee/:id",Middleware, getEmployeeNamebyid);
 
 module.exports = router;
