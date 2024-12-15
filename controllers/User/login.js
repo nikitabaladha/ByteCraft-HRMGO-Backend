@@ -12,14 +12,14 @@ const loginValidationSchema = require("../../validators/loginValidationSchema.js
 
 async function login(req, res) {
   try {
-    const { email, password } = req.body;
-
     const { error } = loginValidationSchema.validate(req.body);
 
     if (error?.details?.length) {
       const errorMessages = error.details[0].message;
       return res.status(400).json({ message: errorMessages });
     }
+
+    const { email, password } = req.body;
 
     const user = await User.findOne({ email });
 

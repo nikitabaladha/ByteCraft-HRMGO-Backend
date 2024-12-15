@@ -5,8 +5,6 @@ const HolidayValidator = require("../../../validators/HrAdminSetupValidators/Hol
 
 async function create(req, res) {
   try {
-    const { occasion, startDate, endDate } = req.body;
-
     const { error } = HolidayValidator.HolidayCreateValidator.validate(
       req.body
     );
@@ -15,6 +13,8 @@ async function create(req, res) {
       const errorMessages = error.details.map((err) => err.message).join(", ");
       return res.status(400).json({ hasError: true, message: errorMessages });
     }
+
+    const { occasion, startDate, endDate } = req.body;
 
     const existingHoliday = await Holiday.findOne({
       occasion,

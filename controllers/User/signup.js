@@ -7,14 +7,14 @@ const signupValidationSchema = require("../../validators/signupValidationSchema.
 
 async function signup(req, res) {
   try {
-    const { firstName, lastName, email, password, role } = req.body;
-
     const { error } = signupValidationSchema.validate(req.body);
 
     if (error?.details?.length) {
       const errorMessages = error.details[0].message;
       return res.status(400).json({ message: errorMessages });
     }
+
+    const { firstName, lastName, email, password, role } = req.body;
 
     let isExistingUser = await User.findOne({ email });
 

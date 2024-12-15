@@ -5,14 +5,14 @@ const AwardValidator = require("../../../validators/HrAdminSetupValidators/Award
 
 async function create(req, res) {
   try {
-    const { employeeId, awardType, date, gift, description } = req.body;
-
     const { error } = AwardValidator.AwardCreateValidator.validate(req.body);
 
     if (error?.details?.length) {
       const errorMessages = error.details.map((err) => err.message).join(", ");
       return res.status(400).json({ message: errorMessages });
     }
+
+    const { employeeId, awardType, date, gift, description } = req.body;
 
     const newAward = new Award({
       employeeId,

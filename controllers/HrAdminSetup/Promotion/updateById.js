@@ -4,8 +4,6 @@ const PromotionValidator = require("../../../validators/HrAdminSetupValidators/P
 async function updateById(req, res) {
   try {
     const { id } = req.params;
-    const { designationId, promotionTitle, promotionDate, description } =
-      req.body;
 
     const { error } = PromotionValidator.PromotionUpdateValidator.validate(
       req.body
@@ -18,6 +16,9 @@ async function updateById(req, res) {
         message: errorMessages,
       });
     }
+
+    const { designationId, promotionTitle, promotionDate, description } =
+      req.body;
 
     const promotion = await Promotion.findById(id);
     if (!promotion) {

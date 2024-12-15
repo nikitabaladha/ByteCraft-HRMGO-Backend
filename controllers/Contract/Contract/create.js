@@ -51,7 +51,7 @@ async function create(req, res) {
     return res.status(201).json({
       hasError: false,
       message: "Contract created successfully!",
-      contract: newContract,
+      data: newContract,
     });
   } catch (error) {
     console.error("Error during creating Contract:", error);

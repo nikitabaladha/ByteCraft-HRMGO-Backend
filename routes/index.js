@@ -1,7 +1,6 @@
 const signup = require("../controllers/User/signup");
 const login = require("../controllers/User/login");
 
-const dashboardRoutes = require("./dashboard");
 const meetingRoutes = require("./meeting");
 const attendanceRoutes = require("./attendance");
 const calendarRoutes = require("./calendar");
@@ -27,8 +26,6 @@ const contractRoutes = require("./contract");
 module.exports = (app) => {
   app.post("/api/signup", signup);
   app.post("/api/login", login);
-
-  app.use("/api", dashboardRoutes);
 
   app.use("/api", meetingRoutes);
 

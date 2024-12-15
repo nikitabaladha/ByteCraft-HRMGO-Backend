@@ -17,8 +17,6 @@ async function create(req, res) {
     const records = Array.isArray(req.body) ? req.body : [req.body];
     const createdRecords = [];
 
-    console.log("Received data:", req.body);
-
     for (const record of records) {
       const { error, value } = MarkedAttendanceValidator.validate(record);
 

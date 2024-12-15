@@ -5,7 +5,6 @@ const AwardValidator = require("../../../validators/HrAdminSetupValidators/Award
 async function updateById(req, res) {
   try {
     const { id } = req.params;
-    const { awardType, date, gift, description } = req.body;
 
     const { error } = AwardValidator.AwardUpdateValidator.validate(req.body);
 
@@ -13,6 +12,8 @@ async function updateById(req, res) {
       const errorMessages = error.details.map((err) => err.message).join(", ");
       return res.status(400).json({ message: errorMessages });
     }
+
+    const { awardType, date, gift, description } = req.body;
 
     const award = await Award.findById(id);
     if (!award) {

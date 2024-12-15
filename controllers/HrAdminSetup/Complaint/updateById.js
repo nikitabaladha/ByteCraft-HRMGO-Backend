@@ -5,7 +5,6 @@ const ComplaintValidator = require("../../../validators/HrAdminSetupValidators/C
 async function updateById(req, res) {
   try {
     const { id } = req.params;
-    const { complaintAgainstId, title, complaintDate, description } = req.body;
 
     const { error } = ComplaintValidator.ComplaintUpdateValidator.validate(
       req.body
@@ -15,6 +14,8 @@ async function updateById(req, res) {
       const errorMessages = error.details.map((err) => err.message).join(", ");
       return res.status(400).json({ message: errorMessages });
     }
+
+    const { complaintAgainstId, title, complaintDate, description } = req.body;
 
     const complaint = await Complaint.findById(id);
     if (!complaint) {

@@ -3,8 +3,6 @@ const ResignationValidator = require("../../../validators/HrAdminSetupValidators
 
 async function create(req, res) {
   try {
-    const { employeeId, resignationDate, lastWorkingDay, reason } = req.body;
-
     const { error } = ResignationValidator.ResignationCreateValidator.validate(
       req.body
     );
@@ -13,6 +11,8 @@ async function create(req, res) {
       const errorMessages = error.details.map((err) => err.message).join(", ");
       return res.status(400).json({ hasError: true, message: errorMessages });
     }
+
+    const { employeeId, resignationDate, lastWorkingDay, reason } = req.body;
 
     const newResignation = new Resignation({
       employeeId,

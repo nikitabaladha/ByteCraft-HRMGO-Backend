@@ -6,15 +6,17 @@ async function updateByLeaveId(req, res) {
     const { id } = req.params;
 
     const { error } = ManageLeaveValidator.validateUpdate(req.body);
+
     if (error?.details?.length) {
       const errorMessages = error.details.map((err) => err.message).join(", ");
       return res.status(400).json({ message: errorMessages });
     }
 
     const existingLeave = await ManageLeave.findById(id);
+
     if (!existingLeave) {
       return res.status(404).json({
-        message: "ManageLeave entry not found.",
+        message: "Manage Leave entry not found.",
         hasError: true,
       });
     }

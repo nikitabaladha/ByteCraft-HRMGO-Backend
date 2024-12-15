@@ -38,7 +38,7 @@ async function create(req, res) {
 
     return res.status(201).json({
       message: "TimeSheet created successfully!",
-      timeSheet: newTimeSheet,
+      data: newTimeSheet,
       hasError: false,
     });
   } catch (error) {

@@ -13,8 +13,6 @@ async function create(req, res) {
       appraisalCompetencies,
     } = req.body;
 
-    console.log(req.body);
-
     const currentDate = new Date();
     const formattedAppraisalDate = new Date(
       Date.UTC(

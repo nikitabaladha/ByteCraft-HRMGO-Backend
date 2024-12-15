@@ -4,7 +4,6 @@ const ResignationValidator = require("../../../validators/HrAdminSetupValidators
 async function updateById(req, res) {
   try {
     const { id } = req.params;
-    const { resignationDate, lastWorkingDay, reason } = req.body;
 
     const { error } = ResignationValidator.ResignationUpdateValidator.validate(
       req.body
@@ -17,6 +16,8 @@ async function updateById(req, res) {
         message: errorMessages,
       });
     }
+
+    const { resignationDate, lastWorkingDay, reason } = req.body;
 
     const resignation = await Resignation.findById(id);
 

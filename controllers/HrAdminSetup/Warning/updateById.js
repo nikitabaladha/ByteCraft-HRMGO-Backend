@@ -4,7 +4,6 @@ const WarningValidator = require("../../../validators/HrAdminSetupValidators/War
 async function updateById(req, res) {
   try {
     const { id } = req.params;
-    const { warningToId, subject, warningDate, description } = req.body;
 
     const { error } = WarningValidator.WarningUpdateValidator.validate(
       req.body
@@ -14,6 +13,8 @@ async function updateById(req, res) {
       const errorMessages = error.details.map((err) => err.message).join(", ");
       return res.status(400).json({ message: errorMessages });
     }
+
+    const { warningToId, subject, warningDate, description } = req.body;
 
     const warning = await Warning.findById(id);
 

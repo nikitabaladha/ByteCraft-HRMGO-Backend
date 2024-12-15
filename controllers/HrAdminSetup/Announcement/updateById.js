@@ -4,6 +4,15 @@ const AnnouncementValidator = require("../../../validators/HrAdminSetupValidator
 async function updateById(req, res) {
   try {
     const { id } = req.params;
+
+    const { error } =
+      AnnouncementValidator.AnnouncementUpdateValidator.validate(req.body);
+
+    if (error?.details?.length) {
+      const errorMessages = error.details.map((err) => err.message).join(", ");
+      return res.status(400).json({ message: errorMessages });
+    }
+
     const {
       title,
       branchId,
@@ -13,13 +22,6 @@ async function updateById(req, res) {
       endDate,
       description,
     } = req.body;
-
-    const { error } =
-      AnnouncementValidator.AnnouncementUpdateValidator.validate(req.body);
-    if (error?.details?.length) {
-      const errorMessages = error.details.map((err) => err.message).join(", ");
-      return res.status(400).json({ message: errorMessages });
-    }
 
     const announcement = await Announcement.findById(id);
     if (!announcement) {
