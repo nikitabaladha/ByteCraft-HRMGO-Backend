@@ -28,8 +28,6 @@ async function update(req, res) {
       phone,
       dateOfBirth,
       gender,
-      email,
-      password,
       address,
       branchId,
       departmentId,
@@ -59,8 +57,6 @@ async function update(req, res) {
     existingEmployee.phone = phone || existingEmployee.phone;
     existingEmployee.dateOfBirth = dateOfBirth || existingEmployee.dateOfBirth;
     existingEmployee.gender = gender || existingEmployee.gender;
-    existingEmployee.email = email || existingEmployee.email;
-    existingEmployee.password = password || existingEmployee.password;
     existingEmployee.address = address || existingEmployee.address;
     existingEmployee.branchId = branchId || existingEmployee.branchId;
     existingEmployee.departmentId =
