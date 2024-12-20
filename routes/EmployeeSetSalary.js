@@ -8,13 +8,15 @@ const Middleware = require("../middleware/index.js");
 const {
     createpayrolltype,
     getemployeedatabyid,
-    // getAllSetSalary,
+    UpdatenetSalary,
+    updatestatus
 } = require("../controllers/Payroll/index.js");
 
 // Define routes
 router.post("/create_payrolltype", Middleware, createpayrolltype);              
 router.get("/getemployeedatabyid/:employeeId", Middleware, getemployeedatabyid);       
-// router.get("/setsalary-get/:id", Middleware, getSingleSetSalary);    
+router.put("/updatenetsalary", Middleware, UpdatenetSalary);  
+router.put("/updatestatus/:employeeId", Middleware, updatestatus);    
 
 module.exports = router;
 

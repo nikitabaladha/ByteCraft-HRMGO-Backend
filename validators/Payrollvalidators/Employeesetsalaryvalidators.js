@@ -1,6 +1,5 @@
 const Joi = require('joi');
 
-
 const salarySchema = Joi.object({
   employeeId: Joi.string()
     .regex(/^[0-9a-fA-F]{24}$/) 
@@ -25,6 +24,12 @@ const salarySchema = Joi.object({
       'number.positive': 'Salary must be a positive number',
       'number.base': 'Salary must be a number',
       'any.required': 'Salary is required',
+    }),
+  grandTotal: Joi.number()
+    .required()
+    .messages({
+      'number.base': 'Grand total must be a number',
+      'any.required': 'Grand total is required',
     }),
 });
 

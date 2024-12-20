@@ -24,7 +24,6 @@ const PayrollSchema = new mongoose.Schema({
   },
   status: {
     type: String,  
-    required: true,
     default: 'unpaid',  
     enum:["paid","unpaid","inactive"],
   },

@@ -17,10 +17,27 @@ const salarySchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    grandTotal: { 
+      type: Number,
+      required: true,
+    },
+    status: {
+      type: String,  
+      default: 'unpaid',  
+      enum: ["paid", "unpaid", "inactive"],
+    },
+    payDate: {
+      type: Date,
+      default: Date.now, 
+    },
+    
   },
   { timestamps: true }
 );
+
 salarySchema.index({ employeeId: 1 }, { unique: true });
+
+
 
 const Salary = mongoose.model('Salary', salarySchema);
 

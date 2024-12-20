@@ -133,7 +133,7 @@
 
 // module.exports = payslipstatusupdate;
 
-const Payroll = require("../../../models/Payroll"); // Update the path to your Payroll model
+const Payroll = require("../../../models/EmployeeSetSalary"); // Update the path to your Payroll model
 
 // Update payroll status by _id
 const payslipstatusupdate = async (req, res) => {

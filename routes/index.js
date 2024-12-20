@@ -12,6 +12,7 @@ const incomeExpenseChartRoutes = require("./incomeExpenseChart");
 
 const branchRoutes = require("./branch");
 const departmentRoutes = require("./department");
+const designationRoutes = require("./designation");
 
 const employeeRoutes = require("./employee");
 const setSalaryRoutes  = require("./setSalary");
@@ -39,6 +40,14 @@ const zoommeeting=require("./zoommeeting");
 
 const companyPolicy=require("./companypolicy");
 
+const allowanceRoutes=require("./allowance");
+const commissionRoutes=require("./commission");
+const loanRoutes=require("./loan");
+const OtherpaymentRoutes=require("./otherpayment");
+const taxRoutes=require("./tax");
+const overtimeRoutes=require("./overtime");
+
+
 
 
 module.exports = (app) => {
@@ -60,6 +69,8 @@ module.exports = (app) => {
   app.use("/api", branchRoutes); // This mounts the branchRoutes routes
 
   app.use("/api", departmentRoutes); // This mounts the departmentRoutes routes
+
+  app.use("/api", designationRoutes); // This mounts the  DesignationRoutes routes
 
   app.use("/api", employeeRoutes); // This mounts the employeeRoutes routes
 
@@ -98,5 +109,17 @@ module.exports = (app) => {
   app.use("/api", companyPolicy); // This mounts the ComapnayPolicy routes
 
   app.use("/api", employeeSetSalaryRoutes); // This mounts employeeSetSalary the  routes
+
+  app.use("/api", allowanceRoutes); // This mounts allowance Routes the  routes
+
+  app.use("/api", commissionRoutes); // This mounts Commission Routes the  routes
+
+  app.use("/api", loanRoutes); // This mounts Loan Routes the  routes
+
+  app.use("/api", OtherpaymentRoutes); // This mounts Other Payment Routes the  routes
+
+  app.use("/api", taxRoutes); // This mounts Tax Routes the  routes
+  
+  app.use("/api", overtimeRoutes); // This mounts Overtime Routes the  routes
 
 };
