@@ -30,6 +30,7 @@ async function updateById(req, res) {
         .json({ hasError: true, message: "Announcement not found" });
     }
 
+    // Update fields if provided
     if (title) announcement.title = title;
     if (branchId) announcement.branchId = branchId;
     if (departmentId) announcement.departmentId = departmentId;
@@ -38,18 +39,16 @@ async function updateById(req, res) {
     if (description) announcement.description = description;
 
     if (employeeId) {
-      const employeeIds = Array.isArray(employeeId) ? employeeId : [employeeId];
+      const newEmployeeIds = Array.isArray(employeeId)
+        ? employeeId
+        : [employeeId];
 
-      const uniqueEmployeeIds = [...new Set(employeeIds)];
-      if (uniqueEmployeeIds.length !== employeeIds.length) {
-        return res.status(400).json({
-          message: "Duplicate employee IDs are not allowed.",
-        });
-      }
+      const combinedEmployeeIds = [
+        ...announcement.employeeId,
+        ...newEmployeeIds,
+      ];
 
-      announcement.employeeId = Array.from(
-        new Set([...announcement.employeeId, ...uniqueEmployeeIds])
-      );
+      announcement.employeeId = Array.from(new Set(combinedEmployeeIds));
     }
 
     const updatedAnnouncement = await announcement.save();
