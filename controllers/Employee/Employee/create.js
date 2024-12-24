@@ -1,19 +1,85 @@
-const EmployeeValidator = require("../../../validators/EmployeeValidators/EmployeeValidator");
 const Employee = require("../../../models/Employee");
-
+const EmployeeValidator = require("../../../validators/EmployeeValidators/EmployeeValidator");
+const path = require("path");
+const saltFunction = require("../../../validators/saltFunction.js");
 async function create(req, res) {
   try {
-    const { error } = EmployeeValidator.validate(req.body);
+    const { error } = EmployeeValidator.EmployeeCreateValidator.validate(
+      req.body
+    );
 
     if (error?.details?.length) {
       const errorMessages = error.details.map((err) => err.message).join(", ");
-      return res.status(400).json({ message: errorMessages });
+      return res.status(400).json({ hasError: true, message: errorMessages });
     }
 
-    const { name, email, branchId, departmentId, designationId, joiningDate } =
-      req.body;
+    const {
+      name,
+      phone,
+      dateOfBirth,
+      gender,
+      email,
+      password,
+      address,
+      branchId,
+      departmentId,
+      designationId,
+      dateOfJoining,
+      accountHolderName,
+      accountNumber,
+      bankName,
+      bankIdentifierCode,
+      branchLocation,
+      taxPayerId,
+    } = req.body;
 
-    // Manually generate the employee ID before saving
+    const existingEmployee = await Employee.findOne({
+      email,
+      branchId,
+      departmentId,
+      designationId,
+    });
+
+    if (existingEmployee) {
+      return res.status(400).json({
+        hasError: true,
+        message:
+          "Employee already exists with the same email, branch, department, and designation.",
+      });
+    }
+
+    if (!req.files || !req.files.employeePhotoUrl) {
+      return res.status(400).json({
+        hasError: true,
+        message: "Employee Photo is required.",
+      });
+    }
+
+    if (!req.files || !req.files.employeeCertificateUrl) {
+      return res.status(400).json({
+        hasError: true,
+        message: "Employee Certificate is required.",
+      });
+    }
+
+    if (!req.files || !req.files.employeeResumeUrl) {
+      return res.status(400).json({
+        hasError: true,
+        message: "Employee Resume is required.",
+      });
+    }
+
+    const employeeImagePath = "/Images/employeePhoto";
+    const employeePhotoUrl = `${employeeImagePath}/${req.files.employeePhotoUrl[0].filename}`;
+
+    const employeeCertificatePath = "/Documents/employeeCertificates";
+    const employeeCertificateUrl = `${employeeCertificatePath}/${req.files.employeeCertificateUrl[0].filename}`;
+
+    const employeeResumePath = "/Documents/employeeResume";
+    const employeeResumeUrl = `${employeeResumePath}/${req.files.employeeResumeUrl[0].filename}`;
+
+    const { hashedPassword, salt } = saltFunction.hashPassword(password);
+
     const lastEmployee = await Employee.findOne().sort({ id: -1 }).limit(1);
     const lastEmployeeId = lastEmployee ? lastEmployee.id : "EMP0000000";
     const nextEmployeeIdNumber =
@@ -22,23 +88,36 @@ async function create(req, res) {
       .toString()
       .padStart(7, "0")}`;
 
-    // Create a new employee instance
     const newEmployee = new Employee({
       id: nextEmployeeId,
       name,
+      phone,
+      dateOfBirth,
+      gender,
       email,
+      password: hashedPassword,
+      salt,
+      address,
       branchId,
       departmentId,
       designationId,
-      joiningDate,
+      dateOfJoining,
+      employeePhotoUrl,
+      employeeCertificateUrl,
+      employeeResumeUrl,
+      accountHolderName,
+      accountNumber,
+      bankName,
+      bankIdentifierCode,
+      branchLocation,
+      taxPayerId,
     });
 
-    // Save the employee to the database
     await newEmployee.save();
 
     return res.status(201).json({
       message: "Employee created successfully!",
-      employee: newEmployee,
+      data: newEmployee,
       hasError: false,
     });
   } catch (error) {

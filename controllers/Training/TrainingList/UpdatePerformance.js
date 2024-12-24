@@ -1,12 +1,11 @@
-const Training = require('../../../models/TrainingList'); // Update the path as necessary
+const Training = require('../../../models/TrainingList'); 
 
 // Update an existing training record
 const updateTraining = async (req, res) => {
   try {
-    const { id } = req.params; // Extract the training ID from the request parameters
+    const { id } = req.params; 
     const { status, Performance, Remark } = req.body;
 
-    // Input validation (optional, ensure this aligns with the frontend validation logic)
     if (status && !['Pending', 'Started', 'Completed', 'Terminated'].includes(status)) {
       return res.status(400).json({ message: 'Invalid status value' });
     }
@@ -17,7 +16,6 @@ const updateTraining = async (req, res) => {
       return res.status(400).json({ message: 'Remark exceeds the maximum length of 500 characters' });
     }
 
-    // Find the training record by ID and update it with new data
     const updatedTraining = await Training.findByIdAndUpdate(
       id,
       {

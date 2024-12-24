@@ -4,7 +4,6 @@ const Branch = require("../../../models/Branch");
 // Create branch logic
 async function create(req, res) {
   try {
-    // Validate the Announcement data using Joi schema
     const { error } = BranchValidator.validate(req.body);
 
     if (error?.details?.length) {
@@ -14,7 +13,6 @@ async function create(req, res) {
 
     const { branchName } = req.body;
 
-    // Create and save the new branch
     const newBranch = new Branch({
       branchName,
     });
@@ -23,7 +21,7 @@ async function create(req, res) {
 
     return res.status(201).json({
       message: "Branch created successfully!",
-      branch: newBranch,
+      data: newBranch,
     });
   } catch (error) {
     console.error("Error creating branch:", error);

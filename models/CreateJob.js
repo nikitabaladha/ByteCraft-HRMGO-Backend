@@ -33,15 +33,15 @@ const JobSchema = new mongoose.Schema({
     type: [String],
     required: true,
   },
-  applicant: 
-    {
-      type: [String],
-      enum: ['Gender', 'Date of Birth', 'Address'], // Options from the checkboxes
-    },
+  applicant: {
+    type: [String],
+    enum: ['Gender', 'Date of Birth', 'Address'], 
+    required: true, 
+  },  
   visibility: 
     {
         type: [String],
-      enum: ['Profile', 'Resume', 'Letter', 'Terms and Conditions'], // Options from the checkboxes
+      enum: ['Profile', 'Resume', 'Letter', 'Terms and Conditions'], 
     },
   customQuestions: 
     {

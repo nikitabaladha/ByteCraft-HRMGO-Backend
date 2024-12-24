@@ -1,15 +1,12 @@
-// Import the Training model
 const Training = require('../../../models/TrainingList');
 
-// Get training records by user ID
 const getTrainingListById = async (req, res) => {
   try {
-    const { id } = req.params; // Extract user ID from request parameters
+    const { id } = req.params; 
 
-    // Fetch training records for the specific user
+    
     const userTrainings = await Training.find({ userId: id });
 
-    // Check if there are any trainings found for the user
     if (userTrainings.length === 0) {
       return res.status(404).json({
         message: `No training records found for user with ID: ${id}`,

@@ -1,7 +1,5 @@
-const Job = require('../../../models/CreateJob'); // Replace with the correct path to your Job model
-const CreateJobValidator = require('../../../validators/Recruitment/CreateJobValidator')
+const Job = require('../../../models/CreateJob'); 
 
-// Controller for creating a job
 const createJob = async (req, res) => {
   try {
     const {
@@ -21,7 +19,6 @@ const createJob = async (req, res) => {
       terms,
     } = req.body;
 
-    // Create a new Job instance
     const newJob = new Job({
       title,
       branch,
@@ -40,22 +37,20 @@ const createJob = async (req, res) => {
     });
 
     // Save the job to the database
-    const savedJob = await newJob.save();
+    await newJob.save();
 
+    // Respond with the created job
     res.status(201).json({
-      success: true,
       message: 'Job created successfully',
-      data: savedJob,
+      job: newJob,
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({
-      success: false,
       message: 'Failed to create job',
       error: error.message,
     });
   }
 };
 
-module.exports = createJob ;
-
-
+module.exports = createJob;

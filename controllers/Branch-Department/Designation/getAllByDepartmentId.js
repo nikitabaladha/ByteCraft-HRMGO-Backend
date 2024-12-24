@@ -4,17 +4,14 @@ async function getAllByDepartmentId(req, res) {
   const { departmentId } = req.query;
 
   try {
-    // Check if departmentId is provided
     if (!departmentId) {
       return res
         .status(400)
         .json({ hasError: true, message: "Department ID is required" });
     }
 
-    // Fetch designations based on the departmentId
     const designations = await Designation.find({ departmentId });
 
-    // Check if any designations were found
     if (designations.length === 0) {
       return res.status(404).json({
         hasError: true,
@@ -22,7 +19,6 @@ async function getAllByDepartmentId(req, res) {
       });
     }
 
-    // Return the fetched designations
     return res.status(200).json({
       hasError: false,
       data: designations,
