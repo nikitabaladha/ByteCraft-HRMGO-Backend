@@ -27,13 +27,22 @@ const salarySchema = new mongoose.Schema(
       enum: ["paid", "unpaid", "inactive"],
     },
     payDate: {
-      type: Date,
-      default: Date.now, 
+      type: Date, 
     },
-    
+
+    statusPayDate: {
+      type: Date,
+    },
   },
   { timestamps: true }
 );
+
+salarySchema.pre('save', function(next) {
+  if (this.isModified('status') && this.status === 'paid') {
+    this.statusPayDate = new Date(); 
+  }
+  next();
+});
 
 salarySchema.index({ employeeId: 1 }, { unique: true });
 

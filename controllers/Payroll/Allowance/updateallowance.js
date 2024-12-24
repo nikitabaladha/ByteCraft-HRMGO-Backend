@@ -1,5 +1,6 @@
 const Allowance = require('../../../models/Allowance');
 const Employee = require('../../../models/Employee');
+const Salary = require('../../../models/EmployeeSetSalary');
 const updateAllowanceValidator = require('../../../validators/EmployeeSetSalary/AllowanceValidator');
 
 async function updateAllowance(req, res) {
@@ -10,7 +11,7 @@ async function updateAllowance(req, res) {
   }
 
   const { employeeId, employeeName, allowanceOption, title, type, amount } = value;
-  const { allowanceId } = req.params;  
+  const { allowanceId } = req.params;
 
   try {
     const employee = await Employee.findById(employeeId);
@@ -23,6 +24,8 @@ async function updateAllowance(req, res) {
       return res.status(404).json({ error: 'Allowance record not found.' });
     }
 
+    const amountDifference = amount - allowance.amount;
+
     allowance.employeeName = employeeName;
     allowance.allowanceOption = allowanceOption;
     allowance.title = title;
@@ -31,9 +34,29 @@ async function updateAllowance(req, res) {
 
     await allowance.save();
 
+    const salary = await Salary.findOne({ employeeId });
+    if (!salary) {
+      return res.status(404).json({ error: 'Salary record not found for the employee.' });
+    }
+
+    if (isNaN(salary.grandTotal)) {
+      salary.grandTotal = 0;
+    }
+
+    const updatedGrandTotal = salary.grandTotal + amountDifference;
+
+    if (isNaN(updatedGrandTotal)) {
+      return res.status(400).json({ error: 'Invalid grandTotal calculation.' });
+    }
+
+    salary.grandTotal = updatedGrandTotal < 0 ? 0 : updatedGrandTotal;
+
+    await salary.save();
+
     return res.status(200).json({
-      message: 'Allowance record updated successfully.',
+      message: 'Allowance record updated successfully, and grandTotal updated in Salary model.',
       data: allowance,
+      salary,
     });
   } catch (error) {
     console.error('Error updating allowance record:', error);

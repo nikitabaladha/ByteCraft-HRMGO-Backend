@@ -5,7 +5,7 @@ const getAllSetSalary = require('./SetSalary/getall');
 const createPayslip =require('./Payslip/create');
 const getAllPayslip =require('./Payslip/paygetall');
 const payslipupdatestatus=require('./Payslip/paystatusupdate');
-const updatestatusinactive=require('./Payslip/updatestatusinactive');
+// const updatestatusinactive=require('./Payslip/updatestatusinactive');
 const createpayrolltype = require('./EmployeeSetSalary/create');
 const getemployeedatabyid=require('./EmployeeSetSalary/getadatafromid');
 const UpdatenetSalary=require('./EmployeeSetSalary/updatenetsalary');
@@ -33,7 +33,11 @@ const createOvertime = require('./Overtime/create');
 const getOvertime = require('./Overtime/getall');
 const deleteOvertime = require('./Overtime/delete');
 const updateOvertime = require('./Overtime/updateovertime');
-const updatestatus=require('./EmployeeSetSalary/updatestatus')
+const updatestatus=require('./EmployeeSetSalary/updatestatus');
+const updatestatusinactive=require('./EmployeeSetSalary/updatestatusinactive');
+const updategenratepayslipdate=require('./EmployeeSetSalary/genratepayslipdate');
+const getGrandTotal=require('./EmployeeSetSalary/getgrandtotal');
+
 
 module.exports = {
    createSetSalary, 
@@ -42,7 +46,6 @@ module.exports = {
    createPayslip,
    getAllPayslip,
    payslipupdatestatus,
-   updatestatusinactive,
    createpayrolltype,
    getemployeedatabyid,
    createAllowance,
@@ -70,8 +73,10 @@ module.exports = {
    deleteOvertime,
    updateOvertime,
    UpdatenetSalary,
-   updatestatus
-
+   updatestatus,
+   updatestatusinactive,
+   updategenratepayslipdate,
+   getGrandTotal
 
 };
 

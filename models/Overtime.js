@@ -27,10 +27,10 @@ const overtimeSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    totalOvertimeAmount: {
-      type: Number,
-      required: true,
-    },
+    // totalOvertimeAmount: {
+    //   type: Number,
+    //   required: true,
+    // },
   },
   { timestamps: true }
 );

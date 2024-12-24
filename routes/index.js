@@ -47,6 +47,23 @@ const OtherpaymentRoutes=require("./otherpayment");
 const taxRoutes=require("./tax");
 const overtimeRoutes=require("./overtime");
 
+const leaveTypeRoutes=require("./LeaveType");
+const payslipTypeRoutes=require("./paysliptype");
+const documentTypeRoutes=require("./documenttype");
+const allowanceOptionRoutes=require("./allowanceoption");
+const loanOptionRoutes=require("./loanoption");
+const deductionOptionRoutes=require("./deductionoption");
+const trainingtypeRoutes=require("./trainingtype");
+const awardtypeRoutes=require("./awardtype");
+const jobStageRoutes=require("./jobstage");
+const terminationTypeRoutes=require("./termination");
+const performanceTypeRoutes=require("./performancetype");
+const expenseTypeRoutes=require("./expensetype");
+const incomeTypeRoutes=require("./incometype");
+const paymentTypeRoutes=require("./paymenttype");
+const contractTypeRoutes=require("./contracttype");
+const jobCategoryRoutes=require("./jobcategory");
+
 
 
 
@@ -122,4 +139,36 @@ module.exports = (app) => {
   
   app.use("/api", overtimeRoutes); // This mounts Overtime Routes the  routes
 
+  app.use("/api", leaveTypeRoutes); // This mounts LeaveTypes Routes the  routes
+
+  app.use("/api", payslipTypeRoutes); // This mounts PayslipTypes Routes the  routes
+
+  app.use("/api", documentTypeRoutes); // This mounts DocumentTypes Routes the  routes
+
+  app.use("/api", allowanceOptionRoutes); // This mounts Allowance Option Routes the  routes
+
+  app.use("/api", loanOptionRoutes); // This mounts Loan Option Routes the  routes
+
+  app.use("/api", deductionOptionRoutes); // This mounts deduction Option Routes the  routes
+
+  app.use("/api", trainingtypeRoutes); // This mounts TrainingType Routes the  routes
+
+  app.use("/api", awardtypeRoutes); // This mounts AwardType Routes the  routes
+
+  app.use("/api", jobStageRoutes); // This mounts jobstage Routes the  routes
+
+  app.use("/api", terminationTypeRoutes); // This mounts Termination Type Routes the  routes
+
+  app.use("/api", performanceTypeRoutes); // This mounts Performance Type Routes the  routes
+
+  app.use("/api", expenseTypeRoutes); // This mounts Expense Type Routes the  routes
+
+  app.use("/api", incomeTypeRoutes); // This mounts Income Type Routes the  routes
+
+  app.use("/api", paymentTypeRoutes); // This mounts Payment Type Routes the  routes
+
+  app.use("/api", contractTypeRoutes); // This mounts Contract Type Routes the  routes
+
+  app.use("/api", jobCategoryRoutes); // This mounts Job Category Routes the  routes
+ 
 };

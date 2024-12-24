@@ -1,5 +1,6 @@
 const Overtime = require('../../../models/Overtime');
 const Employee = require('../../../models/Employee');
+const Salary = require('../../../models/EmployeeSetSalary');
 
 async function createOvertime(req, res) {
   const { employeeId, employeeName, title, numberOfDays, hours, amount } = req.body;
@@ -10,7 +11,7 @@ async function createOvertime(req, res) {
       return res.status(404).json({ error: 'Employee not found.' });
     }
 
-    const totalOvertimeAmount = numberOfDays * hours * amount;
+    // const totalOvertimeAmount = numberOfDays * hours * amount;
 
     const newOvertime = new Overtime({
       employeeId,
@@ -19,14 +20,34 @@ async function createOvertime(req, res) {
       numberOfDays,
       hours,
       amount,
-      totalOvertimeAmount,
+      amount,
     });
 
     await newOvertime.save();
 
+    const salary = await Salary.findOne({ employeeId });
+    if (!salary) {
+      return res.status(404).json({ error: 'Salary record not found for the employee.' });
+    }
+
+    if (isNaN(salary.grandTotal)) {
+      salary.grandTotal = 0;
+    }
+
+    const updatedGrandTotal = salary.grandTotal + amount;
+
+    if (isNaN(updatedGrandTotal)) {
+      return res.status(400).json({ error: 'Invalid grandTotal calculation.' });
+    }
+
+    salary.grandTotal = updatedGrandTotal < 0 ? 0 : updatedGrandTotal;
+
+    await salary.save();
+
     return res.status(201).json({
-      message: 'Overtime record created successfully.',
+      message: 'Overtime record created successfully, and grandTotal updated in Salary model.',
       data: newOvertime,
+      salary: salary,
     });
   } catch (error) {
     console.error('Error creating overtime record:', error);

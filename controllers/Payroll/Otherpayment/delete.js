@@ -1,6 +1,7 @@
-const Otherpayment = require('../../../models/Otherpayment'); 
+const Otherpayment = require('../../../models/Otherpayment');
+const Salary = require('../../../models/EmployeeSetSalary');
 
-async function deleteotherpayment(req, res) {
+async function deleteOtherPayment(req, res) {
   const { id } = req.params;
 
   try {
@@ -12,9 +13,32 @@ async function deleteotherpayment(req, res) {
       });
     }
 
+    const salary = await Salary.findOne({ employeeId: deletedOtherpayment.employeeId });
+
+    if (!salary) {
+      return res.status(404).json({
+        message: 'Salary record not found for the employee.',
+      });
+    }
+
+    if (isNaN(salary.grandTotal)) {
+      salary.grandTotal = 0;
+    }
+
+    const updatedGrandTotal = salary.grandTotal + deletedOtherpayment.amount;
+
+    if (isNaN(updatedGrandTotal)) {
+      return res.status(400).json({ error: 'Invalid grandTotal calculation.' });
+    }
+
+    salary.grandTotal = updatedGrandTotal < 0 ? 0 : updatedGrandTotal;
+
+    await salary.save();
+
     res.status(200).json({
-      message: 'Other deduction deleted successfully',
+      message: 'Other deduction deleted successfully and grandTotal updated.',
       data: deletedOtherpayment,
+      salary: salary,
     });
   } catch (error) {
     console.error(error);
@@ -26,4 +50,4 @@ async function deleteotherpayment(req, res) {
   }
 }
 
-module.exports = deleteotherpayment;
+module.exports = deleteOtherPayment;

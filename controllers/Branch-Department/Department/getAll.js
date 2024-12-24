@@ -2,8 +2,7 @@ const Department = require("../../../models/Department");
 
 async function getAll(req, res) {
   try {
-    // Fetch all departments
-    const departments = await Department.find();
+    const departments = await Department.find().populate('branchId', 'branchName');
 
     if (departments.length === 0) {
       return res.status(404).json({

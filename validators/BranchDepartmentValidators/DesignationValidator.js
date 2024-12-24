@@ -11,6 +11,11 @@ const DesignationValidator = Joi.object({
     "string.empty": "Department ID cannot be empty.",
     "any.required": "Department ID is required.",
   }),
+  branchId: Joi.string().required().messages({
+    "string.base": "Branch ID must be a string.",
+    "string.empty": "Branch ID cannot be empty.",
+    "any.required": "Branch ID is required.",
+  }),
 });
 
 module.exports = DesignationValidator;
