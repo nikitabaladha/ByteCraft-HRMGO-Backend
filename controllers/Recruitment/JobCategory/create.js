@@ -1,17 +1,14 @@
-const JobCategory = require("../../../models/JobCategory"); // Adjust the path as needed
+const JobCategory = require("../../../models/JobCategory"); 
 
-// Create Job Category
 const createJobCategory = async (req, res) => {
   try {
     const { jobCategory } = req.body;
 
-    // Check if the job category already exists
     const existingCategory = await JobCategory.findOne({ jobCategory });
     if (existingCategory) {
       return res.status(400).json({ message: "Job category already exists" });
     }
 
-    // Create new job category
     const newCategory = new JobCategory({ jobCategory });
     await newCategory.save();
 

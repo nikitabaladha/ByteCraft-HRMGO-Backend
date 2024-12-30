@@ -1,9 +1,7 @@
-const JobCategory = require("../../../models/JobCategory"); // Adjust the path as needed
+const JobCategory = require("../../../models/JobCategory"); 
 
-// Get All Job Categories
 const getAllJobCategories = async (req, res) => {
   try {
-    // Fetch all job categories
     const jobCategories = await JobCategory.find();
 
     if (!jobCategories || jobCategories.length === 0) {

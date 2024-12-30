@@ -1,5 +1,7 @@
 require("dotenv").config();
 
+const path = require("path");
+
 const express = require("express");
 
 const bodyParser = require("body-parser");
@@ -21,6 +23,10 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
+
+app.use("/Images", express.static(path.join(__dirname, "Images")));
+
+app.use("/Documents", express.static(path.join(__dirname, "Documents")));
 
 app.use(bodyParser.json());
 

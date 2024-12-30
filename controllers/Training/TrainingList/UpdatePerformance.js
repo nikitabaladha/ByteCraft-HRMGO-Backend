@@ -1,6 +1,5 @@
 const Training = require('../../../models/TrainingList'); 
 
-// Update an existing training record
 const updateTraining = async (req, res) => {
   try {
     const { id } = req.params; 
@@ -23,7 +22,7 @@ const updateTraining = async (req, res) => {
         Performance,
         Remark,
       },
-      { new: true, runValidators: true } // Return the updated document and run validations
+      { new: true, runValidators: true } 
     );
 
     if (!updatedTraining) {

@@ -28,6 +28,7 @@ const indicatorRoutes = require("./indicator");
 const appraisalRoutes = require("./appraisal");
 const traineeRoutes = require("./Trainee")
 const recruitmentCreateJob = require("./recruitment")
+const systemSetting = require("./systemSetting")
 
 module.exports = (app) => {
   app.post("/api/signup", signup);
@@ -72,4 +73,6 @@ module.exports = (app) => {
   app.use("/api", traineeRoutes);
 
   app.use("/api", recruitmentCreateJob);
+
+  app.use("/api", systemSetting)
 };

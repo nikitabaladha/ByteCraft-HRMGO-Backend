@@ -4,6 +4,9 @@ const fs = require("fs");
 const employeePhotoDir = "./Images/employeePhoto";
 const employeeCertificateDir = "./Documents/employeeCertificates";
 const employeeResumeDir = "./Documents/employeeResume";
+const logoDarkDir = "./Images/logoDark"
+const logoLightDir = "./Images/logoLight"
+const faviconDir = "./Images/favicon"
 
 if (!fs.existsSync(employeePhotoDir)) {
   fs.mkdirSync(employeePhotoDir, { recursive: true });
@@ -13,6 +16,15 @@ if (!fs.existsSync(employeeCertificateDir)) {
 }
 if (!fs.existsSync(employeeResumeDir)) {
   fs.mkdirSync(employeeResumeDir, { recursive: true });
+}
+if (!fs.existsSync(logoDarkDir)) {
+  fs.mkdirSync(logoDarkDir, { recursive: true });
+}
+if (!fs.existsSync(logoLightDir)) {
+  fs.mkdirSync(logoLightDir, { recursive: true });
+}
+if (!fs.existsSync(faviconDir)) {
+  fs.mkdirSync(faviconDir, { recursive: true });
 }
 
 const upload = multer({
@@ -24,6 +36,12 @@ const upload = multer({
         cb(null, employeeCertificateDir);
       } else if (file.fieldname === "employeeResumeUrl") {
         cb(null, employeeResumeDir);
+      }else if (file.fieldname === "logoDark") {
+        cb(null, logoDarkDir);
+      }else if (file.fieldname === "logoLight") {
+        cb(null, logoLightDir);
+      }else if (file.fieldname === "favicon") {
+        cb(null, faviconDir);
       } else {
         cb(new Error("Invalid file fieldname"));
       }
@@ -85,6 +103,51 @@ const upload = multer({
         cb(
           new Error(
             "Only PDF, DOC, or DOCX files are allowed for employee resumes"
+          )
+        );
+      }
+    }else if (file.fieldname === "logoDark") {
+      const allowedFileTypes = /jpeg|jpg|png/;
+      const mimeType = allowedFileTypes.test(file.mimetype);
+      const extName = allowedFileTypes.test(
+        path.extname(file.originalname).toLowerCase()
+      );
+      if (mimeType && extName) {
+        cb(null, true);
+      } else {
+        cb(
+          new Error(
+            "Only JPEG, JPG, or PNG files are allowed for employee photos"
+          )
+        );
+      }
+    }else if (file.fieldname === "logoLight") {
+      const allowedFileTypes = /jpeg|jpg|png/;
+      const mimeType = allowedFileTypes.test(file.mimetype);
+      const extName = allowedFileTypes.test(
+        path.extname(file.originalname).toLowerCase()
+      );
+      if (mimeType && extName) {
+        cb(null, true);
+      } else {
+        cb(
+          new Error(
+            "Only JPEG, JPG, or PNG files are allowed for employee photos"
+          )
+        );
+      }
+    }else if (file.fieldname === "favicon") {
+      const allowedFileTypes = /jpeg|jpg|png/;
+      const mimeType = allowedFileTypes.test(file.mimetype);
+      const extName = allowedFileTypes.test(
+        path.extname(file.originalname).toLowerCase()
+      );
+      if (mimeType && extName) {
+        cb(null, true);
+      } else {
+        cb(
+          new Error(
+            "Only JPEG, JPG, or PNG files are allowed for favico  photos"
           )
         );
       }

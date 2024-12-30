@@ -1,12 +1,9 @@
-// Get all training records
 const Training = require('../../../models/TrainingList');
 
 const getAllTrainings = async (req, res) => {
     try {
-      // Fetch all training records from the database
       const trainings = await Training.find();
   
-      // Check if there are any trainings found
       if (trainings.length === 0) {
         return res.status(404).json({
           message: 'No training records found',
