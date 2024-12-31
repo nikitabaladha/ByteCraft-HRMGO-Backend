@@ -1,6 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const Middleware = require("../middleware/index.js");
+const upload = require("../controllers/uploadFiles");
+
+const uploadFiles = (req, res, next) => {
+  upload.fields([
+    { name: "profile", maxCount: 1 },
+    { name: "resume", maxCount: 1 },
+  ])(req, res, (err) => {
+    if (err) {
+      return next(err);
+    }
+    next();
+  });
+};
 
 // Controller imports
 const {
@@ -46,9 +59,9 @@ router.get("/get-all-job", Middleware, getAllJob);
 router.get("/get-all-jobs/:id", Middleware, getAllJobs);
 router.delete("/delete-job/:id", Middleware, deleteJob);
 router.put("/update-job/:id", Middleware, updateJob);
-router.post("/create-job-application", Middleware, createJobApplication);
+router.post("/create-job-application", uploadFiles, Middleware, createJobApplication);
 router.get("/get-all-job-application", Middleware, getAllJobApplications);
-router.get("/get-application/:id", Middleware, getJobApplicationById);
+router.get("/get-application/:id", uploadFiles, Middleware, getJobApplicationById);
 router.post("/create-job-onBoard", Middleware, createJobOnboarding);
 router.post("/create-interview-schedule", Middleware, createInterviewSchedule);
 router.put("/update-status/:id", Middleware, updateStatus)

@@ -7,6 +7,8 @@ const employeeResumeDir = "./Documents/employeeResume";
 const logoDarkDir = "./Images/logoDark"
 const logoLightDir = "./Images/logoLight"
 const faviconDir = "./Images/favicon"
+const profilePhotoDir = "./Images/profile";
+const resumeCertificateDir = "./Documents/resume";
 
 if (!fs.existsSync(employeePhotoDir)) {
   fs.mkdirSync(employeePhotoDir, { recursive: true });
@@ -26,6 +28,12 @@ if (!fs.existsSync(logoLightDir)) {
 if (!fs.existsSync(faviconDir)) {
   fs.mkdirSync(faviconDir, { recursive: true });
 }
+if (!fs.existsSync(profilePhotoDir)) {
+  fs.mkdirSync(profilePhotoDir, { recursive: true });
+}
+if (!fs.existsSync(resumeCertificateDir)) {
+  fs.mkdirSync(resumeCertificateDir, { recursive: true });
+}
 
 const upload = multer({
   storage: multer.diskStorage({
@@ -42,6 +50,10 @@ const upload = multer({
         cb(null, logoLightDir);
       }else if (file.fieldname === "favicon") {
         cb(null, faviconDir);
+      } else if (file.fieldname === "profile") {
+        cb(null, profilePhotoDir);
+      } else if (file.fieldname === "resume") {
+        cb(null, resumeCertificateDir);
       } else {
         cb(new Error("Invalid file fieldname"));
       }
@@ -150,6 +162,32 @@ const upload = multer({
             "Only JPEG, JPG, or PNG files are allowed for favico  photos"
           )
         );
+      }
+    }else if (file.fieldname === "profile") {
+      const allowedFileTypes = /jpeg|jpg|png/;
+      const mimeType = allowedFileTypes.test(file.mimetype);
+      const extName = allowedFileTypes.test(
+        path.extname(file.originalname).toLowerCase()
+      );
+      if (mimeType && extName) {
+        cb(null, true);
+      } else {
+        cb(
+          new Error(
+            "Only JPEG, JPG, or PNG files are allowed for employee photos"
+          )
+        );
+      }
+    } else if (file.fieldname === "resume") {
+      const allowedFileTypes = /application\/pdf/;
+      const mimeType = allowedFileTypes.test(file.mimetype);
+
+      console.log("PDF upload - MIME Type:", file.mimetype);
+
+      if (mimeType) {
+        cb(null, true);
+      } else {
+        cb(new Error("Only PDF files are allowed for employee certificates"));
       }
     } else {
       cb(new Error("Invalid file fieldname"));

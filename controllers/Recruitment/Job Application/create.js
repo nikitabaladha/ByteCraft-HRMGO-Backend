@@ -16,11 +16,29 @@ const createJobApplication = async (req, res) => {
       state,
       country,
       zipCode,
-      profile,
-      resume,
       coverLetter,
       customQuestions,
     } = req.body;
+
+    if (!req.files || !req.files.profile) {
+      return res.status(400).json({
+        hasError: true,
+        message: "Employee Photo is required.",
+      });
+    }
+
+    if (!req.files || !req.files.resume) {
+      return res.status(400).json({
+        hasError: true,
+        message: "Employee Resume is required.",
+      });
+    }
+
+    const profileImagePath = "/Images/profile";
+    const profile = `${profileImagePath}/${req.files.profile[0].filename}`;
+
+    const resumeResumePath = "/Documents/resume";
+    const resume = `${resumeResumePath}/${req.files.resume[0].filename}`;
 
     // Create a new job application
     const newApplication = new JobApplication({
