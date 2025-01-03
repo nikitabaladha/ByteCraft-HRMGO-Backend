@@ -10,12 +10,10 @@ const createLoanValidator = Joi.object({
     'string.empty': 'Employee Name is required.',
   }),
   loanOption: Joi.string()
-    .valid('Health Insurance', 'Other Insurance', 'Personal Loan')
     .required()
     .messages({
       'string.base': 'Loan Option must be a string.',
       'string.empty': 'Loan Option is required.',
-      'any.only': 'Loan Option must be either "Health Insurance", "Other Insurance" or "Personal Loan".',
     }),
   title: Joi.string().required().messages({
     'string.base': 'Title must be a string.',

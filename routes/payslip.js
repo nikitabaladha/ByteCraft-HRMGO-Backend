@@ -9,14 +9,16 @@ const {
     createPayslip,
     getAllPayslip,
     payslipupdatestatus,
-    updatestatusinactive
+    updatestatusinactive,
+    getaddress
 } = require("../controllers/Payroll/index.js");
 const middleware = require("../middleware/index.js");
 
 // Define routes
 router.post("/payslip", Middleware, createPayslip);              
 router.get("/payslip-get-all", Middleware, getAllPayslip);  
-router.put("/payslipupdatestatus/:id",Middleware,payslipupdatestatus)   
-router.put("/update-status-delete/:id",middleware,updatestatusinactive)   
+router.put("/payslipupdatestatus/:id",Middleware,payslipupdatestatus);
+router.put("/update-status-delete/:id",middleware,updatestatusinactive);
+router.get("/get-company-setting", Middleware, getaddress); 
 
 module.exports = router;

@@ -27,5 +27,5 @@ async function checkMeetingStatus() {
   }
 }
 
-// Run the status check every minute
+
 setInterval(checkMeetingStatus, 1000);

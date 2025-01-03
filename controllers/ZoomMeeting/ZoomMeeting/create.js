@@ -63,24 +63,24 @@ async function createZoomMeeting(req, res) {
 
     const { title, employeeNames, start_date, duration, password } = req.body;
 
-    // Step 1: Set up Zoom API request data
-    const zoomApiUrl = "https://api.zoom.us/v2/users/me/meetings"; // Use 'me' for the authenticated user
+
+    const zoomApiUrl = "https://api.zoom.us/v2/users/me/meetings"; 
 
     const zoomPayload = {
       topic: title,
-      type: 2, // Scheduled meeting
+      type: 2, 
       start_time: new Date(start_date).toISOString(),
-      duration: duration, // Duration in minutes
+      duration: duration,
       password: password || "",
       settings: {
         join_before_host: true,
         mute_upon_entry: true,
-        approval_type: 0, // Automatically approve
+        approval_type: 0,
       },
     };
 
-    // Step 2: Use OAuth token in the authorization header
-    const authToken = "eyJzdiI6IjAwMDAwMiIsImFsZyI6IkhTNTEyIiwidiI6IjIuMCIsImtpZCI6IjNiZmNkMjYyLTVmMjAtNDM1MS1hNDA4LWQzMjM0MGE1NjM0NiJ9.eyJhdWQiOiJodHRwczovL29hdXRoLnpvb20udXMiLCJ1aWQiOiItU3dNYjd4YVRHU3poRWo3R3Btbl9RIiwidmVyIjoxMCwiYXVpZCI6ImUxNGMwMGUxOThiMjBkOTg4NGU0NGRiNTA2MDVlMThiYWRiYjlkYThkYjliYTQzN2FiNDIwOTdlMzUwODEzMjciLCJuYmYiOjE3MzM5MDk2NjEsImNvZGUiOiJoM0JsNi1oaVFHaTlMVE9iUFk5d2F3RW1KMk9RVlczMEciLCJpc3MiOiJ6bTpjaWQ6TXdLczJKVFN6ZVlfZVVNUEdvVTNRIiwiZ25vIjowLCJleHAiOjE3MzM5MTMyNjEsInR5cGUiOjMsImlhdCI6MTczMzkwOTY2MSwiYWlkIjoiVng1eS1QOE9TZjJZUnFmODFBdXdQUSJ9.BhH3lkvw9tjoi8OmGyk6Vrc64ol6o_vTsrc4U4gECEziq6sHrULjQSAN7cvytNc3j4EZX_UUufj6PnhVjPb39Q"; // Replace with your valid OAuth access token
+
+    const authToken = "eyJzdiI6IjAwMDAwMiIsImFsZyI6IkhTNTEyIiwidiI6IjIuMCIsImtpZCI6IjlmYjA5NTI5LWYzMjctNDAyMS1hMGE0LWQxNTA4MTMyMThmYiJ9.eyJhdWQiOiJodHRwczovL29hdXRoLnpvb20udXMiLCJ1aWQiOiItU3dNYjd4YVRHU3poRWo3R3Btbl9RIiwidmVyIjoxMCwiYXVpZCI6ImUxNGMwMGUxOThiMjBkOTg4NGU0NGRiNTA2MDVlMThiYWRiYjlkYThkYjliYTQzN2FiNDIwOTdlMzUwODEzMjciLCJuYmYiOjE3MzUxODYxNzcsImNvZGUiOiJNQWRMczFmaVRuQ01ZT01PMWUxMG1nTU5PWFRvMzQ4ODYiLCJpc3MiOiJ6bTpjaWQ6TXdLczJKVFN6ZVlfZVVNUEdvVTNRIiwiZ25vIjowLCJleHAiOjE3MzUxODk3NzcsInR5cGUiOjMsImlhdCI6MTczNTE4NjE3NywiYWlkIjoiVng1eS1QOE9TZjJZUnFmODFBdXdQUSJ9.k4h4QGCtnkmJPLUJL1s3DajcXHlLLxGHvCFVdxx5edx87AXjGicvpMgi7V1XZHnanbzsM6hMVrdMfUq2u8mEDw"; // Replace with your valid OAuth access token
 
     const zoomResponse = await axios.post(zoomApiUrl, zoomPayload, {
       headers: {
@@ -91,7 +91,7 @@ async function createZoomMeeting(req, res) {
 
     const zoomMeetingData = zoomResponse.data;
 
-    // Step 3: Save meeting details in your database
+
     const newZoomMeeting = new ZoomMeeting({
       title,
       employeeNames,
@@ -100,7 +100,7 @@ async function createZoomMeeting(req, res) {
       password: zoomMeetingData.password,
       join_url: zoomMeetingData.join_url,
       meeting_code: zoomMeetingData.id,
-      status: "Waiting", // Assuming status is 'Waiting' when created
+      status: "Waiting",
     });
 
     await newZoomMeeting.save();

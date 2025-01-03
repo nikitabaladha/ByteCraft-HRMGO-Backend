@@ -60,6 +60,7 @@ const depositValidationSchema = Joi.object({
   description: Joi.string()
     .trim()
     .max(1000)
+    .allow('')
     .optional()
     .messages({
       'string.max': 'Description cannot exceed 1000 characters',

@@ -13,7 +13,6 @@ const taxSchema = new mongoose.Schema(
     },
     taxes: {
       type: String,
-      enum: ['GST', 'IGST', 'SGST'],
       required: true,
     },
     title: {

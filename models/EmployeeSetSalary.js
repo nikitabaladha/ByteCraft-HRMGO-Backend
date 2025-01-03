@@ -10,7 +10,6 @@ const salarySchema = new mongoose.Schema(
     },
     salaryType: {
       type: String,
-      enum: ['Monthly Payslip', 'Hourly Payslip'],
       required: true,
     },
     salary: {

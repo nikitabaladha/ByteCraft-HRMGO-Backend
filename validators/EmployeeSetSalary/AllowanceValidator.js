@@ -10,12 +10,10 @@ const createAllowanceValidator = Joi.object({
     'string.empty': 'Employee Name is required.',
   }),
   allowanceOption: Joi.string()
-    .valid('Taxable', 'Non Taxable')
     .required()
     .messages({
       'string.base': 'Allowance Option must be a string.',
       'string.empty': 'Allowance Option is required.',
-      'any.only': 'Allowance Option must be either "Taxable" or "Non Taxable".',
     }),
   title: Joi.string().required().messages({
     'string.base': 'Title must be a string.',

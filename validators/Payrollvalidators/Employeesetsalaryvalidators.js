@@ -10,10 +10,8 @@ const salarySchema = Joi.object({
       'any.required': 'Employee ID is required',
     }),
   salaryType: Joi.string()
-    .valid('Monthly Payslip', 'Hourly Payslip')
     .required()
     .messages({
-      'any.only': 'Salary type must be either "Monthly Payslip" or "Hourly Payslip"',
       'string.empty': 'Salary type is required',
       'any.required': 'Salary type is required',
     }),

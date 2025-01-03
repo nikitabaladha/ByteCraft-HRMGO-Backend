@@ -13,7 +13,6 @@ const loanSchema = new mongoose.Schema(
     },
     loanOption: {
       type: String,
-      enum: ['Health Insurance', 'Other Insurance', 'Personal Loan'],  
       required: true,
     },
     title: {

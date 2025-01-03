@@ -37,6 +37,7 @@ const updatestatus=require('./EmployeeSetSalary/updatestatus');
 const updatestatusinactive=require('./EmployeeSetSalary/updatestatusinactive');
 const updategenratepayslipdate=require('./EmployeeSetSalary/genratepayslipdate');
 const getGrandTotal=require('./EmployeeSetSalary/getgrandtotal');
+const getaddress=require('./Payslip/getaddress');
 
 
 module.exports = {
@@ -76,7 +77,8 @@ module.exports = {
    updatestatus,
    updatestatusinactive,
    updategenratepayslipdate,
-   getGrandTotal
+   getGrandTotal,
+   getaddress
 
 };
 

@@ -10,12 +10,10 @@ const createTaxValidator = Joi.object({
     'string.empty': 'Employee Name is required.',
   }),
   taxes: Joi.string()
-    .valid('GST', 'IGST', 'SGST')
     .required()
     .messages({
       'string.base': 'Taxes must be a string.',
       'string.empty': 'Taxes is required.',
-      'any.only': 'Taxes must be either "GST", "IGST", or "SGST".',
     }),
   title: Joi.string().required().messages({
     'string.base': 'Title must be a string.',

@@ -18,10 +18,9 @@ const transferBalanceValidationSchema = Joi.object({
     'number.positive': 'Amount must be a positive number',
     'any.required': 'Amount is required',
   }),
-  paymentTypeId: Joi.string().valid('Cash', 'Bank').required().messages({
+  paymentTypeId: Joi.string().required().messages({
     'string.base': 'Payment Method is required',
     'any.required': 'Payment Method is required',
-    'any.only': 'Payment Method must be either Cash or Bank',
   }),
   referalId: Joi.number()
   .integer()
@@ -32,7 +31,7 @@ const transferBalanceValidationSchema = Joi.object({
     'number.min': 'Referral ID cannot be negative',
     'any.required': 'Referral ID is required',
   }),
-  description: Joi.string().optional().messages({
+  description: Joi.string().optional().allow('').messages({
     'string.base': 'Description should be a string',
   }),
 });

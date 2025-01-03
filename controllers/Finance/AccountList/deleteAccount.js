@@ -1,29 +1,28 @@
-const Account = require('../../../models/Finance'); // Assuming your MongoDB Account model is here
+const Account = require('../../../models/Finance'); 
 
-// Delete an account by ID
+
 async function deleteAccount(req, res) {
-  const { id } = req.params; // Get the account ID from the request parameters
+  const { id } = req.params; 
 
   try {
-    // Find and delete the account by ID
+  
     const deletedAccount = await Account.findByIdAndDelete(id);
 
-    // If no account is found, return a 404 response
+
     if (!deletedAccount) {
       return res.status(404).json({
         message: 'Account not found',
       });
     }
 
-    // Send success response
     res.status(200).json({
       message: 'Account deleted successfully',
-      data: deletedAccount, // Include the deleted account data if needed
+      data: deletedAccount,
     });
   } catch (error) {
     console.error(error);
 
-    // Generic server error response
+  
     res.status(500).json({
       message: 'An error occurred while deleting the account',
       error: error.message,
@@ -31,4 +30,4 @@ async function deleteAccount(req, res) {
   }
 }
 
-module.exports = deleteAccount; // Export the delete function
+module.exports = deleteAccount; 

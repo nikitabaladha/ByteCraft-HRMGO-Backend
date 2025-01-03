@@ -1,34 +1,34 @@
-const Expense = require('../../../models/Expense'); // Changed to Expense model
+const Expense = require('../../../models/Expense'); 
 
-// Delete an expense account by ID
+
 async function deleteExpense(req, res) {
-  const { id } = req.params; // Get the account ID from the request parameters
+  const { id } = req.params; 
 
   try {
-    // Find and delete the expense account by ID
-    const deletedExpense = await Expense.findByIdAndDelete(id); // Changed Deposit to Expense
+  
+    const deletedExpense = await Expense.findByIdAndDelete(id); 
 
-    // If no expense account is found, return a 404 response
+ 
     if (!deletedExpense) {
       return res.status(404).json({
-        message: 'Expense not found', // Changed Deposit to Expense
+        message: 'Expense not found',
       });
     }
 
-    // Send success response
+
     res.status(200).json({
-      message: 'Expense deleted successfully', // Changed Deposit to Expense
-      data: deletedExpense, // Include the deleted expense data if needed
+      message: 'Expense deleted successfully', 
+      data: deletedExpense, 
     });
   } catch (error) {
     console.error(error);
 
-    // Generic server error response
+
     res.status(500).json({
-      message: 'An error occurred while deleting the expense', // Changed Deposit to Expense
+      message: 'An error occurred while deleting the expense', 
       error: error.message,
     });
   }
 }
 
-module.exports = deleteExpense; // Export deleteExpense instead of deletedeposit
+module.exports = deleteExpense; 

@@ -1,6 +1,5 @@
 const Joi = require('joi');
 
-// Define the Joi schema for validation
 const expenseValidationSchema = Joi.object({
   account_name: Joi.string()
     .trim()
@@ -32,7 +31,7 @@ const expenseValidationSchema = Joi.object({
       'string.empty': 'Category is required',
       'string.max': 'Category cannot exceed 50 characters',
     }),
-  payee_name: Joi.string()  // Changed from payer_name to payee_name
+  payee_name: Joi.string() 
     .trim()
     .max(100)
     .required()
@@ -60,11 +59,12 @@ const expenseValidationSchema = Joi.object({
   description: Joi.string()
     .trim()
     .max(1000)
+    .allow('')
     .optional()
     .messages({
       'string.max': 'Description cannot exceed 1000 characters',
     }),
 });
 
-// Export the validation function
+
 module.exports = expenseValidationSchema;

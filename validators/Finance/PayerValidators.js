@@ -1,7 +1,7 @@
 // validation/payeeValidation.js
 const Joi = require('joi');
 
-// Joi validation schema for the Payee form
+
 const payerValidationSchema = Joi.object({
   payer_name: Joi.string().min(3).required().messages({
     'string.empty': 'Payer Name is required',

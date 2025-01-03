@@ -21,8 +21,7 @@ const transferBalanceSchema = new mongoose.Schema({
   },
   paymentTypeId: {
     type: String,
-    required: true,
-    enum: ['Cash', 'Bank'], 
+    required: true, 
   },
   referalId: {
     type: Number,

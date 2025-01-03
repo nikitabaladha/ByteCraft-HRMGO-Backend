@@ -2,10 +2,10 @@ const ZoomMeeting = require("../../../models/ZoomMeeting");
 
 async function updateMeetingStatus(req, res) {
   try {
-    const { meetingId } = req.params; // Extract meetingId from the URL params
-    const { status } = req.body; // Extract status from the request body
+    const { meetingId } = req.params; 
+    const { status } = req.body; 
 
-    // Validate that the status is valid
+  
     const validStatuses = ["Waiting", "Starting", "Ended"];
     if (!validStatuses.includes(status)) {
       return res.status(400).json({
@@ -14,11 +14,11 @@ async function updateMeetingStatus(req, res) {
       });
     }
 
-    // Find and update the meeting status
+    
     const updatedMeeting = await ZoomMeeting.findByIdAndUpdate(
       meetingId,
-      { status }, // Update the status field
-      { new: true } // Return the updated document
+      { status }, 
+      { new: true } 
     );
 
     if (!updatedMeeting) {
@@ -30,7 +30,7 @@ async function updateMeetingStatus(req, res) {
 
     return res.status(200).json({
       message: "Meeting status updated successfully!",
-      meeting: updatedMeeting, // Return the updated meeting data
+      meeting: updatedMeeting, 
       hasError: false,
     });
   } catch (error) {

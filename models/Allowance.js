@@ -13,7 +13,6 @@ const allowanceSchema = new mongoose.Schema(
     },
     allowanceOption: {
       type: String,
-      enum: ['Taxable', 'Non Taxable'], 
       required: true,
     },
     title: {

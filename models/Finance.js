@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// Define Account schema
+
 const accountSchema = new mongoose.Schema({
   account_name: {
     type: String,
@@ -31,7 +31,7 @@ const accountSchema = new mongoose.Schema({
   timestamps: true, 
 });
 
-// Create Account model
+
 const Account = mongoose.model('Account', accountSchema);
 
 module.exports = Account;
