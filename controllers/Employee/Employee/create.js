@@ -121,6 +121,13 @@ async function create(req, res) {
       hasError: false,
     });
   } catch (error) {
+    if (error.code === 11000) {
+      return res.status(400).json({
+        hasError: true,
+        message: `An employee with the email "${email}" already exists in the specified branch, department, and designation.`,
+      });
+    }
+
     console.error("Error creating employee:", error);
     return res.status(500).json({
       message: "Failed to create employee.",

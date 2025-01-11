@@ -5,9 +5,9 @@ async function updateById(req, res) {
   try {
     const { id } = req.params;
 
+    // Validate the request body
     const { error } =
       AnnouncementValidator.AnnouncementUpdateValidator.validate(req.body);
-
     if (error?.details?.length) {
       const errorMessages = error.details.map((err) => err.message).join(", ");
       return res.status(400).json({ message: errorMessages });
@@ -23,6 +23,7 @@ async function updateById(req, res) {
       description,
     } = req.body;
 
+    // Find the existing announcement
     const announcement = await Announcement.findById(id);
     if (!announcement) {
       return res
@@ -44,11 +45,11 @@ async function updateById(req, res) {
         : [employeeId];
 
       const combinedEmployeeIds = [
-        ...announcement.employeeId,
+        ...(announcement.employeeId || []),
         ...newEmployeeIds,
       ];
 
-      announcement.employeeId = Array.from(new Set(combinedEmployeeIds));
+      announcement.employeeId = [...new Set(combinedEmployeeIds)].sort();
     }
 
     const updatedAnnouncement = await announcement.save();

@@ -1,16 +1,10 @@
 const Joi = require("joi");
 
 const signupValidationSchema = Joi.object({
-  firstName: Joi.string().required().messages({
+  name: Joi.string().required().messages({
     "string.base": "First name must be a string.",
     "string.empty": "First name cannot be empty.",
     "any.required": "First name is required.",
-  }),
-
-  lastName: Joi.string().required().messages({
-    "string.base": "Last name must be a string.",
-    "string.empty": "Last name cannot be empty.",
-    "any.required": "Last name is required.",
   }),
 
   email: Joi.string().email().required().messages({

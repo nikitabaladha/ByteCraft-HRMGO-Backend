@@ -81,7 +81,7 @@ async function update(req, res) {
     return res.status(200).json({
       hasError: false,
       message: "Employee updated successfully!",
-      employee: existingEmployee,
+      data: existingEmployee,
     });
   } catch (error) {
     console.error("Error updating employee:", error);
