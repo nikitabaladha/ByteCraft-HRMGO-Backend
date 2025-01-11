@@ -2,7 +2,7 @@ const Award = require("../../../models/Award");
 
 async function getAll(req, res) {
   try {
-    const awards = await Award.find().populate("employeeId", "name");
+    const awards = await Award.find().populate("employeeId", "name", "id");
 
     if (!awards.length) {
       return res.status(404).json({

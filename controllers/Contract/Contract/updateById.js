@@ -1,6 +1,6 @@
 const ContractValidator = require("../../../validators/ContractValidators/ContractValidator");
 const Contract = require("../../../models/Contract");
-
+const getAll = require("./getAll");
 async function updateById(req, res) {
   try {
     const { id } = req.params;
@@ -40,11 +40,7 @@ async function updateById(req, res) {
 
     await contract.save();
 
-    return res.status(200).json({
-      hasError: false,
-      message: "Contract updated successfully",
-      data: contract,
-    });
+    return getAll(req, res);
   } catch (error) {
     console.error("Error updating contract:", error.message);
     return res.status(500).json({ message: "Server error" });

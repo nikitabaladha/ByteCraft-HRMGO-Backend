@@ -109,7 +109,14 @@ async function create(req, res) {
       hasError: false,
     });
   } catch (error) {
-    console.error(error);
+    if (error.code === 11000) {
+      return res.status(409).json({
+        message: "Duplicate appraisal data detected. Please check your input.",
+        hasError: true,
+        error: error.keyValue,
+      });
+    }
+    console.error("Server error:", error);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 }

@@ -27,11 +27,11 @@ async function getByQuery(req, res) {
       designationId,
       createdAt: { $gte: startDate, $lte: endDate },
     })
-      .select("competencies _id")
-      .populate("branchId", "name")
-      .populate("departmentId", "name")
-      .populate("designationId", "name")
-      .populate("addedById", "fullName email");
+      .select("competencies overAllRating _id")
+      .populate("branchId", "branchName")
+      .populate("departmentId", "departmentName")
+      .populate("designationId", "designationName")
+      .populate("addedById", "name email");
 
     if (!indicator) {
       return res.status(404).json({
@@ -39,11 +39,25 @@ async function getByQuery(req, res) {
       });
     }
 
+    // Calculate overall rating
+    const competencies = indicator.competencies;
+    const allRatings = [];
+
+    for (const category of Object.values(competencies)) {
+      category.forEach((comp) => allRatings.push(comp.rating));
+    }
+    const overallRating =
+      allRatings.reduce((sum, rating) => sum + rating, 0) / allRatings.length;
+
     res.status(200).json({
       message: "Indicator fetched successfully",
       data: {
-        competencies: indicator.competencies,
+        competencies,
         _id: indicator._id,
+        branchName: indicator.branchId.branchName,
+        departmentName: indicator.departmentId.departmentName,
+        designationName: indicator.designationId.designationName,
+        targetRating: indicator.overAllRating,
       },
       hasError: false,
     });

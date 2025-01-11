@@ -9,7 +9,7 @@ async function getById(req, res) {
       .populate("employeeId", "name")
       .populate({
         path: "indicatorId",
-        select: "competencies",
+        select: "competencies overAllRating",
       })
       .select("-__v");
 
@@ -19,11 +19,13 @@ async function getById(req, res) {
 
     const appraisalData = {
       id: appraisal._id,
-      branch: appraisal.branchId?.branchName,
-      employee: appraisal.employeeId?.name,
-      appraisalDate: appraisal.appraisalDate,
-      appraisalCompetencies: appraisal.appraisalCompetencies,
-      indicatorCompetencies: appraisal.indicatorId?.competencies,
+      branch: appraisal.branchId?.branchName || "N/A",
+      employee: appraisal.employeeId?.name || "N/A",
+      overAllRating: appraisal.overAllRating || null,
+      targetRating: appraisal.indicatorId?.overAllRating || null,
+      appraisalDate: appraisal.appraisalDate || null,
+      appraisalCompetencies: appraisal.appraisalCompetencies || [],
+      indicatorCompetencies: appraisal.indicatorId?.competencies || [],
     };
 
     return res.status(200).json({

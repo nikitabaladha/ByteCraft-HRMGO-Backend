@@ -84,15 +84,12 @@ const indicatorSchema = new mongoose.Schema(
 
     overAllRating: {
       type: Number,
-      // required: true,
       min: 0,
       max: 5,
       set: (v) => Math.round(v * 100) / 100,
     },
     createdAt: {
       type: Date,
-
-      // default: Date.now,
     },
   },
   {
@@ -102,13 +99,12 @@ const indicatorSchema = new mongoose.Schema(
 
 indicatorSchema.pre("save", function (next) {
   if (!this.createdAt) {
-    this.createdAt = new Date(); // Set createdAt to current date if not provided
+    this.createdAt = new Date();
   }
-  this.createdAt.setUTCHours(0, 0, 0, 0); // Truncate time part
+  this.createdAt.setUTCHours(0, 0, 0, 0);
   next();
 });
 
-// Define a unique index on the combination of fields
 indicatorSchema.index(
   {
     branchId: 1,

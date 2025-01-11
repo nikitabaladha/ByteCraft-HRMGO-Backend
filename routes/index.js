@@ -1,8 +1,3 @@
-const Middleware = require("../middleware/index.js");
-
-const updateUserDetails = require("../controllers/User/updateUserDetails");
-const getUserDetails = require("../controllers/User/getUserDetails");
-
 const signup = require("../controllers/User/signup");
 const login = require("../controllers/User/login");
 
@@ -10,6 +5,8 @@ const meetingRoutes = require("./meeting");
 const attendanceRoutes = require("./attendance");
 const calendarRoutes = require("./calendar");
 const incomeExpenseChartRoutes = require("./incomeExpenseChart");
+const dashPayrollRoutes=require("./payroll");
+const accountStatementRoutes=require("./accountstatment")
 
 const branchRoutes = require("./branch");
 const departmentRoutes = require("./department");
@@ -27,23 +24,10 @@ const appraisalRoutes = require("./appraisal");
 
 const hrAdminSetupRoutes = require("./hrAdminSetup");
 const contractRoutes = require("./contract");
-const upload = require("../controllers/uploadFiles");
-
-const uploadFiles = (req, res, next) => {
-  upload.fields([{ name: "profileImage", maxCount: 1 }])(req, res, (err) => {
-    if (err) {
-      return next(err);
-    }
-    next();
-  });
-};
 
 module.exports = (app) => {
   app.post("/api/signup", signup);
   app.post("/api/login", login);
-
-  app.get("/api/get-user-details", Middleware, getUserDetails);
-  app.put("/api/update", uploadFiles, Middleware, updateUserDetails);
 
   app.use("/api", meetingRoutes);
 
@@ -76,4 +60,8 @@ module.exports = (app) => {
   app.use("/api", hrAdminSetupRoutes);
 
   app.use("/api", contractRoutes);
+
+  app.use("/api", dashPayrollRoutes);
+
+  app.use("/api", accountStatementRoutes);
 };

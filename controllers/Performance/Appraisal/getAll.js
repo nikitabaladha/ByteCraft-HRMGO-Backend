@@ -26,23 +26,27 @@ async function getAll(req, res) {
           },
         ],
       })
-      .populate("indicatorId", "overAllRating");
+      .populate({
+        path: "indicatorId",
+        select: "overAllRating competencies",
+      });
 
     const formattedResponse = appraisals.map((appraisal) => ({
-      appraisalId: appraisal._id,
-      branch: appraisal.employeeId.branchId.branchName,
-      department: appraisal.employeeId.departmentId.departmentName,
-      designation: appraisal.employeeId.designationId.designationName,
-      employee: appraisal.employeeId.name,
-      targetRating: appraisal.indicatorId
-        ? appraisal.indicatorId.overAllRating
-        : null,
-
-      overallRating: appraisal.overAllRating,
-      appraisalDate: appraisal.appraisalDate,
-      remarks: appraisal.remarks,
-      createdAt: appraisal.createdAt,
-      updatedAt: appraisal.updatedAt,
+      id: appraisal._id,
+      branch: appraisal.employeeId?.branchId?.branchName || "N/A",
+      department: appraisal.employeeId?.departmentId?.departmentName || "N/A",
+      designation:
+        appraisal.employeeId?.designationId?.designationName || "N/A",
+      employee: appraisal.employeeId?.name || "N/A",
+      indicatorId: appraisal.indicatorId?._id || null,
+      targetRating: appraisal.indicatorId?.overAllRating || null,
+      overAllRating: appraisal.overAllRating || null,
+      appraisalDate: appraisal.appraisalDate || null,
+      remarks: appraisal.remarks || null,
+      createdAt: appraisal.createdAt || null,
+      updatedAt: appraisal.updatedAt || null,
+      appraisalCompetencies: appraisal.appraisalCompetencies || null,
+      indicatorCompetencies: appraisal.indicatorId?.competencies || null,
     }));
 
     res.status(200).json({

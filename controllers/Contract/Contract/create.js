@@ -1,5 +1,6 @@
 const Contract = require("../../../models/Contract");
 const ContractValidator = require("../../../validators/ContractValidators/ContractValidator");
+const getAll = require("./getAll");
 
 async function create(req, res) {
   try {
@@ -48,11 +49,7 @@ async function create(req, res) {
 
     await newContract.save();
 
-    return res.status(201).json({
-      hasError: false,
-      message: "Contract created successfully!",
-      data: newContract,
-    });
+    return getAll(req, res);
   } catch (error) {
     console.error("Error during creating Contract:", error);
     return res.status(500).json({

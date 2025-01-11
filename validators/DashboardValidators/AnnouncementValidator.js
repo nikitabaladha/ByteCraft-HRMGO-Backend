@@ -1,27 +1,72 @@
 const Joi = require("joi");
 
-const AnnouncementValidator = Joi.object({
+const AnnouncementCreateValidator = Joi.object({
+  employeeId: Joi.alternatives()
+    .try(
+      Joi.string().required(),
+      Joi.array().items(Joi.string().required()).min(1)
+    )
+    .required()
+    .messages({
+      "any.required": "Employee is required.",
+      "array.min": "At least one Employee must be provided.",
+      "string.empty": "Employee  cannot be empty.",
+    }),
+  branchId: Joi.string().required().messages({
+    "any.required": "Branch is required.",
+    "string.empty": "Branch cannot be empty.",
+  }),
+  departmentId: Joi.string().required().messages({
+    "any.required": "Department is required.",
+    "string.empty": "Department cannot be empty.",
+  }),
   title: Joi.string().required().messages({
-    "string.base": "Title must be a string.",
+    "any.required": "Announcement title is required.",
     "string.empty": "Title cannot be empty.",
-    "any.required": "Title is required.",
   }),
-
-  startDate: Joi.date().required().messages({
-    "date.base": "Start date must be a valid date.",
-    "any.required": "Start date is required.",
+  startDate: Joi.date().iso().required().messages({
+    "any.required": "Announcement start date is required.",
+    "date.base": "Date must be a valid ISO date.",
   }),
-
-  endDate: Joi.date().required().messages({
-    "date.base": "End date must be a valid date.",
-    "any.required": "End date is required.",
+  endDate: Joi.date().iso().required().messages({
+    "any.required": "Announcement end date is required.",
+    "date.base": "Date must be a valid ISO date.",
   }),
-
-  description: Joi.string().required().messages({
-    "string.base": "Description must be a string.",
-    "string.empty": "Description cannot be empty.",
+  description: Joi.string().min(1).required().messages({
     "any.required": "Description is required.",
+    "string.empty": "Description cannot be empty.",
   }),
 });
 
-module.exports = AnnouncementValidator;
+const AnnouncementUpdateValidator = Joi.object({
+  employeeId: Joi.alternatives()
+    .try(
+      Joi.string().optional(),
+      Joi.array().items(Joi.string().required()).min(1)
+    )
+    .optional()
+    .messages({
+      "array.min": "At least one Employee must be provided.",
+      "string.empty": "Employee cannot be empty.",
+    }),
+  branchId: Joi.string().optional().messages({
+    "string.empty": "Branch cannot be empty.",
+  }),
+  departmentId: Joi.string().optional().messages({
+    "string.empty": "Department cannot be empty.",
+  }),
+  title: Joi.string().optional().messages({
+    "string.empty": "Announcement title cannot be empty.",
+  }),
+  startDate: Joi.date().iso().optional().messages({
+    "date.base": "Date must be a valid ISO date.",
+  }),
+  endDate: Joi.date().iso().optional().messages({
+    "date.base": "Date must be a valid ISO date.",
+  }),
+  description: Joi.string().min(1).optional().messages({
+    "string.empty": "Description cannot be empty.",
+  }),
+});
+
+module.exports = { AnnouncementCreateValidator, AnnouncementUpdateValidator };

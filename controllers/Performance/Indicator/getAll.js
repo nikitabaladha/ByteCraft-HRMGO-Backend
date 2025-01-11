@@ -10,7 +10,7 @@ async function getAll(req, res) {
       .populate("branchId", "branchName")
       .populate("departmentId", "departmentName")
       .populate("designationId", "designationName")
-      .populate("addedById", "firstName lastName")
+      .populate("addedById", "name")
       .select("-__v");
 
     if (indicators.length === 0) {
@@ -22,9 +22,7 @@ async function getAll(req, res) {
       branch: indicator.branchId?.branchName || "N/A",
       department: indicator.departmentId?.departmentName || "N/A",
       designation: indicator.designationId?.designationName || "N/A",
-      addedBy: indicator.addedById
-        ? `${indicator.addedById.firstName} ${indicator.addedById.lastName}`
-        : "N/A",
+      addedBy: indicator.addedById ? `${indicator.addedById.name}` : "N/A",
       competencies: indicator.competencies || {},
       overAllRating: indicator.overAllRating || 0,
       createdAt: indicator.createdAt,

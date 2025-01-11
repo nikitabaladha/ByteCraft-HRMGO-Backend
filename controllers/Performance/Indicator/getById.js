@@ -8,7 +8,7 @@ async function getById(req, res) {
       .populate("branchId", "branchName")
       .populate("departmentId", "departmentName")
       .populate("designationId", "designationName")
-      .populate("addedById", "firstName lastName")
+      .populate("addedById", "name")
       .select("-__v");
 
     if (!indicator) {
@@ -20,7 +20,7 @@ async function getById(req, res) {
       branch: indicator.branchId.branchName,
       department: indicator.departmentId.departmentName,
       designation: indicator.designationId.designationName,
-      addedBy: `${indicator.addedById.firstName} ${indicator.addedById.lastName}`,
+      addedBy: indicator.addedById.name,
       competencies: indicator.competencies,
       overAllRating: indicator.overAllRating,
       createdAt: indicator.createdAt,

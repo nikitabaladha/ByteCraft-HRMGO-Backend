@@ -44,12 +44,12 @@ async function getAllByDateType(req, res) {
           attendance.employeeId.departmentId.departmentName;
 
         const formattedDate = moment.utc(attendance.date).format("MMM D, YYYY");
-        const formattedClockIn = moment
-          .utc(attendance.clockIn)
-          .format("h:mm A");
-        const formattedClockOut = moment
-          .utc(attendance.clockOut)
-          .format("h:mm A");
+        const formattedClockIn = attendance.clockIn
+          ? moment.utc(attendance.clockIn).format("h:mm A")
+          : "00:00";
+        const formattedClockOut = attendance.clockOut
+          ? moment.utc(attendance.clockOut).format("h:mm A")
+          : "00:00";
 
         const formattedLate = attendance.late || "00:00:00";
         const formattedEarlyLeaving = attendance.earlyLeaving || "00:00:00";

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-// Define the schema for managing leaves with a reference to Employee
+
 const AwardSchema = new mongoose.Schema(
   {
     employeeId: {

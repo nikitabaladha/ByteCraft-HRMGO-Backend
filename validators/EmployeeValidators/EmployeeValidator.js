@@ -104,92 +104,77 @@ const EmployeeCreateValidator = Joi.object({
 });
 
 const EmployeeUpdateValidator = Joi.object({
-  name: Joi.string().required().messages({
+  name: Joi.string().optional().messages({
     "string.base": "Name must be a string.",
     "string.empty": "Name cannot be empty.",
-    "any.required": "Name is required.",
   }),
 
-  phone: Joi.string().required().messages({
+  phone: Joi.string().optional().messages({
     "string.base": "Phone must be a string.",
     "string.empty": "Phone cannot be empty.",
-    "any.required": "Phone is required.",
   }),
 
-  dateOfBirth: Joi.date().required().messages({
+  dateOfBirth: Joi.date().optional().messages({
     "date.base": "Date of Birth must be a valid date.",
-    "any.required": "Date of Birth is required.",
   }),
 
-  gender: Joi.string().valid("Male", "Female").required().messages({
+  gender: Joi.string().valid("Male", "Female").optional().messages({
     "string.base": "Gender must be a string.",
     "any.only": 'Gender must be either "Male" or "Female".',
-    "any.required": "Gender is required.",
   }),
 
-  address: Joi.string().required().messages({
+  address: Joi.string().messages({
     "string.base": "Address must be a string.",
     "string.empty": "Address cannot be empty.",
-    "any.required": "Address is required.",
   }),
 
-  branchId: Joi.string().required().messages({
+  branchId: Joi.string().optional().messages({
     "string.base": "Branch ID must be a string.",
     "string.empty": "Branch ID cannot be empty.",
-    "any.required": "Branch ID is required.",
   }),
 
-  departmentId: Joi.string().required().messages({
+  departmentId: Joi.string().optional().messages({
     "string.base": "Department ID must be a string.",
     "string.empty": "Department ID cannot be empty.",
-    "any.required": "Department ID is required.",
   }),
 
-  designationId: Joi.string().required().messages({
+  designationId: Joi.string().optional().messages({
     "string.base": "Designation ID must be a string.",
     "string.empty": "Designation ID cannot be empty.",
-    "any.required": "Designation ID is required.",
   }),
 
-  dateOfJoining: Joi.date().required().messages({
+  dateOfJoining: Joi.date().optional().messages({
     "date.base": "Date of Joining must be a valid date.",
-    "any.required": "Date of Joining is required.",
   }),
 
-  accountHolderName: Joi.string().required().messages({
+  accountHolderName: Joi.string().optional().messages({
     "string.base": "Account Holder Name must be a string.",
     "string.empty": "Account Holder Name cannot be empty.",
-    "any.required": "Account Holder Name is required.",
   }),
 
-  accountNumber: Joi.string().required().messages({
+  accountNumber: Joi.string().optional().messages({
     "string.base": "Account Number must be a string.",
     "string.empty": "Account Number cannot be empty.",
-    "any.required": "Account Number is required.",
   }),
 
-  bankName: Joi.string().required().messages({
+  bankName: Joi.string().optional().messages({
     "string.base": "Bank Name must be a string.",
     "string.empty": "Bank Name cannot be empty.",
-    "any.required": "Bank Name is required.",
   }),
 
-  bankIdentifierCode: Joi.string().required().messages({
+  bankIdentifierCode: Joi.string().optional().messages({
     "string.base": "Bank Identifier Code must be a string.",
     "string.empty": "Bank Identifier Code cannot be empty.",
-    "any.required": "Bank Identifier Code is required.",
   }),
 
-  branchLocation: Joi.string().required().messages({
+  branchLocation: Joi.string().optional().messages({
     "string.base": "Branch Location must be a string.",
     "string.empty": "Branch Location cannot be empty.",
-    "any.required": "Branch Location is required.",
   }),
 
-  taxPayerId: Joi.string().required().messages({
+  taxPayerId: Joi.string().optional().messages({
     "string.base": "Tax Payer ID must be a string.",
     "string.empty": "Tax Payer ID cannot be empty.",
-    "any.required": "Tax Payer ID is required.",
   }),
 });
 

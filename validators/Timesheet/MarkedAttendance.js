@@ -45,6 +45,23 @@ const MarkedAttendanceValidator = Joi.object({
     "string.base": "Overtime must be a string.",
     "string.empty": "Overtime cannot be empty.",
   }),
+  id: Joi.string().optional().messages({
+    "string.base": "Id must be a string.",
+  }),
 });
 
-module.exports = MarkedAttendanceValidator;
+const MarkedUpdateUpdateValidator = Joi.object({
+  clockIn: Joi.date().iso().required().messages({
+    "date.base": "Clock In must be a valid date.",
+    "date.iso": "Clock In must be in ISO format (YYYY-MM-DDTHH:mm:ssZ).",
+    "any.required": "Clock In is required.",
+  }),
+
+  clockOut: Joi.date().iso().required().messages({
+    "date.base": "Clock Out must be a valid date.",
+    "date.iso": "Clock Out must be in ISO format (YYYY-MM-DDTHH:mm:ssZ).",
+    "any.required": "Clock Out is required.",
+  }),
+});
+
+module.exports = { MarkedAttendanceValidator, MarkedUpdateUpdateValidator };

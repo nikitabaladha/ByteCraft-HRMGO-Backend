@@ -21,6 +21,7 @@ async function getAll(req, res) {
       resignationDate: resignation.resignationDate,
       lastWorkingDay: resignation.lastWorkingDay,
       reason: resignation.reason,
+      employeeId: resignation.employeeId?._id,
     }));
 
     return res.status(200).json({

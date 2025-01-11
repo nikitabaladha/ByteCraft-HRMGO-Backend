@@ -10,6 +10,11 @@ const getAllCalendar = require("./Calendar/getAll");
 const createIncomeExpenseChart = require("./IncomeExpenseChart/create");
 const getAllIncomeExpenseChart = require("./IncomeExpenseChart/getAll");
 
+const getAllByDatetype =require("./Payroll/getAllByDateType");
+
+const getAllAccountname=require("./AccountStatement/getAllAccountName");
+const getAccountBydate=require("./AccountStatement/getAllAccountbydate");
+
 module.exports = {
   createMeeting,
   getAllMeeting,
@@ -22,4 +27,9 @@ module.exports = {
 
   createIncomeExpenseChart,
   getAllIncomeExpenseChart,
+
+  getAllByDatetype,
+
+  getAllAccountname,
+  getAccountBydate
 };

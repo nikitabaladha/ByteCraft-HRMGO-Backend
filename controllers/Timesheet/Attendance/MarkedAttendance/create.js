@@ -18,7 +18,8 @@ async function create(req, res) {
     const createdRecords = [];
 
     for (const record of records) {
-      const { error, value } = MarkedAttendanceValidator.validate(record);
+      const { error, value } =
+        MarkedAttendanceValidator.MarkedAttendanceValidator.validate(record);
 
       if (error?.details?.length) {
         const errorMessages = error.details
@@ -27,18 +28,24 @@ async function create(req, res) {
         return res.status(400).json({ message: errorMessages });
       }
 
-      const { employeeId, date, status, clockIn, clockOut } = value;
+      const { employeeId, date, status, clockIn, clockOut, id } = value;
 
       const formattedDate = new Date(date);
       const formattedClockIn = new Date(clockIn);
       const formattedClockOut = new Date(clockOut);
 
-      const existingAttendance = await MarkedAttendance.findOne({
-        employeeId,
-        date: formattedDate,
-      });
+      const whereFilter = id
+        ? { _id: id }
+        : { employeeId, date: formattedDate };
 
-      if (existingAttendance) {
+      const existingAttendance = await MarkedAttendance.findOne(whereFilter);
+
+      if (!existingAttendance && id) {
+        console.log("Request for update attendance that is not exist");
+        continue;
+      }
+
+      if (existingAttendance && !id) {
         console.log(
           `Attendance already exists for ${employeeId} on ${formattedDate}`
         );
@@ -74,19 +81,25 @@ async function create(req, res) {
       const earlyLeaving = formatDuration(earlyLeavingDuration);
       const overtime = formatDuration(overtimeDuration);
 
-      const newMarkedAttendance = new MarkedAttendance({
+      const newMarkedAttendance = {
         employeeId,
         date: formattedDate,
         status,
-        clockIn: formattedClockIn,
-        clockOut: formattedClockOut,
+        clockIn: status === "Present" ? formattedClockIn : null,
+        clockOut: status === "Present" ? formattedClockOut : null,
         late,
         earlyLeaving,
         overtime,
         hrs: totalWorkingHours,
-      });
+        _id: id,
+      };
 
-      await newMarkedAttendance.save();
+      if (id) {
+        await MarkedAttendance.updateOne(
+          { _id: id },
+          { $set: newMarkedAttendance }
+        );
+      } else await MarkedAttendance.create(newMarkedAttendance);
       createdRecords.push(newMarkedAttendance);
     }
 

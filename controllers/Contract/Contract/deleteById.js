@@ -1,5 +1,6 @@
 // controllers/contract/delete.js
 const Contract = require("../../../models/Contract");
+const getAll = require("./getAll");
 
 async function deleteById(req, res) {
   try {
@@ -11,11 +12,7 @@ async function deleteById(req, res) {
       return res.status(404).json({ message: "Contract not found" });
     }
 
-    return res.status(200).json({
-      hasError: false,
-      message: "Contract deleted successfully",
-      data: contract,
-    });
+    return getAll(req, res);
   } catch (error) {
     console.error(error.message);
     return res.status(500).json({ message: "Server error" });

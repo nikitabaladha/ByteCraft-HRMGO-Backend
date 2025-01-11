@@ -6,8 +6,9 @@ const Designation = require("../../../models/Designation");
 
 async function create(req, res) {
   try {
-    const { branchId, departmentId, designationId, addedById, competencies } =
-      req.body;
+    const { branchId, departmentId, designationId, competencies } = req.body;
+
+    const addedById = req.user.id;
 
     const user = await User.findById(addedById);
 
@@ -99,7 +100,15 @@ async function create(req, res) {
       hasError: false,
     });
   } catch (error) {
-    console.error(error);
+    if (error.code === 11000) {
+      return res.status(409).json({
+        message:
+          "Duplicate Indicator data detected For the Same Month. Please check your input.",
+        hasError: true,
+        error: error.keyValue,
+      });
+    }
+    console.error("Server error:", error);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 }

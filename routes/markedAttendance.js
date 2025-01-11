@@ -9,9 +9,11 @@ const {
   getAllForCurrentMonth,
   getAttendance,
   getAllAttendance,
+  updateMarkedAttendance,
 } = require("../controllers/Timesheet");
 
 router.post("/marked-attendance", Middleware, createMarkedAttendance);
+router.put("/update-attendance", Middleware, updateMarkedAttendance);
 router.get(
   "/marked-attendance-get-all",
   Middleware,
