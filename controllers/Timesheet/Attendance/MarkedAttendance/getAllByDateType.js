@@ -56,6 +56,8 @@ async function getAllByDateType(req, res) {
         const formattedOvertime = attendance.overtime || "00:00:00";
 
         return {
+          id: attendance._id,
+          hours: attendance.hrs,
           employeeName,
           branchName,
           departmentName,

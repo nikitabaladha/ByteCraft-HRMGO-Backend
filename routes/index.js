@@ -5,8 +5,8 @@ const meetingRoutes = require("./meeting");
 const attendanceRoutes = require("./attendance");
 const calendarRoutes = require("./calendar");
 const incomeExpenseChartRoutes = require("./incomeExpenseChart");
-const dashPayrollRoutes=require("./payroll");
-const accountStatementRoutes=require("./accountstatment")
+const dashPayrollRoutes = require("./payroll");
+const accountStatementRoutes = require("./accountstatment");
 
 const branchRoutes = require("./branch");
 const departmentRoutes = require("./department");

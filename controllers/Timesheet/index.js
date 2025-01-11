@@ -15,6 +15,7 @@ const getAllForCurrentMonth = require("./Attendance/MarkedAttendance/getAllForCu
 const getAttendance = require("./Attendance/MarkedAttendance/getAttendance");
 const getAllAttendance = require("./Attendance/MarkedAttendance/getAll");
 const updateMarkedAttendance = require("./Attendance/MarkedAttendance/updateMarkedAttendance");
+const deleteMarkedAttendanceById = require("./Attendance/MarkedAttendance/deleteById");
 
 module.exports = {
   createManageLeave,
@@ -34,4 +35,5 @@ module.exports = {
   getAttendance,
   getAllAttendance,
   updateMarkedAttendance,
+  deleteMarkedAttendanceById,
 };

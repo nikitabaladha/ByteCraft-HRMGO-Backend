@@ -10,6 +10,7 @@ const {
   getAttendance,
   getAllAttendance,
   updateMarkedAttendance,
+  deleteMarkedAttendanceById,
 } = require("../controllers/Timesheet");
 
 router.post("/marked-attendance", Middleware, createMarkedAttendance);
@@ -31,5 +32,10 @@ router.get(
 );
 router.get("/marked-attendance-get-attendance", Middleware, getAttendance);
 router.get("/marked-attendance-get", Middleware, getAllAttendance);
+router.delete(
+  "/marked-attendance-delete/:id",
+  Middleware,
+  deleteMarkedAttendanceById
+);
 
 module.exports = router;

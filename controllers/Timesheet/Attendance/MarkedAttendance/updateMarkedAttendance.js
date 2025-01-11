@@ -14,12 +14,10 @@ function formatDuration(durationMs) {
 
 async function updateMarkedAttendance(req, res) {
   try {
-    // Ensure request supports batch or single update
     const records = Array.isArray(req.body) ? req.body : [req.body];
     const updatedRecords = [];
 
     for (const record of records) {
-      // Validate each record
       const { error, value } =
         MarkedAttendanceValidator.MarkedUpdateUpdateValidator.validate(record);
       if (error?.details?.length) {
