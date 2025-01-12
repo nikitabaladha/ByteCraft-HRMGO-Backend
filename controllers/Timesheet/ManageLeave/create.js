@@ -60,7 +60,7 @@ async function create(req, res) {
 
     return res.status(201).json({
       message: "ManageLeave created successfully!",
-      employee: newManageLeave,
+      data: newManageLeave,
       hasError: false,
     });
   } catch (error) {

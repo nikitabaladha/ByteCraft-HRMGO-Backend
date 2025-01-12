@@ -1,9 +1,9 @@
 const createManageLeave = require("./ManageLeave/create");
 const getAllManageLeave = require("./ManageLeave/getAll");
 const updateStatus = require("./ManageLeave/updateStatus");
-const updateStatusCancelled = require("./ManageLeave/updateStatusCancelled");
 const updateByLeaveId = require("./ManageLeave/updateByLeaveId");
 const getAllByQuery = require("./ManageLeave/getAllByQuery");
+const deleteLeaveById = require("./ManageLeave/deleteById");
 
 const createTimeSheet = require("./TimeSheet/create");
 const getAllTimeSheet = require("./TimeSheet/getAll");
@@ -21,9 +21,15 @@ module.exports = {
   createManageLeave,
   getAllManageLeave,
   updateStatus,
-  updateStatusCancelled,
   updateByLeaveId,
   getAllByQuery,
+  deleteLeaveById,
+
+  createTimeSheet,
+  getAllTimeSheet,
+
+  createMarkedAttendance,
+  getAllMarkedAttendanceByDateType,
 
   createTimeSheet,
   getAllTimeSheet,

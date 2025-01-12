@@ -16,7 +16,7 @@ const ManageLeaveSchema = new mongoose.Schema(
     reason: { type: String, required: true },
     status: {
       type: String,
-      enum: ["Approved", "Reject", "Pending", "Cancelled"],
+      enum: ["Approved", "Reject", "Pending"],
       default: "Pending",
     },
   },

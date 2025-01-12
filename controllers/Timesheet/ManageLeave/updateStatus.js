@@ -29,7 +29,7 @@ async function updateStatus(req, res) {
 
     return res.status(200).json({
       message: "Status updated successfully.",
-      leave: updatedLeave,
+      data: updatedLeave,
       hasError: false,
     });
   } catch (error) {

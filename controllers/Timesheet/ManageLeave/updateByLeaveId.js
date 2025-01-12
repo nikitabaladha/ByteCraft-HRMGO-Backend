@@ -52,7 +52,7 @@ async function updateByLeaveId(req, res) {
 
     return res.status(200).json({
       message: "ManageLeave updated successfully!",
-      leave: existingLeave,
+      data: existingLeave,
       hasError: false,
     });
   } catch (error) {
