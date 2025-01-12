@@ -19,13 +19,13 @@ const MarkedAttendanceValidator = Joi.object({
     "any.required": "Status is required.",
   }),
 
-  clockIn: Joi.date().iso().required().messages({
+  clockIn: Joi.date().iso().optional().messages({
     "date.base": "Clock In must be a valid date.",
     "date.iso": "Clock In must be in ISO format (YYYY-MM-DDTHH:mm:ssZ).",
     "any.required": "Clock In is required.",
   }),
 
-  clockOut: Joi.date().iso().required().messages({
+  clockOut: Joi.date().iso().optional().messages({
     "date.base": "Clock Out must be a valid date.",
     "date.iso": "Clock Out must be in ISO format (YYYY-MM-DDTHH:mm:ssZ).",
     "any.required": "Clock Out is required.",
@@ -51,13 +51,13 @@ const MarkedAttendanceValidator = Joi.object({
 });
 
 const MarkedUpdateUpdateValidator = Joi.object({
-  clockIn: Joi.date().iso().required().messages({
+  clockIn: Joi.date().iso().optional().messages({
     "date.base": "Clock In must be a valid date.",
     "date.iso": "Clock In must be in ISO format (YYYY-MM-DDTHH:mm:ssZ).",
     "any.required": "Clock In is required.",
   }),
 
-  clockOut: Joi.date().iso().required().messages({
+  clockOut: Joi.date().iso().optional().messages({
     "date.base": "Clock Out must be a valid date.",
     "date.iso": "Clock Out must be in ISO format (YYYY-MM-DDTHH:mm:ssZ).",
     "any.required": "Clock Out is required.",

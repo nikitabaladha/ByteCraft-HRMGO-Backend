@@ -19,11 +19,11 @@ const MarkedAttendanceSchema = new Schema(
     },
     clockIn: {
       type: Date,
-      required: true,
+      // required: true,
     },
     clockOut: {
       type: Date,
-      required: true,
+      // required: true,
     },
     late: {
       type: String,

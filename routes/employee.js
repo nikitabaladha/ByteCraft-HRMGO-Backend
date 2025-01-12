@@ -61,12 +61,18 @@ const {
   getByBranchDepartment,
   updateById,
   deleteById,
+  getFilteredEmployeesByMonth,
 } = require("../controllers/Employee");
 
 router.post("/employee", uploadFiles, Middleware, createEmployee);
 router.get("/employee-get-all", Middleware, getAllEmployee);
 router.get("/employee-get-all-name", Middleware, getAllName);
 router.get("/employee-get-filter", Middleware, getFilteredEmployees);
+router.get(
+  "/employee-get-filter-by-month",
+  Middleware,
+  getFilteredEmployeesByMonth
+);
 router.get(
   "/employee-get-by-branch-department",
   Middleware,
