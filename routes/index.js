@@ -2,6 +2,12 @@
 // const express = require("express");
 const signup = require("../controllers/User/signup");
 const login = require("../controllers/User/login");
+const userDetails = require("../controllers/User/UserGetById")
+const Middleware = require("../middleware/index.js");
+const updateUserDetails = require("../controllers/User/updateUser.js")
+const getAllUsers = require("../controllers/User/getAllUsers.js")
+const deleteUser = require("../controllers/User/deleteUser.js")
+const userUpdate = require("../controllers/User/updateUserDetails.js")
 
 const dashboardRoutes = require("./dashboard");
 const meetingRoutes = require("./meeting");
@@ -29,10 +35,30 @@ const appraisalRoutes = require("./appraisal");
 const traineeRoutes = require("./Trainee")
 const recruitmentCreateJob = require("./recruitment")
 const systemSetting = require("./systemSetting")
+const staffUserRoutes = require("./staffUser")
+const upload = require("../controllers/uploadFiles");
+
+const uploadFiles = (req, res, next) => {
+  console.log("Request files:", req.files);
+  upload.fields([
+    { name: "profileImage", maxCount: 1 },
+  ])(req, res, (err) => {
+    if (err) {
+      return next(err);
+    }
+    console.log("Uploaded files:", req.files);
+    next();
+  });
+};
 
 module.exports = (app) => {
   app.post("/api/signup", signup);
   app.post("/api/login", login);
+  app.get("/api/get-user-details", Middleware, userDetails)
+  app.put("/api/update", uploadFiles, Middleware,  updateUserDetails)
+  app.get("/api/get-all-users", Middleware, getAllUsers)
+  app.delete("/api/delete-user/:id", Middleware, deleteUser)
+  app.put("/api/update-user/:id", Middleware, userUpdate)
 
   app.use("/api", dashboardRoutes); // This mounts the dashboard routes
 
@@ -75,4 +101,6 @@ module.exports = (app) => {
   app.use("/api", recruitmentCreateJob);
 
   app.use("/api", systemSetting)
+
+  app.use("/api", staffUserRoutes)
 };

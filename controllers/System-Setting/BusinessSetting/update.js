@@ -1,6 +1,5 @@
-const BusinessSetting = require('../../../models/BusinessSetting');
+const BusinessSetting = require("../../../models/BusinessSetting");
 
-// Controller for updating a business setting
 const updateBusinessSetting = async (req, res) => {
   try {
     const { titleText, footerText } = req.body;
@@ -16,9 +15,8 @@ const updateBusinessSetting = async (req, res) => {
       }
       if (req.files.favicon) {
         existingSetting.favicon = `/Images/favicon/${req.files.favicon[0].filename}`;
-
+      }
     }
-  }
 
     if (existingSetting) {
       existingSetting.titleText = titleText || existingSetting.titleText;
@@ -27,7 +25,7 @@ const updateBusinessSetting = async (req, res) => {
       await existingSetting.save();
 
       return res.status(200).json({
-        message: 'Business setting updated successfully',
+        message: "Business setting updated successfully",
         data: existingSetting,
       });
     } else {
@@ -42,14 +40,14 @@ const updateBusinessSetting = async (req, res) => {
       await newBusinessSetting.save();
 
       return res.status(201).json({
-        message: 'Business setting created successfully',
+        message: "Business setting created successfully",
         data: newBusinessSetting,
       });
     }
   } catch (error) {
     console.error(error);
     return res.status(500).json({
-      message: 'Error updating business setting',
+      message: "Error updating business setting",
       error: error.message,
     });
   }

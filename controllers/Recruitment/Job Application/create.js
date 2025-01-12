@@ -20,25 +20,18 @@ const createJobApplication = async (req, res) => {
       customQuestions,
     } = req.body;
 
-    if (!req.files || !req.files.profile) {
-      return res.status(400).json({
-        hasError: true,
-        message: "Employee Photo is required.",
-      });
+    let profile = null;
+    let resume = null;
+
+    if (req.files && req.files.profile) {
+      const profileImagePath = "/Images/profile";
+      profile = `${profileImagePath}/${req.files.profile[0].filename}`;
     }
 
-    if (!req.files || !req.files.resume) {
-      return res.status(400).json({
-        hasError: true,
-        message: "Employee Resume is required.",
-      });
+    if (req.files && req.files.resume) {
+      const resumeResumePath = "/Documents/resume";
+      resume = `${resumeResumePath}/${req.files.resume[0].filename}`;
     }
-
-    const profileImagePath = "/Images/profile";
-    const profile = `${profileImagePath}/${req.files.profile[0].filename}`;
-
-    const resumeResumePath = "/Documents/resume";
-    const resume = `${resumeResumePath}/${req.files.resume[0].filename}`;
 
     // Create a new job application
     const newApplication = new JobApplication({
@@ -79,4 +72,4 @@ const createJobApplication = async (req, res) => {
   }
 };
 
-module.exports = createJobApplication
+module.exports = createJobApplication;

@@ -9,6 +9,7 @@ const logoLightDir = "./Images/logoLight"
 const faviconDir = "./Images/favicon"
 const profilePhotoDir = "./Images/profile";
 const resumeCertificateDir = "./Documents/resume";
+const profileImageDir = "./Images/profileImage";
 
 if (!fs.existsSync(employeePhotoDir)) {
   fs.mkdirSync(employeePhotoDir, { recursive: true });
@@ -34,6 +35,9 @@ if (!fs.existsSync(profilePhotoDir)) {
 if (!fs.existsSync(resumeCertificateDir)) {
   fs.mkdirSync(resumeCertificateDir, { recursive: true });
 }
+if (!fs.existsSync(profileImageDir)) {
+  fs.mkdirSync(profileImageDir, { recursive: true });
+}
 
 const upload = multer({
   storage: multer.diskStorage({
@@ -54,7 +58,9 @@ const upload = multer({
         cb(null, profilePhotoDir);
       } else if (file.fieldname === "resume") {
         cb(null, resumeCertificateDir);
-      } else {
+      } else if (file.fieldname === "profileImage") {
+        cb(null, profileImageDir);
+      }  else {
         cb(new Error("Invalid file fieldname"));
       }
     },
@@ -188,6 +194,21 @@ const upload = multer({
         cb(null, true);
       } else {
         cb(new Error("Only PDF files are allowed for employee certificates"));
+      }
+    }else if (file.fieldname === "profileImage") {
+      const allowedFileTypes = /jpeg|jpg|png/;
+      const mimeType = allowedFileTypes.test(file.mimetype);
+      const extName = allowedFileTypes.test(
+        path.extname(file.originalname).toLowerCase()
+      );
+      if (mimeType && extName) {
+        cb(null, true);
+      } else {
+        cb(
+          new Error(
+            "Only JPEG, JPG, or PNG files are allowed for employee photos"
+          )
+        );
       }
     } else {
       cb(new Error("Invalid file fieldname"));

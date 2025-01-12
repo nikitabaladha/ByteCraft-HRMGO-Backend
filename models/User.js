@@ -2,11 +2,7 @@ const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema(
   {
-    firstName: {
-      type: String,
-      required: true,
-    },
-    lastName: {
+    name: {
       type: String,
       required: true,
     },
@@ -15,17 +11,26 @@ const UserSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    profileImage:{
+      type: String,
+    },
     password: {
       type: String,
-      required: true,
+      // required: true,
+      required: function () {
+        return this.passwordSwitch === true;
+      },
+    },
+    passwordSwitch: {
+      type: Boolean,
+      default: false,
     },
     salt: {
       type: String,
-      required: true,
+      // required: true,
     },
     role: {
       type: String,
-      enum: ["company", "hr", "employee", "admin"],
       required: true,
     },
   },
