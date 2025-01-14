@@ -5,11 +5,11 @@ async function updateStatus(req, res) {
     const { id } = req.params;
     const { status } = req.body;
 
-    const validStatuses = ["Approved", "Reject", "Pending"];
+    const validStatuses = ["Approved", "Rejected", "Pending"];
     if (!validStatuses.includes(status)) {
       return res.status(400).json({
         message:
-          "Invalid status. Status must be one of: Approved, Reject, Pending.",
+          "Invalid status. Status must be one of: Approved, Rejected, Pending.",
         hasError: true,
       });
     }

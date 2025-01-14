@@ -15,16 +15,24 @@ async function getAllByQuery(req, res) {
 
     if (date) {
       if (type === "monthly") {
-        const startOfMonth = moment(date, "MM-YYYY")
+        const startOfMonth = moment(date, "YYYY-MM")
           .startOf("month")
           .toISOString();
-        const endOfMonth = moment(date, "MM-YYYY").endOf("month").toISOString();
+        const endOfMonth = moment(date, "YYYY-MM").endOf("month").toISOString();
         dateFilter["startDate"] = { $gte: startOfMonth, $lte: endOfMonth };
       } else if (type === "yearly") {
         const startOfYear = moment(date, "YYYY").startOf("year").toISOString();
         const endOfYear = moment(date, "YYYY").endOf("year").toISOString();
         dateFilter["startDate"] = { $gte: startOfYear, $lte: endOfYear };
+      } else {
+        return res
+          .status(400)
+          .json({ message: "Invalid type. Use 'monthly' or 'yearly'." });
       }
+    } else {
+      return res
+        .status(400)
+        .json({ message: "Date is required for filtering." });
     }
 
     const manageLeave = await ManageLeave.find(dateFilter)

@@ -5,7 +5,7 @@ const Middleware = require("../middleware/index.js");
 const {
   createBranch,
   getAllBranch,
-  getBranchById
+  getBranchById,
 } = require("../controllers/Branch-Department-Designation");
 
 router.post("/branch", Middleware, createBranch);

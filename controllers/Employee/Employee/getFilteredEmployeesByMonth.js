@@ -34,7 +34,7 @@ async function getFilteredEmployeesByMonth(req, res) {
       attendanceRecords = await MarkedAttendance.find({
         date: { $gte: startOfMonth, $lte: endOfMonth },
         employeeId: { $in: employees.map((employee) => employee._id) },
-      }).lean(); // Add .lean() to get plain JavaScript objects
+      }).lean();
     }
 
     const employeeData = employees.map((employee) => {
