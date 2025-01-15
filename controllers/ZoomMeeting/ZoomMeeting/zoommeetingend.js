@@ -1,5 +1,5 @@
 const axios = require("axios");
-const ZoomMeeting = require("./models/ZoomMeeting");
+const ZoomMeeting = require("./model/");
 
 async function checkMeetingStatus() {
   try {

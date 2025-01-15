@@ -1,11 +1,9 @@
-const Ticket = require("../../../models/Ticket");  // Assuming Ticket model is in this path
+const Ticket = require("../../../models/Ticket");
 const TicketReply = require("../../../models/TicketReply");
 const TicketValidator = require("../../../validators/Ticket/TicketReplyValidators");
 
-// Create Ticket Reply API
 async function createticketreply(req, res) {
   try {
-    // Validate the request body using Joi
     const { error } = TicketValidator.validate(req.body);
     if (error) {
       const errorMessages = error.details.map((err) => err.message).join(", ");
@@ -15,12 +13,16 @@ async function createticketreply(req, res) {
       });
     }
 
-    // Destructure the ticket reply data from the request body
-    const { description, attachment } = req.body;
-    const ticketId = req.body.ticketId;  // Assuming ticketId is passed in the body
+    const { description, ticketId } = req.body;
 
-    // Validate if the ticketId exists in the Ticket collection
-    const ticket = await Ticket.findById(ticketId);  // Lookup ticket by its ObjectId
+    let attachment = null;  
+
+    if (req.files && req.files.attachment) {
+      const TicketReplyImagePath = "/Images/ticketReplyAttachmentImages";
+      attachment = `${TicketReplyImagePath}/${req.files.attachment[0].filename}`;
+    }
+
+    const ticket = await Ticket.findById(ticketId);
     if (!ticket) {
       return res.status(404).json({
         message: "Ticket not found.",
@@ -28,14 +30,12 @@ async function createticketreply(req, res) {
       });
     }
 
-    // Create a new ticket reply object
     const newTicketReply = new TicketReply({
-      ticketId: ticket._id,  // Use the ticket's ObjectId for the reference
+      ticketId: ticket._id,
       description,
       attachment,
     });
 
-    // Save the new ticket reply
     await newTicketReply.save();
 
     return res.status(201).json({

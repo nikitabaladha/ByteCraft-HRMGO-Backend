@@ -1,14 +1,13 @@
 const Ticket = require("../../../models/TicketReply");
 const mongoose = require("mongoose");
 
-// Get all Ticket Replies, optionally filter by ticketId
 async function getticketreply(req, res) {
   try {
     const { ticketId } = req.params;
 
     let filter = {};
 
-    // If ticketId is provided, filter by ticketId (if valid)
+   
     if (ticketId) {
       if (!mongoose.Types.ObjectId.isValid(ticketId)) {
         return res.status(400).json({
@@ -19,7 +18,7 @@ async function getticketreply(req, res) {
       filter.ticketId = ticketId;
     }
 
-    // Find all ticket replies matching the filter
+   
     const tickets = await Ticket.find(filter);
 
     if (tickets.length === 0) {
@@ -31,7 +30,7 @@ async function getticketreply(req, res) {
 
     return res.status(200).json({
       message: "Tickets fetched successfully.",
-      replies:tickets,  // This will contain all matched ticket replies
+      replies:tickets, 
       hasError: false
     });
   } catch (error) {
