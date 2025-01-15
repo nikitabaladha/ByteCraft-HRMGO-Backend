@@ -3,7 +3,6 @@ const traineeValidationSchema = require("../../../validators/TraineeValidator");
 
 const createTrainee = async (req, res) => {
   try {
-    // Validate request body using Joi
     const { error } = traineeValidationSchema.validate(req.body);
     if (error) {
       return res.status(400).json({
@@ -14,7 +13,6 @@ const createTrainee = async (req, res) => {
 
     const { branch, firstName, lastName, contactNumber, email, expertise, address } = req.body;
 
-    // Check for duplicate email and contact number
     const existingTrainee = await Trainee.findOne({ email });
     if (existingTrainee) {
       return res.status(400).json({
@@ -23,7 +21,6 @@ const createTrainee = async (req, res) => {
       });
     }
 
-    // Create a new Trainee
     const trainee = new Trainee({
       branch,
       firstName,

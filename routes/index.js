@@ -8,6 +8,9 @@ const updateUserDetails = require("../controllers/User/updateUser.js")
 const getAllUsers = require("../controllers/User/getAllUsers.js")
 const deleteUser = require("../controllers/User/deleteUser.js")
 const userUpdate = require("../controllers/User/updateUserDetails.js")
+const changePassword = require("../controllers/User/changePassword.js")
+const createPassword = require("../controllers/User/createPassword.js")
+const resetPasswordUser = require("../controllers/User/resetPasswordUser.js")
 
 const dashboardRoutes = require("./dashboard");
 const meetingRoutes = require("./meeting");
@@ -59,6 +62,9 @@ module.exports = (app) => {
   app.get("/api/get-all-users", Middleware, getAllUsers)
   app.delete("/api/delete-user/:id", Middleware, deleteUser)
   app.put("/api/update-user/:id", Middleware, userUpdate)
+  app.put("/api/change-password", Middleware, changePassword)
+  app.post("/api/create-password", Middleware, createPassword)
+  app.put("/api/reset-password-user", Middleware, resetPasswordUser)
 
   app.use("/api", dashboardRoutes); // This mounts the dashboard routes
 
