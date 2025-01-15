@@ -12,7 +12,7 @@ const getAllJobApplications = async (req, res) => {
 
     res.status(200).json({
       message: "Job applications fetched successfully",
-      applications,
+      data: applications,
     });
   } catch (error) {
     console.error(error);
