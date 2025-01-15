@@ -1,3 +1,5 @@
+// finally using api
+
 const Employee = require("../../../models/Employee");
 const moment = require("moment");
 const MarkedAttendance = require("../../../models/MarkedAttendance");
@@ -59,6 +61,7 @@ async function getFilteredEmployees(req, res) {
               late: attendance.late,
               earlyLeaving: attendance.earlyLeaving,
               overtime: attendance.overtime,
+              _id: attendance._id,
             }
           : null,
         __v: employee.__v,

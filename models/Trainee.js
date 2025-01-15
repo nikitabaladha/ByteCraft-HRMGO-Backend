@@ -13,7 +13,7 @@ const TraineeSchema = new mongoose.Schema(
     lastName: {
       type: String,
       required: true,
-      default: 'Unknown',
+      // default: 'Unknown',
     },
     contactNumber: {
       type: String,
