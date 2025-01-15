@@ -10,7 +10,7 @@ const getAllRoles = async (req, res) => {
 
     res.status(200).json({
       message: 'Roles retrieved successfully.',
-      roles,
+      data: roles,
     });
   } catch (error) {
     console.error('Error retrieving roles:', error);

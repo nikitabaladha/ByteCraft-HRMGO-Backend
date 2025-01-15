@@ -6,7 +6,6 @@ const validateAge = (dob) => {
   const age = today.getFullYear() - birthDate.getFullYear();
   const m = today.getMonth() - birthDate.getMonth();
   
-  // Check if age is 18 or older
   if (age < 18 || (age === 18 && m < 0)) {
     return false;
   }

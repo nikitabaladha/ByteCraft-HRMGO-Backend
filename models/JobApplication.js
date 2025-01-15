@@ -87,10 +87,6 @@ const JobApplicationSchema = new mongoose.Schema(
     coverLetter: {
       type: String,
     },
-    customQuestions: {
-      type: Map,
-      of: String, 
-    },
     createdAt: {
       type: Date,
       default: Date.now,

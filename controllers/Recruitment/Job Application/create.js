@@ -17,7 +17,6 @@ const createJobApplication = async (req, res) => {
       country,
       zipCode,
       coverLetter,
-      customQuestions,
     } = req.body;
 
     let profile = null;
@@ -50,13 +49,10 @@ const createJobApplication = async (req, res) => {
       profile,
       resume,
       coverLetter,
-      customQuestions,
     });
 
-    // Save the application to the database
     await newApplication.save();
 
-    // Return success response
     res.status(201).json({
       message: "Job application created successfully",
       application: newApplication,
@@ -64,7 +60,6 @@ const createJobApplication = async (req, res) => {
   } catch (error) {
     console.error(error);
 
-    // Handle validation errors or other issues
     res.status(400).json({
       message: "Failed to create job application",
       error: error.message,

@@ -12,10 +12,10 @@ const JobSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    required: true, // Add category IDs from the select options
+    required: true, 
   },
   position: {
-    type: Number, // Assuming it's a numeric field for the number of positions
+    type: Number, 
     required: true,
   },
   status: {
@@ -43,21 +43,16 @@ const JobSchema = new mongoose.Schema({
         type: [String],
       enum: ['Profile', 'Resume', 'Letter', 'Terms and Conditions'], 
     },
-  customQuestions: 
-    {
-    type: [String],
-      enum: ['What Do You Know About This Job?', 'Why do you want this job?', 'Why do you want to work this company?']
-    },
   description: {
     type: String,
-    required: true, // Optional: Limits the length of the description
+    required: true,
   },
   requirement: {
     type: String,
-    required: true, // Optional: Limits the length of the description
+    required: true, 
   },
   terms: {
-    type: String, // Optional: Limits the length of the description
+    type: String,
   },
 }, { timestamps: true });
 

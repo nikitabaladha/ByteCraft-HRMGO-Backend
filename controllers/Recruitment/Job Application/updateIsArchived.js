@@ -1,6 +1,5 @@
 const Item = require('../../../models/JobApplication'); 
 
-// Toggle archive status
 const toggleArchiveStatus = async (req, res) => {
   try {
     const { id } = req.params; 

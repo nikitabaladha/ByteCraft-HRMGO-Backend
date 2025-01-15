@@ -4,7 +4,6 @@ const deleteJobApplicationById = async (req, res) => {
   const { id } = req.params;
 
   try {
-    // Check if the application exists
     const application = await JobApplication.findById(id);
 
     if (!application) {
@@ -13,7 +12,6 @@ const deleteJobApplicationById = async (req, res) => {
       });
     }
 
-    // Delete the application
     await JobApplication.findByIdAndDelete(id);
 
     res.status(200).json({

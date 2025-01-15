@@ -1,20 +1,18 @@
-const JobApplication = require("../../../models/JobApplication"); // Adjust the path as per your project structure
+const JobApplication = require("../../../models/JobApplication");
 
 const updateNotes = async (req, res) => {
   try {
-    const { id } = req.params; // Extract job application ID from request parameters
-    const { Notes } = req.body; // Extract Notes from request body
+    const { id } = req.params; 
+    const { Notes } = req.body; 
 
-    // Validate Notes length
     if (Notes && Notes.length > 500) {
       return res.status(400).json({ error: "Notes cannot exceed 500 characters." });
     }
 
-    // Find and update the job application
     const updatedApplication = await JobApplication.findByIdAndUpdate(
       id,
       { Notes },
-      { new: true, runValidators: true } // Returns the updated document and applies validators
+      { new: true, runValidators: true } 
     );
 
     if (!updatedApplication) {

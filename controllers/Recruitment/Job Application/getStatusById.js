@@ -2,10 +2,9 @@ const JobApplication = require("../../../models/JobApplication");
 
 // Get Job Application by ID
 const getStatusById = async (req, res) => {
-  const { id } = req.params; // Extract the application ID from params
+  const { id } = req.params; 
 
   try {
-    // Find the job application by ID
     const application = await JobApplication.findById(id);
 
     if (!application) {

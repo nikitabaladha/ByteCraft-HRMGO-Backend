@@ -1,14 +1,12 @@
-const Job = require('../../../models/CreateJob'); // Replace with the correct path to your Job model
-const CreateJobValidator = require('../../../validators/Recruitment/CreateJobValidator'); // Replace with the correct validator if needed
-
-// Controller for updating a job
+const Job = require('../../../models/CreateJob'); 
+const CreateJobValidator = require('../../../validators/Recruitment/CreateJobValidator'); 
 const updateJob = async (req, res) => {
   try {
-    const { id } = req.params; // Assuming job ID is passed as a URL parameter
+    const { id } = req.params; 
     const updatedData = req.body;
     const updatedJob = await Job.findByIdAndUpdate(id, updatedData, {
-      new: true, // Return the updated document
-      runValidators: true, // Ensure validation rules are applied
+      new: true,
+      runValidators: true, 
     });
 
     if (!updatedJob) {

@@ -1,6 +1,5 @@
 const Joi = require('joi');
 
-// Joi schema for job validation
 const validateJob = Joi.object({
   title: Joi.string().required().messages({
     'string.empty': 'Title is required.',
@@ -38,13 +37,6 @@ const validateJob = Joi.object({
   visibility: Joi.array().items(Joi.string().valid('Profile', 'Resume', 'Letter', 'Terms and Conditions')).optional().messages({
     'array.includesOnly': 'Visibility options must be one of "Profile", "Resume", "Letter", or "Terms and Conditions".',
   }),
-  customQuestions: Joi.array().items(Joi.string().valid(
-    'What Do You Know About This Job?',
-    'Why do you want this job?',
-    'Why do you want to work this company?'
-  )).optional().messages({
-    'array.includesOnly': 'Custom questions must be from the predefined list.',
-  }),
   description: Joi.string().max(1000).required().messages({
     'string.empty': 'Description is required.',
     'string.max': 'Description must not exceed 1000 characters.',
@@ -60,9 +52,8 @@ const validateJob = Joi.object({
   }),
 });
 
-// Function to validate the job data
 function validateJobData(jobData) {
-  return validateJob.validate(jobData, { abortEarly: false }); // Collect all errors, if any
+  return validateJob.validate(jobData, { abortEarly: false }); 
 }
 
 module.exports = validateJobData;

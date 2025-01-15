@@ -1,11 +1,7 @@
-const Job = require('../../../models/CreateJob'); // Replace with the correct path to your Job model
-
-// Controller for fetching a job by ID
+const Job = require('../../../models/CreateJob'); 
 const getJobById = async (req, res) => {
   try {
-    const { id } = req.params; // Extract job ID from request parameters
-
-    // Fetch job details by ID from the database
+    const { id } = req.params; 
     const job = await Job.findById(id);
 
     if (!job) {
