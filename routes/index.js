@@ -11,6 +11,7 @@ const userUpdate = require("../controllers/User/updateUserDetails.js")
 const changePassword = require("../controllers/User/changePassword.js")
 const createPassword = require("../controllers/User/createPassword.js")
 const resetPasswordUser = require("../controllers/User/resetPasswordUser.js")
+const conversation = require("./messenger.js")
 
 const dashboardRoutes = require("./dashboard");
 const meetingRoutes = require("./meeting");
@@ -109,4 +110,6 @@ module.exports = (app) => {
   app.use("/api", systemSetting)
 
   app.use("/api", staffUserRoutes)
+
+  app.use("/api", conversation)
 };
