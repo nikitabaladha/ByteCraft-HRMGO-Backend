@@ -11,7 +11,12 @@ const MessagesSchema = new mongoose.Schema({
   message: {
     type: String
   },
-});
+  messageFile: {
+    type: String,
+  },
+},
+  { timestamps: true }
+);
 
 const Messages = mongoose.model('Message', MessagesSchema);
 

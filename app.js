@@ -44,6 +44,14 @@ io.on("connection", (socket) => {
         message,
         user: { id: user._id, name: user.name, email: user.email}
       })
+    }else {
+      io.to(sender.socketId).emit('getMessage', {
+        senderId,
+        receiverId,
+        conversationId,
+        message,
+        user: { id: user._id, name: user.name, email: user.email}
+      })
     }
   })
 
@@ -51,7 +59,6 @@ io.on("connection", (socket) => {
     users = users.filter(user => user.socketId !== socket.id)
     io.emit('getUsers', users)
   })
-  // io.emit('getUsers', socket.userId)
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));

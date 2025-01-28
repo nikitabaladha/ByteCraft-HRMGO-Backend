@@ -17,6 +17,8 @@ const getMessageById = async (req, res) => {
               profileImage: user.profileImage,
             },
             message: message.message,
+            createdAt: message.createdAt,
+            messageFile: message.messageFile || null,
           };
         })
       );
