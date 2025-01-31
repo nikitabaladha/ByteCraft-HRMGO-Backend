@@ -4,8 +4,10 @@ async function getAttendance(req, res) {
   try {
     const { startDate, endDate, employeeId } = req.query;
 
+    // Initialize filter object
     const filter = {};
 
+    // Handle date range filtering
     if (startDate || endDate) {
       const start = startDate ? new Date(startDate) : new Date("1970-01-01");
       const end = endDate ? new Date(endDate) : new Date();
@@ -23,14 +25,16 @@ async function getAttendance(req, res) {
       };
     }
 
+    // Handle employeeId filtering
     if (employeeId) {
-      filter.employeeId = employeeId;
+      filter.employeeId = employeeId; // Use exact match for employeeId
     }
 
+    // Query the database with filtering and populate employee details
     const records = await MarkedAttendance.find(filter)
       .populate({
-        path: "employeeId",
-        select: "name email designation",
+        path: "employeeId", // Join with the Employee model using employeeId field
+        select: "name email designation", // Specify which fields to include from the Employee model
       })
       .exec();
 
@@ -41,6 +45,7 @@ async function getAttendance(req, res) {
       });
     }
 
+    // Return response with attendance data
     return res.status(200).json({
       hasError: false,
       message: "Records fetched successfully",

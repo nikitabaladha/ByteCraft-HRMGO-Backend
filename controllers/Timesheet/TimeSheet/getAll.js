@@ -2,8 +2,10 @@ const timeSheet = require("../../../models/TimeSheet");
 
 async function getAll(req, res) {
   try {
+    // Populate the employeeId with the name field from the Employee model
     const timeSheets = await timeSheet.find().populate("employeeId", "name");
 
+    // Map the response data to include all required fields with employee name
     const timeSheetData = timeSheets.map((timeSheet) => {
       return {
         employeeName: timeSheet.employeeId.name,
