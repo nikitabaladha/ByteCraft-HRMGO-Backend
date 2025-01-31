@@ -8,8 +8,6 @@ const incomeExpenseChartRoutes = require("./incomeExpenseChart");
 const dashPayrollRoutes = require("./payroll");
 const accountStatementRoutes = require("./accountstatment");
 
-const signup = require("../controllers/User/signup");
-const login = require("../controllers/User/login");
 const userDetails = require("../controllers/User/UserGetById");
 const Middleware = require("../middleware/index.js");
 const updateUserDetails = require("../controllers/User/updateUser.js");
@@ -20,13 +18,6 @@ const changePassword = require("../controllers/User/changePassword.js");
 const createPassword = require("../controllers/User/createPassword.js");
 const resetPasswordUser = require("../controllers/User/resetPasswordUser.js");
 const conversation = require("./messenger.js");
-
-const dashboardRoutes = require("./dashboard");
-const meetingRoutes = require("./meeting");
-const attendanceRoutes = require("./attendance");
-const announcementRoutes = require("./announcement");
-const calendarRoutes = require("./calendar");
-const incomeExpenseChartRoutes = require("./incomeExpenseChart");
 
 const branchRoutes = require("./branch");
 const departmentRoutes = require("./department");
@@ -44,12 +35,7 @@ const appraisalRoutes = require("./appraisal");
 
 const hrAdminSetupRoutes = require("./hrAdminSetup");
 const contractRoutes = require("./contract");
-const performanceRoutes = require("./performance");
-const competencyRoutes = require("./competency");
-const competencyListRoutes = require("./competencyList");
 
-const indicatorRoutes = require("./indicator");
-const appraisalRoutes = require("./appraisal");
 const traineeRoutes = require("./Trainee");
 const recruitmentCreateJob = require("./recruitment");
 const systemSetting = require("./systemSetting");
@@ -111,13 +97,9 @@ module.exports = (app) => {
 
   app.put("/api/reset-password-user", Middleware, resetPasswordUser);
 
-  app.use("/api", dashboardRoutes); // This mounts the dashboard routes
-
   app.use("/api", meetingRoutes); // This mounts the meeting routes
 
   app.use("/api", attendanceRoutes); // This mounts the attendanceRoutes routes
-
-  app.use("/api", announcementRoutes); // This mounts the announcementRoutes routes
 
   app.use("/api", calendarRoutes); // This mounts the calendarRoutes routes
 
@@ -136,12 +118,6 @@ module.exports = (app) => {
   app.use("/api", timeSheetRoutes); // This mounts the timeSheetRoutes routes
 
   app.use("/api", MarkedAttendance); // This mounts the MarkedAttendance routes
-
-  app.use("/api", performanceRoutes); // This mounts the performanceRoutes routes
-
-  app.use("/api", competencyRoutes); // This mounts the performanceRoutes routes with
-
-  app.use("/api", competencyListRoutes); // This mounts the performanceRoutes routes with
 
   app.use("/api", indicatorRoutes);
 

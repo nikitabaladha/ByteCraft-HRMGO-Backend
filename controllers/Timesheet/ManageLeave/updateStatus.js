@@ -2,25 +2,22 @@ const ManageLeave = require("../../../models/ManageLeave");
 
 async function updateStatus(req, res) {
   try {
-    // Extract leave ID and new status from request
-    const { id } = req.params; // Assuming the leave ID is in the URL
-    const { status } = req.body; // Assuming the new status is in the request body
+    const { id } = req.params;
+    const { status } = req.body;
 
-    // Validate the new status
-    const validStatuses = ["Approved", "Reject", "Pending"];
+    const validStatuses = ["Approved", "Rejected", "Pending"];
     if (!validStatuses.includes(status)) {
       return res.status(400).json({
         message:
-          "Invalid status. Status must be one of: Approved, Reject, Pending.",
+          "Invalid status. Status must be one of: Approved, Rejected, Pending.",
         hasError: true,
       });
     }
 
-    // Find the leave application by ID and update its status
     const updatedLeave = await ManageLeave.findByIdAndUpdate(
-      id, // Find the leave by ID
-      { status }, // Update only the status field
-      { new: true } // Return the updated document
+      id,
+      { status },
+      { new: true }
     );
 
     if (!updatedLeave) {
@@ -32,7 +29,7 @@ async function updateStatus(req, res) {
 
     return res.status(200).json({
       message: "Status updated successfully.",
-      leave: updatedLeave,
+      data: updatedLeave,
       hasError: false,
     });
   } catch (error) {

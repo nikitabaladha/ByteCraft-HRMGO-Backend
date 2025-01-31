@@ -18,7 +18,8 @@ async function create(req, res) {
     const createdRecords = [];
 
     for (const record of records) {
-      const { error, value } = MarkedAttendanceValidator.validate(record);
+      const { error, value } =
+        MarkedAttendanceValidator.MarkedAttendanceValidator.validate(record);
 
       if (error?.details?.length) {
         const errorMessages = error.details
@@ -27,24 +28,39 @@ async function create(req, res) {
         return res.status(400).json({ message: errorMessages });
       }
 
-      const { employeeId, date, status, clockIn, clockOut } = value;
+      const { employeeId, date, status, clockIn, clockOut, id } = value;
 
       const formattedDate = new Date(date);
       const formattedClockIn = new Date(clockIn);
       const formattedClockOut = new Date(clockOut);
 
-      // Calculate total working hours (clockOut - clockIn)
+      const whereFilter = id
+        ? { _id: id }
+        : { employeeId, date: formattedDate };
+
+      const existingAttendance = await MarkedAttendance.findOne(whereFilter);
+
+      if (!existingAttendance && id) {
+        console.log("Request for update attendance that is not exist");
+        continue;
+      }
+
+      if (existingAttendance && !id) {
+        console.log(
+          `Attendance already exists for ${employeeId} on ${formattedDate}`
+        );
+        continue;
+      }
+
       const totalWorkingDuration = formattedClockOut - formattedClockIn;
       const totalWorkingHours = formatDuration(totalWorkingDuration);
 
-      // Construct ideal clock-in and clock-out times (9:00 AM - 6:00 PM)
       const idealClockIn = new Date(formattedDate);
-      idealClockIn.setUTCHours(9, 0, 0, 0); // 09:00:00 UTC
+      idealClockIn.setUTCHours(9, 0, 0, 0);
 
       const idealClockOut = new Date(formattedDate);
-      idealClockOut.setUTCHours(18, 0, 0, 0); // 18:00:00 UTC
+      idealClockOut.setUTCHours(18, 0, 0, 0);
 
-      // Calculate late, early leaving, and overtime
       let lateDuration = 0;
       let earlyLeavingDuration = 0;
       let overtimeDuration = 0;
@@ -57,30 +73,33 @@ async function create(req, res) {
         earlyLeavingDuration = idealClockOut - formattedClockOut;
       }
 
-      // Overtime only occurs if the clockOut is after the idealClockOut time
       if (formattedClockOut > idealClockOut) {
         overtimeDuration = formattedClockOut - idealClockOut;
       }
 
-      // Format durations
       const late = formatDuration(lateDuration);
       const earlyLeaving = formatDuration(earlyLeavingDuration);
       const overtime = formatDuration(overtimeDuration);
 
-      // Create a new MarkedAttendance record
-      const newMarkedAttendance = new MarkedAttendance({
+      const newMarkedAttendance = {
         employeeId,
         date: formattedDate,
         status,
-        clockIn: formattedClockIn,
-        clockOut: formattedClockOut,
+        clockIn: status === "Present" ? formattedClockIn : null,
+        clockOut: status === "Present" ? formattedClockOut : null,
         late,
         earlyLeaving,
         overtime,
         hrs: totalWorkingHours,
-      });
+        _id: id,
+      };
 
-      await newMarkedAttendance.save();
+      if (id) {
+        await MarkedAttendance.updateOne(
+          { _id: id },
+          { $set: newMarkedAttendance }
+        );
+      } else await MarkedAttendance.create(newMarkedAttendance);
       createdRecords.push(newMarkedAttendance);
     }
 

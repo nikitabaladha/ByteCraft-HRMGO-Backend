@@ -15,8 +15,8 @@ const {
   deleteTrainingList,
   updateTrainingList,
   updatePerformace,
-//   getFilteredEmployees,
-//   getByBranchDepartment,
+  //   getFilteredEmployees,
+  //   getByBranchDepartment,
 } = require("../controllers/Training/index.js");
 
 // Define routes
