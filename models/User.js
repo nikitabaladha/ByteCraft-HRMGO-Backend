@@ -16,15 +16,21 @@ const UserSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: true,
+      // required: true,
+      required: function () {
+        return this.passwordSwitch === true;
+      },
+    },
+    passwordSwitch: {
+      type: Boolean,
+      default: false,
     },
     salt: {
       type: String,
-      required: true,
+      // required: true,
     },
     role: {
       type: String,
-      enum: ["company", "hr", "employee", "admin"],
       required: true,
     },
   },

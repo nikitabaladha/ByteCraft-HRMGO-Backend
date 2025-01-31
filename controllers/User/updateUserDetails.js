@@ -1,53 +1,40 @@
 const User = require("../../models/User");
 
-const updateUserDetails = async (req, res) => {
+async function updateUser(req, res) {
   try {
-    const userId = req.user.id;
-    const { name, email } = req.body;
+    const { id } = req.params;
+    const { name, email, role, profileImage } = req.body;
 
-    const existingUser = await User.findById(userId).select("-password -salt");
+    let user = await User.findById(id);
 
-    if (!existingUser) {
-      return res.status(404).json({
-        hasError: true,
-        message: "User not found",
-      });
+    if (!user) {
+      return res
+        .status(404)
+        .json({ hasError: true, message: "User not found" });
     }
 
-    if (!name && !email && !req.files?.profileImage) {
-      return res.status(400).json({
-        hasError: true,
-        message: "No fields to update provided",
-      });
-    }
+    if (name) user.name = name;
+    if (email) user.email = email;
+    if (role) user.role = role;
+    if (profileImage) user.profileImage = profileImage;
 
-    if (req.files?.profileImage) {
-      existingUser.profileImage = `/Images/profileImage/${req.files.profileImage[0].filename}`;
-    }
-
-    existingUser.name = name || existingUser.name;
-    existingUser.email = email || existingUser.email;
-
-    await existingUser.save();
+    await user.save();
 
     return res.status(200).json({
-      message: "User details updated successfully",
       hasError: false,
+      message: "User updated successfully",
       data: {
-        name: existingUser.name,
-        email: existingUser.email,
-        role: existingUser.role,
-        profileImage: existingUser.profileImage,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        _id: user._id,
+        profileImage: user.profileImage,
       },
     });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      hasError: true,
-      message: "Server error",
-      error: error.message,
-    });
+    console.error(error.message);
+    return res.status(500).json({ message: "Server error" });
   }
-};
+}
 
-module.exports = updateUserDetails;
+module.exports = updateUser;
