@@ -1,15 +1,17 @@
-// ByteCraft-HRMGO-Backend\routes\contractType.js
-
 const express = require("express");
 const router = express.Router();
 const Middleware = require("../middleware/index.js");
 
 const {
   createContractType,
-  getAllContractType,
-} = require("../controllers/ContractType");
+  getAllContractTypes,
+  updateContractType,
+  deleteContractType,
+} = require("../controllers/HRMSystem");
 
-router.post("/contract-type", Middleware, createContractType);
-router.get("/contract-type", Middleware, getAllContractType);
+router.post("/create-contract-type", Middleware, createContractType);
+router.get("/contract-type-get-all", Middleware, getAllContractTypes);
+router.put("/update-contract-type/:id", Middleware, updateContractType);
+router.delete("/delete-contract-type/:id", Middleware, deleteContractType);
 
 module.exports = router;

@@ -21,10 +21,8 @@ const signupValidationSchema = Joi.object({
     "any.required": "Password is required.",
   }),
 
-  role: Joi.string().valid("company", "hr", "employee").required().messages({
-    "string.base": "Role must be a string.",
-    "any.only":
-      'Role must be one of the following: "company", "hr", or "employee".',
+  role: Joi.string().required().messages({
+    "string.empty": "Role cannot be empty.",
     "any.required": "Role is required.",
   }),
 });

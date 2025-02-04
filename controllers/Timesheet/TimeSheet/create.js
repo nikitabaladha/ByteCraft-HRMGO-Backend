@@ -1,11 +1,10 @@
-const TimeSheetValidator = require("../../../validators/Timesheet/TimeSheetValidator");
-
+const TimeSheetValidator = require("../../../validators/TimeSheet/TimeSheetValidator");
 const TimeSheet = require("../../../models/TimeSheet");
 
 async function create(req, res) {
   try {
+    // Validate the incoming request body using Joi schema
     const { error } = TimeSheetValidator.validate(req.body);
-
     if (error?.details?.length) {
       const errorMessages = error.details.map((err) => err.message).join(", ");
       return res.status(400).json({ message: errorMessages });
@@ -13,12 +12,14 @@ async function create(req, res) {
 
     const { employeeId, date, remark, hours } = req.body;
 
+    // Normalize date to midnight in UTC for daily uniqueness check
     const normalizedDate = new Date(date);
     normalizedDate.setUTCHours(0, 0, 0, 0);
 
+    // Check if there is an existing entry for the same employee and date
     const existingTimeSheet = await TimeSheet.findOne({
       employeeId,
-      date: normalizedDate,
+      date: normalizedDate, // Using normalized date for the query
     });
 
     if (existingTimeSheet) {
@@ -27,6 +28,7 @@ async function create(req, res) {
       });
     }
 
+    // Create new time sheet entry if no existing entry is found
     const newTimeSheet = new TimeSheet({
       employeeId,
       date: normalizedDate,
@@ -38,7 +40,7 @@ async function create(req, res) {
 
     return res.status(201).json({
       message: "TimeSheet created successfully!",
-      data: newTimeSheet,
+      timeSheet: newTimeSheet,
       hasError: false,
     });
   } catch (error) {

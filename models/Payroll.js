@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const salarySchema = new mongoose.Schema(
   {
     employeeId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Employee',
+      ref: "Employee",
       required: true,
       unique: true,
     },
@@ -16,19 +16,18 @@ const salarySchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    grandTotal: { 
+    grandTotal: {
       type: Number,
       required: true,
     },
     status: {
-      type: String,  
-      default: 'unpaid',  
+      type: String,
+      default: "unpaid",
       enum: ["paid", "unpaid", "inactive"],
     },
     payDate: {
-      type: Date, 
+      type: Date,
     },
-
     statusPayDate: {
       type: Date,
     },
@@ -36,17 +35,15 @@ const salarySchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-salarySchema.pre('save', function(next) {
-  if (this.isModified('status') && this.status === 'paid') {
-    this.statusPayDate = new Date(); 
+salarySchema.pre("save", function (next) {
+  if (this.isModified("status") && this.status === "paid") {
+    this.statusPayDate = new Date();
   }
   next();
 });
 
 salarySchema.index({ employeeId: 1 }, { unique: true });
 
-
-
-const Salary = mongoose.model('Salary', salarySchema);
+const Salary = mongoose.model("Salary", salarySchema);
 
 module.exports = Salary;

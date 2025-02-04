@@ -6,7 +6,9 @@ const {
   createDepartment,
   getAllDepartment,
   getAllDepartmentByBranchId,
-  getDepartmentById
+  updateDepartment,
+  deleteDepartment,
+  getDepartmentById,
 } = require("../controllers/Branch-Department-Designation");
 
 router.post("/department", Middleware, createDepartment);
@@ -17,5 +19,7 @@ router.get(
   Middleware,
   getAllDepartmentByBranchId
 );
+router.put("/update-department/:departmentId", Middleware, updateDepartment);
+router.delete("/delete-department/:id", Middleware, deleteDepartment);
 
 module.exports = router;
