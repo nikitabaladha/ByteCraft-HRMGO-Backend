@@ -65,10 +65,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 connectDB();
 
-// Allow requests from frontend
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.FRONTEND_URL,
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
@@ -80,6 +79,7 @@ app.use("/Documents", express.static(path.join(__dirname, "Documents")));
 app.use(bodyParser.json());
 
 const routes = require("./routes");
+
 routes(app);
 
 const PORT = process.env.PORT || 3001;
