@@ -8,7 +8,7 @@ async function getAll(req, res) {
 
     return res.status(200).json({
       message: "Designations fetched successfully!",
-      data:designations,
+      data: designations,
     });
   } catch (error) {
     console.error("Error fetching designations:", error);
