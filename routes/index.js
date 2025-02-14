@@ -67,7 +67,7 @@ const ticketRoutes = require("./Ticket");
 
 const ticketReplyRoutes = require("./TicketReply");
 
-const meetingsRoutes = require("./Meetings");
+const meetingsRoutes = require("./meetings");
 
 const zoommeeting = require("./zoommeeting");
 
@@ -113,7 +113,7 @@ const incomeTypeRoutes = require("./incometype");
 
 const paymentTypeRoutes = require("./paymenttype");
 
-const contractTypeRoutes = require("./contracttype");
+const contractTypeRoutes = require("./contractType.js");
 
 const jobCategoryRoutes = require("./jobcategory");
 

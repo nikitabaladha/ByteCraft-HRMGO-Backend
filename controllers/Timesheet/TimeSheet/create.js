@@ -1,4 +1,4 @@
-const TimeSheetValidator = require("../../../validators/TimeSheet/TimeSheetValidator");
+const TimeSheetValidator = require("../../../validators/Timesheet/TimeSheetValidator");
 const TimeSheet = require("../../../models/TimeSheet");
 
 async function create(req, res) {
