@@ -2,6 +2,7 @@ const Branch = require("../../../models/Branch");
 
 async function getAll(req, res) {
   try {
+    // Fetch all branches
     const branches = await Branch.find();
 
     if (branches.length === 0) {

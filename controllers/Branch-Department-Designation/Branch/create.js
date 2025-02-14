@@ -1,9 +1,10 @@
 const BranchValidator = require("../../../validators/BranchDepartmentValidators/BranchValidator");
 const Branch = require("../../../models/Branch");
 
-// Create branch logic
+
 async function create(req, res) {
   try {
+
     const { error } = BranchValidator.validate(req.body);
 
     if (error?.details?.length) {
@@ -21,7 +22,7 @@ async function create(req, res) {
 
     return res.status(201).json({
       message: "Branch created successfully!",
-      data: newBranch,
+      branch: newBranch,
     });
   } catch (error) {
     console.error("Error creating branch:", error);

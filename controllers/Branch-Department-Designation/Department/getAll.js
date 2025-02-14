@@ -2,29 +2,19 @@ const Department = require("../../../models/Department");
 
 async function getAll(req, res) {
   try {
-    const departments = await Department.find()
-      .populate({
-        path: "branchId",
-        select: "branchName",
-      })
-      .select("departmentName branchId");
+    const departments = await Department.find().populate('branchId', 'branchName');
 
     if (departments.length === 0) {
       return res.status(404).json({
         hasError: true,
-        message: "No departments found",
+        message: "No Department found",
       });
     }
 
     return res.status(200).json({
       hasError: false,
       message: "Departments fetched successfully",
-      data: departments.map((department) => ({
-        id: department._id,
-        departmentName: department.departmentName,
-        branchId: department.branchId._id,
-        branchName: department.branchId.branchName,
-      })),
+      data: departments,
     });
   } catch (error) {
     console.error("Error fetching departments:", error.message);

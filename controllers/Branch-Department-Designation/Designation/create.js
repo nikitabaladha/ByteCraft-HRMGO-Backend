@@ -10,18 +10,19 @@ async function create(req, res) {
       return res.status(400).json({ message: errorMessages });
     }
 
-    const { designationName, departmentId } = req.body;
+    const { designationName, departmentId, branchId } = req.body;
 
     const newDesignation = new Designation({
       designationName,
       departmentId,
+      branchId,
     });
 
     await newDesignation.save();
 
     return res.status(201).json({
       message: "Designation created successfully!",
-      data: newDesignation,
+      designation: newDesignation,
     });
   } catch (error) {
     console.error("Error creating designation:", error);
@@ -29,7 +30,7 @@ async function create(req, res) {
     if (error.code === 11000) {
       return res.status(400).json({
         message:
-          "A designation with the same name already exists in this branch.",
+          "A designation with the same name already exists in this department and branch.",
         hasError: true,
       });
     }

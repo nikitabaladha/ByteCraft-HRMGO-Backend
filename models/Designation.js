@@ -1,7 +1,6 @@
 // HRMGO-Backend\models\Designation.js
 const mongoose = require("mongoose");
 
-// Designation Schema
 const DesignationSchema = new mongoose.Schema(
   {
     designationName: {
@@ -13,6 +12,11 @@ const DesignationSchema = new mongoose.Schema(
       ref: "Department",
       required: true,
     },
+    branchId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Branch",
+      required: true,
+    },
   },
   {
     timestamps: true,
@@ -20,10 +24,9 @@ const DesignationSchema = new mongoose.Schema(
 );
 
 DesignationSchema.index(
-  { departmentId: 1, designationName: 1 },
+  { departmentId: 1, designationName: 1, branchId: 1 },
   { unique: true }
 );
 
-// Designation Model
 const Designation = mongoose.model("Designation", DesignationSchema);
 module.exports = Designation;
