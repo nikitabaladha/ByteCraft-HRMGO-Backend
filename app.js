@@ -12,11 +12,11 @@ const cors = require("cors");
 
 const app = express();
 
-const Users = require("./models/User")
+const Users = require("./models/User");
 
 const io = require("socket.io")(3030, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: process.env.FRONTEND_URL,
   },
 });
 
@@ -32,33 +32,38 @@ io.on("connection", (socket) => {
     }
   });
 
-  socket.on('sendMessage', async({ senderId, receiverId, message, conversationId}) => {
-    const receiver = users.find(user => user.userId === receiverId);
-    const sender = users.find(user => user.userId === senderId)
-    const user = await Users.findById(senderId)
-    if(receiver) {
-      io.to(receiver.socketId).to(sender.socketId).emit('getMessage', {
-        senderId,
-        receiverId,
-        conversationId,
-        message,
-        user: { id: user._id, name: user.name, email: user.email}
-      })
-    }else {
-      io.to(sender.socketId).emit('getMessage', {
-        senderId,
-        receiverId,
-        conversationId,
-        message,
-        user: { id: user._id, name: user.name, email: user.email}
-      })
+  socket.on(
+    "sendMessage",
+    async ({ senderId, receiverId, message, conversationId }) => {
+      const receiver = users.find((user) => user.userId === receiverId);
+      const sender = users.find((user) => user.userId === senderId);
+      const user = await Users.findById(senderId);
+      if (receiver) {
+        io.to(receiver.socketId)
+          .to(sender.socketId)
+          .emit("getMessage", {
+            senderId,
+            receiverId,
+            conversationId,
+            message,
+            user: { id: user._id, name: user.name, email: user.email },
+          });
+      } else {
+        io.to(sender.socketId).emit("getMessage", {
+          senderId,
+          receiverId,
+          conversationId,
+          message,
+          user: { id: user._id, name: user.name, email: user.email },
+        });
+      }
     }
-  })
+  );
 
-  socket.on('disconnet', () => {
-    users = users.filter(user => user.socketId !== socket.id)
-    io.emit('getUsers', users)
-  })
+  socket.on("disconnet", () => {
+    users = users.filter((user) => user.socketId !== socket.id);
+    io.emit("getUsers", users);
+  });
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));
