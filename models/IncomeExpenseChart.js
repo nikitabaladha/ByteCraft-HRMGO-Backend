@@ -3,14 +3,10 @@ const mongoose = require("mongoose");
 
 const IncomeExpenseChartSchema = new mongoose.Schema(
   {
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      index: true,
-    },
     categories: {
       type: Date,
       required: true,
+      unique: true,
     },
     incomeData: {
       type: Number,
@@ -23,6 +19,8 @@ const IncomeExpenseChartSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+IncomeExpenseChartSchema.index({ categories: 1 }, { unique: true });
 
 const IncomeExpenseChart = mongoose.model(
   "IncomeExpenseChart",

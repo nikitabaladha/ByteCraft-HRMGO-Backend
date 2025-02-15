@@ -5,7 +5,7 @@ const IncomeExpenseChartValidator = require("../../../validators/DashboardValida
 
 async function create(req, res) {
   try {
-    const userId = req.user.id;
+    // const userId = req.user.id;
 
     const { error } = IncomeExpenseChartValidator.validate(req.body);
 
@@ -20,7 +20,7 @@ async function create(req, res) {
       incomeData,
       expenseData,
       categories,
-      userId,
+      // userId,
     });
 
     await newIncomeExpenseChart.save();
@@ -31,6 +31,13 @@ async function create(req, res) {
       data: newIncomeExpenseChart,
     });
   } catch (error) {
+    if (error.code === 11000) {
+      return res.status(400).json({
+        hasError: true,
+        message: "Duplicate entry: Data for this date already exists.",
+      });
+    }
+
     console.error("Error creating IncomeExpenseChart:", error.message);
     return res.status(500).json({ hasError: true, message: "Server error" });
   }
