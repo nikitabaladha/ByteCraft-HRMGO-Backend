@@ -1,6 +1,5 @@
 // controllers/Award/create.js
 const Award = require("../../../models/Award");
-
 const AwardValidator = require("../../../validators/HrAdminSetupValidators/Award.js");
 
 async function create(req, res) {
@@ -12,11 +11,11 @@ async function create(req, res) {
       return res.status(400).json({ message: errorMessages });
     }
 
-    const { employeeId, awardType, date, gift, description } = req.body;
+    const { employeeId, awardTypeId, date, gift, description } = req.body;
 
     const newAward = new Award({
       employeeId,
-      awardType,
+      awardTypeId,
       date,
       gift,
       description,

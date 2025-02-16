@@ -5,9 +5,9 @@ const AwardCreateValidator = Joi.object({
     "any.required": "Employee ID is required.",
     "string.empty": "Employee ID cannot be empty.",
   }),
-  awardType: Joi.string().valid("Trophy", "Certificate").required().messages({
+  awardTypeId: Joi.string().required().messages({
     "any.required": "Award type is required.",
-    "any.only": "Award type must be either 'Trophy' or 'Certificate'.",
+    "string.empty": "Award type cannot be empty.",
   }),
   date: Joi.date().iso().required().messages({
     "any.required": "Date is required.",
@@ -24,9 +24,9 @@ const AwardCreateValidator = Joi.object({
 });
 
 const AwardUpdateValidator = Joi.object({
-  awardType: Joi.string().valid("Trophy", "Certificate").required().messages({
+  awardTypeId: Joi.string().required().messages({
     "any.required": "Award type is required.",
-    "any.only": "Award type must be either 'Trophy' or 'Certificate'.",
+    "string.empty": "Award type cannot be empty.",
   }),
   date: Joi.date().iso().required().messages({
     "any.required": "Date is required.",

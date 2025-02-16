@@ -2,7 +2,9 @@ const Award = require("../../../models/Award");
 
 async function getAll(req, res) {
   try {
-    const awards = await Award.find().populate("employeeId", "name", "id");
+    const awards = await Award.find()
+      .populate("employeeId", "name _id")
+      .populate("awardTypeId", "awardName _id");
 
     if (!awards.length) {
       return res.status(404).json({
@@ -13,13 +15,14 @@ async function getAll(req, res) {
     }
 
     const formedAwards = awards.map((award) => ({
+      id: award._id,
+      employeeId: award.employeeId?._id,
       employeeName: award.employeeId?.name || "Unknown",
-      awardType: award.awardType,
+      awardTypeId: award.awardTypeId?._id,
+      awardType: award.awardTypeId?.awardName || "Unknown",
       date: award.date,
       gift: award.gift,
       description: award.description,
-      id: award._id,
-      employeeId: award.employeeId?._id,
     }));
 
     return res.status(200).json({

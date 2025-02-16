@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-
 const AwardSchema = new mongoose.Schema(
   {
     employeeId: {
@@ -8,9 +7,9 @@ const AwardSchema = new mongoose.Schema(
       ref: "Employee",
       required: true,
     },
-    awardType: {
-      type: String,
-      enum: ["Trophy", "Certificate"],
+    awardTypeId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "AwardType",
       required: true,
     },
     date: { type: Date, required: true },
