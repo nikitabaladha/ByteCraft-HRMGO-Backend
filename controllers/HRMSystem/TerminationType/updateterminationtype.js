@@ -11,7 +11,8 @@ async function update(req, res) {
       return res.status(404).json({ message: "Termination Type not found." });
     }
 
-    terminationType.terminationName = terminationName || terminationType.terminationName;
+    terminationType.terminationName =
+      terminationName || terminationType.terminationName;
 
     await terminationType.save();
 

@@ -10,7 +10,6 @@ async function getAll(req, res) {
         message: "No Award Types found",
       });
     }
-
     return res.status(200).json({
       hasError: false,
       message: "Award Types fetched successfully",

@@ -21,7 +21,7 @@ const deleteAllowanceOption = require("./AllowanceOption/deleteallowanceoption")
 
 const createLoanOption = require("./LoanOption/create");
 const getAllLoanOption = require("./LoanOption/getAll");
-const updateLoanOption = require("./LoanOption/updateloanoption"); 
+const updateLoanOption = require("./LoanOption/updateloanoption");
 const deleteLoanOption = require("./LoanOption/deleteloanoption");
 
 const createDeductionOption = require("./DeductionOption/create");
@@ -51,7 +51,7 @@ const deleteTerminationType = require("./TerminationType/deleteterminationtype")
 
 const createPerformanceType = require("./PerformanceType/create");
 const getAllPerformanceTypes = require("./PerformanceType/getAll");
-const updatePerformanceType = require("./PerformanceType/updateperformancetype");  
+const updatePerformanceType = require("./PerformanceType/updateperformancetype");
 const deletePerformanceType = require("./PerformanceType/deleteperformancetype");
 
 const createExpenseType = require("./ExpenseType/create");
@@ -158,5 +158,5 @@ module.exports = {
   createJobCategory,
   getAllJobCategories,
   updateJobCategory,
-  deleteJobCategory 
+  deleteJobCategory,
 };

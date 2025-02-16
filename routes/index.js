@@ -103,7 +103,7 @@ const awardtypeRoutes = require("./awardtype");
 
 const jobStageRoutes = require("./jobstage");
 
-// const terminationTypeRoutes = require("./termination");
+const terminationTypeRoutes = require("./termination");
 
 const performanceTypeRoutes = require("./performancetype");
 
@@ -274,7 +274,7 @@ module.exports = (app) => {
 
   app.use("/api", jobStageRoutes); // This mounts jobstage Routes the  routes
 
-  // app.use("/api", terminationTypeRoutes); // This mounts Termination Type Routes the  routes
+  app.use("/api", terminationTypeRoutes); // This mounts Termination Type Routes the  routes
 
   app.use("/api", performanceTypeRoutes); // This mounts Performance Type Routes the  routes
 

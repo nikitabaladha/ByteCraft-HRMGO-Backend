@@ -5,7 +5,9 @@ async function create(req, res) {
     const { terminationName } = req.body;
 
     if (!terminationName) {
-      return res.status(400).json({ message: "Termination Type Name is required." });
+      return res
+        .status(400)
+        .json({ message: "Termination Type Name is required." });
     }
 
     const newTerminationType = new TerminationType({

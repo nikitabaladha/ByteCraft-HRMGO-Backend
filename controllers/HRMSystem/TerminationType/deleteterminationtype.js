@@ -8,19 +8,19 @@ async function deleteTerminationType(req, res) {
 
     if (!deletedTerminationType) {
       return res.status(404).json({
-        message: 'Termination Type not found',
+        message: "Termination Type not found",
       });
     }
 
     res.status(200).json({
-      message: 'Termination Type deleted successfully',
+      message: "Termination Type deleted successfully",
       data: deletedTerminationType,
     });
   } catch (error) {
     console.error("Error deleting termination type:", error);
 
     res.status(500).json({
-      message: 'An error occurred while deleting the termination type',
+      message: "An error occurred while deleting the termination type",
       error: error.message,
     });
   }

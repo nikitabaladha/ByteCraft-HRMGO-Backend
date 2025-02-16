@@ -15,7 +15,7 @@ async function create(req, res) {
 
     const {
       employeeId,
-      terminationType,
+      terminationTypeId,
       noticeDate,
       terminationDate,
       description,
@@ -23,7 +23,7 @@ async function create(req, res) {
 
     const newTermination = new Termination({
       employeeId,
-      terminationType,
+      terminationTypeId,
       noticeDate,
       terminationDate,
       description,

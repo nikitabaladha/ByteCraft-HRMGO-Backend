@@ -14,7 +14,7 @@ async function updateById(req, res) {
       return res.status(400).json({ message: errorMessages });
     }
 
-    const { terminationType, noticeDate, terminationDate, description } =
+    const { terminationTypeId, noticeDate, terminationDate, description } =
       req.body;
 
     const termination = await Termination.findById(id);
@@ -22,8 +22,8 @@ async function updateById(req, res) {
       return res.status(404).json({ message: "Termination not found" });
     }
 
-    termination.terminationType =
-      terminationType || termination.terminationType;
+    termination.terminationTypeId =
+      terminationTypeId || termination.terminationTypeId;
     termination.noticeDate = noticeDate || termination.noticeDate;
     termination.terminationDate =
       terminationDate || termination.terminationDate;

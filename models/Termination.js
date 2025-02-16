@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-// Define the schema for managing leaves with a reference to Employee
 const TerminationSchema = new mongoose.Schema(
   {
     employeeId: {
@@ -8,9 +7,9 @@ const TerminationSchema = new mongoose.Schema(
       ref: "Employee",
       required: true,
     },
-    terminationType: {
-      type: String,
-      enum: ["Test Termination", "Voluntary Termination"],
+    terminationTypeId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "TerminationType",
       required: true,
     },
     noticeDate: { type: Date, required: true },

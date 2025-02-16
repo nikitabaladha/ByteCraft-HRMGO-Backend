@@ -2,10 +2,9 @@ const Termination = require("../../../models/Termination");
 
 async function getAll(req, res) {
   try {
-    const terminations = await Termination.find().populate(
-      "employeeId",
-      "name"
-    );
+    const terminations = await Termination.find()
+      .populate("employeeId", "name")
+      .populate("terminationTypeId", "terminationName");
 
     if (!terminations.length) {
       return res.status(404).json({
@@ -17,7 +16,9 @@ async function getAll(req, res) {
 
     const formedTerminations = terminations.map((termination) => ({
       employeeName: termination.employeeId?.name || "Unknown",
-      terminationType: termination.terminationType,
+      terminationType:
+        termination.terminationTypeId?.terminationName || "Unknown",
+      terminationTypeId: termination.terminationTypeId?._id,
       noticeDate: termination.noticeDate,
       terminationDate: termination.terminationDate,
       description: termination.description,
