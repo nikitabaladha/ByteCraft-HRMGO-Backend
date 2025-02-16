@@ -19,7 +19,7 @@ async function getByContractId(req, res) {
       .sort({ createdAt: -1 })
       .populate({
         path: "userId",
-        select: "firstName lastName",
+        select: "name profileImage",
       });
 
     if (!contractComments || contractComments.length === 0) {
@@ -36,12 +36,13 @@ async function getByContractId(req, res) {
 
       return {
         id: comment._id,
-        userName: `${comment.userId.firstName} ${comment.userId.lastName}`,
+        userName: comment?.userId?.name,
         userId: comment.userId._id,
         contractId: comment.contractId,
         comment: comment.comment,
         createdAt: relativeTime,
         updatedAt: comment.updatedAt,
+        userAvatar: comment?.userId?.profileImage || null,
       };
     });
 

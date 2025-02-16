@@ -18,7 +18,7 @@ async function getByContractId(req, res) {
       .sort({ createdAt: -1 })
       .populate({
         path: "userId",
-        select: "firstName lastName",
+        select: "name profileImage",
       });
 
     if (!ContractNotes || ContractNotes.length === 0) {
@@ -35,12 +35,13 @@ async function getByContractId(req, res) {
 
       return {
         id: note._id,
-        userName: `${note.userId.firstName} ${note.userId.lastName}`,
+        userName: note?.userId?.name,
         userId: note.userId._id,
         contractId: note.contractId,
         note: note.note,
         createdAt: relativeTime,
         updatedAt: note.updatedAt,
+        userAvatar: note?.userId?.profileImage || null,
       };
     });
 
