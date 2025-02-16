@@ -2,10 +2,7 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 
-
 const ticketReplyAttachmentDir = "./Images/ticketReplyAttachmentImages";
-
-
 
 if (!fs.existsSync(ticketReplyAttachmentDir)) {
   fs.mkdirSync(ticketReplyAttachmentDir, { recursive: true });
@@ -14,7 +11,7 @@ if (!fs.existsSync(ticketReplyAttachmentDir)) {
 const upload = multer({
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
-      if (req.body.type === 'attachment') {
+      if (req.body.type === "attachment") {
         cb(null, ticketReplyAttachmentDir);
       } else {
         cb(null, ticketReplyAttachmentDir);
@@ -39,7 +36,6 @@ const upload = multer({
       cb(new Error("Only JPEG, JPG, or PNG files are allowed"));
     }
   },
-  
 });
 
 module.exports = upload;

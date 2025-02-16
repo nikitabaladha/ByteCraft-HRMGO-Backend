@@ -4,7 +4,7 @@ const express = require("express");
 
 const router = express.Router();
 const Middleware = require("../middleware/index.js");
-const upload = require("../controllers/uploadImages");
+const upload = require("../controllers/uploadContractAttachmentImages");
 
 const {
   createContract,
