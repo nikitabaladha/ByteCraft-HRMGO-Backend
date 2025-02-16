@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-// Define the schema for managing resignations with a reference to Employee
 const ResignationSchema = new mongoose.Schema(
   {
     employeeId: {
@@ -26,7 +25,6 @@ const ResignationSchema = new mongoose.Schema(
   }
 );
 
-// Create a compound index to ensure unique resignation per employee on the same day
 ResignationSchema.index(
   { employeeId: 1, resignationDate: 1 },
   { unique: true }

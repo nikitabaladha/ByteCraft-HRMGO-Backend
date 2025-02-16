@@ -8,19 +8,19 @@ async function deleteDesignation(req, res) {
 
     if (!deletedDesignation) {
       return res.status(404).json({
-        message: 'Designation not found',
+        message: "Designation not found",
       });
     }
 
     res.status(200).json({
-      message: 'Designation deleted successfully',
+      message: "Designation deleted successfully",
       data: deletedDesignation,
     });
   } catch (error) {
     console.error(error);
 
     res.status(500).json({
-      message: 'An error occurred while deleting the designation',
+      message: "An error occurred while deleting the designation",
       error: error.message,
     });
   }
