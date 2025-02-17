@@ -21,7 +21,7 @@ async function updateByLeaveId(req, res) {
       });
     }
 
-    const leaveType = req.body.leaveType || existingLeave.leaveType;
+    const leaveTypeId = req.body.leaveTypeId || existingLeave.leaveTypeId;
     const startDate = req.body.startDate || existingLeave.startDate;
     const endDate = req.body.endDate || existingLeave.endDate;
     const reason = req.body.reason || existingLeave.reason;
@@ -42,7 +42,7 @@ async function updateByLeaveId(req, res) {
       });
     }
 
-    existingLeave.leaveType = leaveType;
+    existingLeave.leaveTypeId = leaveTypeId;
     existingLeave.startDate = startDate;
     existingLeave.endDate = endDate;
     existingLeave.totalDays = totalDays;
@@ -64,13 +64,12 @@ async function updateByLeaveId(req, res) {
   }
 }
 
-// Function to calculate total days between startDate and endDate
 function calculateTotalDays(startDate, endDate) {
   const start = new Date(startDate);
   const end = new Date(endDate);
   const timeDiff = end - start;
-  const days = timeDiff / (1000 * 3600 * 24); // Convert milliseconds to days
-  return days + 1; // Include both start and end date in the total
+  const days = timeDiff / (1000 * 3600 * 24);
+  return days + 1;
 }
 
 module.exports = updateByLeaveId;

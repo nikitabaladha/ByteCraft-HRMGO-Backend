@@ -1,11 +1,9 @@
 const ManageLeave = require("../../../models/ManageLeave");
-
 async function getAll(req, res) {
   try {
-    const manageLeaves = await ManageLeave.find().populate(
-      "employeeId",
-      "name"
-    );
+    const manageLeaves = await ManageLeave.find()
+      .populate("employeeId", "name _id")
+      .populate("leaveTypeId", "leaveTypeName _id");
 
     if (!manageLeaves.length) {
       return res.status(404).json({
@@ -18,8 +16,10 @@ async function getAll(req, res) {
     const manageLeaveData = manageLeaves.map((manageLeave) => {
       return {
         id: manageLeave._id,
-        employeeName: manageLeave.employeeId.name,
-        leaveType: manageLeave.leaveType,
+        employeeName: manageLeave?.employeeId?.name || "Unknown Employee",
+        leaveTypeId: manageLeave?.leaveTypeId?._id || null,
+        leaveType:
+          manageLeave?.leaveTypeId?.leaveTypeName || "Unknown Leave Type",
         appliedOn: manageLeave.appliedOn,
         startDate: manageLeave.startDate,
         endDate: manageLeave.endDate,

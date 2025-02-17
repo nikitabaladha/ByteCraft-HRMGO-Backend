@@ -11,7 +11,7 @@ async function create(req, res) {
       return res.status(400).json({ message: errorMessages });
     }
 
-    const { employeeId, leaveType, startDate, endDate, reason } = req.body;
+    const { employeeId, leaveTypeId, startDate, endDate, reason } = req.body;
 
     const start = new Date(startDate);
     const end = new Date(endDate);
@@ -48,7 +48,7 @@ async function create(req, res) {
 
     const newManageLeave = new ManageLeave({
       employeeId,
-      leaveType,
+      leaveTypeId,
       appliedOn: formattedAppliedOn,
       startDate,
       endDate,

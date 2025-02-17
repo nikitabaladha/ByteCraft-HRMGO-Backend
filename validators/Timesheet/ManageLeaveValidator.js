@@ -1,8 +1,8 @@
 const Joi = require("joi");
 
 const baseSchema = Joi.object({
-  leaveType: Joi.string().valid("Casual Leave", "Medical Leave").messages({
-    "any.only": "Leave type must be one of: Casual Leave or Medical Leave",
+  leaveTypeId: Joi.string().messages({
+    "string.empty": "Leave type cannot be empty",
   }),
   appliedOn: Joi.date().messages({
     "date.base": "Applied on must be a valid date",
@@ -35,7 +35,7 @@ const createSchema = baseSchema.keys({
 });
 
 const updateSchema = baseSchema.fork(
-  ["leaveType", "startDate", "endDate", "reason"],
+  ["leaveTypeId", "startDate", "endDate", "reason"],
   (schema) => schema.optional()
 );
 
