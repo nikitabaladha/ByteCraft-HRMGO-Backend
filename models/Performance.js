@@ -47,7 +47,6 @@ const PerformanceSchema = new Schema(
 
 PerformanceSchema.index({ employeeId: 1, appraisalDate: 1 }, { unique: true });
 
-// Create a model for performance
 const Performance = mongoose.model("Performance", PerformanceSchema);
 
 module.exports = Performance;

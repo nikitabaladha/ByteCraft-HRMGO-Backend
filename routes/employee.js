@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Middleware = require("../middleware/index.js");
-const upload = require("../controllers/uploadFiles");
+const upload = require("../controllers/employeeFiles");
 
 const uploadFiles = (req, res, next) => {
   const fileSizeLimits = {
@@ -62,7 +62,7 @@ const {
   updateById,
   deleteById,
   getFilteredEmployeesByMonth,
-  getEmployeeNamebyid
+  getEmployeeNamebyid,
 } = require("../controllers/Employee");
 
 router.post("/employee", uploadFiles, Middleware, createEmployee);
@@ -82,6 +82,6 @@ router.get(
 router.put("/employee/:id", uploadFiles, Middleware, updateById);
 
 router.delete("/employee/:id", Middleware, deleteById);
-router.get("/getemployeeemployee/:id",Middleware, getEmployeeNamebyid);
+router.get("/getemployeeemployee/:id", Middleware, getEmployeeNamebyid);
 
 module.exports = router;
