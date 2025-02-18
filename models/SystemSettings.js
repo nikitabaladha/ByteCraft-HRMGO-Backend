@@ -12,18 +12,18 @@ const systemSettingsSchema = new Schema({
     required: true,
     default: '$',
   },
-  siteDateFormat: {
-    type: String,
-    required: true,
-    enum: [ 'd-m-Y', ],
-    default: 'd-m-Y',
-  },
-  siteTimeFormat: {
-    type: String,
-    required: true,
-    enum: ['g:i A',],
-    default: 'g:i A',
-  },
+  // siteDateFormat: {
+  //   type: String,
+  //   required: true,
+  //   enum: [ 'd-m-Y', ],
+  //   default: 'd-m-Y',
+  // },
+  // siteTimeFormat: {
+  //   type: String,
+  //   required: true,
+  //   enum: ['g:i A',],
+  //   default: 'g:i A',
+  // },
   employeePrefix: {
     type: String,
     required: true,
