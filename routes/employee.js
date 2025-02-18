@@ -62,6 +62,7 @@ const {
   updateById,
   deleteById,
   getFilteredEmployeesByMonth,
+  getEmployeeNamebyid
 } = require("../controllers/Employee");
 
 router.post("/employee", uploadFiles, Middleware, createEmployee);
@@ -81,5 +82,6 @@ router.get(
 router.put("/employee/:id", uploadFiles, Middleware, updateById);
 
 router.delete("/employee/:id", Middleware, deleteById);
+router.get("/getemployeeemployee/:id",Middleware, getEmployeeNamebyid);
 
 module.exports = router;
