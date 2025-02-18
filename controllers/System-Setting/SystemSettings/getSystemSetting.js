@@ -1,4 +1,4 @@
-const SystemSettings = require('../../../models/SystemSettings');
+const SystemSettings = require("../../../models/SystemSettings");
 
 const getSystemSettings = async (req, res) => {
   try {
@@ -6,17 +6,17 @@ const getSystemSettings = async (req, res) => {
 
     if (!settings) {
       return res.status(404).json({
-        message: 'System settings not found.',
+        message: "System settings not found.",
       });
     }
 
     return res.status(200).json({
-      message: 'System settings retrieved successfully',
+      message: "System settings retrieved successfully",
       data: settings,
     });
   } catch (error) {
-    console.error('Error retrieving system settings:', error);
-    return res.status(500).json({ message: 'Internal server error' });
+    console.error("Error retrieving system settings:", error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 

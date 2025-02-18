@@ -2,6 +2,7 @@ const Employee = require("../../../models/Employee");
 const EmployeeValidator = require("../../../validators/EmployeeValidators/EmployeeValidator");
 const path = require("path");
 const saltFunction = require("../../../validators/saltFunction.js");
+const SystemSettings = require("../../../models/SystemSettings.js");
 async function create(req, res) {
   try {
     const { error } = EmployeeValidator.EmployeeCreateValidator.validate(
@@ -80,16 +81,19 @@ async function create(req, res) {
 
     const { hashedPassword, salt } = saltFunction.hashPassword(password);
 
+    const systemSettings = await SystemSettings.findOne();
+    const employeePrefix = systemSettings?.employeePrefix;
+
     const lastEmployee = await Employee.findOne().sort({ id: -1 }).limit(1);
-    const lastEmployeeId = lastEmployee ? lastEmployee.id : "EMP0000000";
-    const nextEmployeeIdNumber =
-      parseInt(lastEmployeeId.replace("EMP", "")) + 1;
-    const nextEmployeeId = `EMP${nextEmployeeIdNumber
-      .toString()
-      .padStart(7, "0")}`;
+    const lastEmployeeId = lastEmployee
+      ? parseInt(lastEmployee.id.replace(employeePrefix, "")) || 0
+      : 0;
+    const nextEmployeeId = lastEmployeeId + 1;
+
+    const fullEmployeeId = `${employeePrefix}${nextEmployeeId}`;
 
     const newEmployee = new Employee({
-      id: nextEmployeeId,
+      id: fullEmployeeId,
       name,
       phone,
       dateOfBirth,
