@@ -7,7 +7,8 @@ const zoomMeetingSchema = new mongoose.Schema({
   },
   employeeNames: [
     {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Employee",
       required: true,
     },
   ],
