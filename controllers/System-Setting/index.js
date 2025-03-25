@@ -10,6 +10,11 @@ const getZoomSettings = require("./ZoomMeetingSetting/getZoomMetting");
 const createBusinessSetting = require("./BusinessSetting/create");
 const getBusinessSetting = require("./BusinessSetting/getBusinessSetting");
 const updateBusinessSetting = require("./BusinessSetting/update");
+const saveOrUpdateEmailSettings = require("./EmailSetting/SaveOrUpdate");
+const getEmailSettings = require("./Emailsetting/getEmailSetting")
+const sendTestEmail = require("./Emailsetting/SendTestMail")
+const saveOrUpdate = require("./EmailNotificationSetting/SaveOrUpdate")
+const getEmailNotification = require("./EmailNotificationSetting/getEmailSetting")
 
 module.exports = {
   createCompanySetting,
@@ -24,4 +29,9 @@ module.exports = {
   createBusinessSetting,
   getBusinessSetting,
   updateBusinessSetting,
+  saveOrUpdateEmailSettings,
+  getEmailSettings,
+  sendTestEmail,
+  saveOrUpdate,
+  getEmailNotification,
 };

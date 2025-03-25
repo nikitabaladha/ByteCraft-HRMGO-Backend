@@ -1,5 +1,3 @@
-// validator/saltFunction.js
-
 const crypto = require("crypto");
 
 function hashPassword(password) {

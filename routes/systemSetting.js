@@ -29,6 +29,11 @@ const {
   createBusinessSetting,
   getBusinessSetting,
   updateBusinessSetting,
+  saveOrUpdateEmailSettings,
+  getEmailSettings,
+  sendTestEmail,
+  saveOrUpdate,
+  getEmailNotification,
 } = require("../controllers/System-Setting/index.js");
 const { skipMiddlewareFunction } = require("mongoose");
 
@@ -54,5 +59,10 @@ router.put(
   Middleware,
   updateBusinessSetting
 );
+router.post("/save-email-settings", Middleware, saveOrUpdateEmailSettings);
+router.get("/get-email-settings", Middleware, getEmailSettings);
+router.post("/send-test-email", Middleware, sendTestEmail);
+router.post("/save-update-email-notification", Middleware, saveOrUpdate)
+router.get("/get-email-notification", Middleware, getEmailNotification)
 
 module.exports = router;

@@ -13,6 +13,7 @@ const UserSchema = new mongoose.Schema(
     },
     profileImage: {
       type: String,
+      default: "/Images/profileImage/default_avatar.png", // Default profile image
     },
     password: {
       type: String,
@@ -26,11 +27,13 @@ const UserSchema = new mongoose.Schema(
     },
     salt: {
       type: String,
-      // required: true,
     },
     role: {
       type: String,
       required: true,
+    },
+    newUserToggle: {
+      type: Boolean
     },
   },
   {

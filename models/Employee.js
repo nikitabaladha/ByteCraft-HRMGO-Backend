@@ -40,7 +40,11 @@ const EmployeeSchema = new mongoose.Schema(
     taxPayerId: { type: String, required: true },
     employeeCertificateUrl: { type: String, required: true },
     employeeResumeUrl: { type: String, required: true },
+    newEmployeeToggle: {
+      type: Boolean
+    },
   },
+    
   {
     timestamps: true,
   }

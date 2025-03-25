@@ -3,6 +3,14 @@ const EmployeeValidator = require("../../../validators/EmployeeValidators/Employ
 const path = require("path");
 const saltFunction = require("../../../validators/saltFunction.js");
 const SystemSettings = require("../../../models/SystemSettings.js");
+const nodemailer = require("nodemailer");
+const EmailTemplate = require('../../../models/NewEmployeeTemplate.js'); 
+const EmailSetting = require('../../../models/EmailSetting.js'); 
+const CompanySettings = require("../../../models/CompanySetting.js")
+const Branch = require("../../../models/Branch.js"); 
+const Department = require("../../../models/Department.js"); 
+const Designation = require("../../../models/Designation.js");
+
 async function create(req, res) {
   try {
     const { error } = EmployeeValidator.EmployeeCreateValidator.validate(
@@ -32,6 +40,7 @@ async function create(req, res) {
       bankIdentifierCode,
       branchLocation,
       taxPayerId,
+      newEmployeeToggle,
     } = req.body;
 
     const existingEmployee = await Employee.findOne({
@@ -115,9 +124,75 @@ async function create(req, res) {
       bankIdentifierCode,
       branchLocation,
       taxPayerId,
+      newEmployeeToggle,
     });
 
     await newEmployee.save();
+
+      if ( newEmployeeToggle) {
+    
+          const companySettings = await CompanySettings.findOne({});
+          if (!companySettings) {
+            console.error("Company settings not found in the database");
+            return res.status(500).json({ message: "Company settings not found" });
+          }
+    
+          const emailSetting = await EmailSetting.findOne({});
+          if (!emailSetting) {
+            console.error("Email settings not found in the database");
+            return res.status(500).json({ message: "Email settings not found" });
+          }
+
+          const branch = await Branch.findById(branchId);
+          const department = await Department.findById(departmentId);
+          const designation = await Designation.findById(designationId);
+    
+          if (!branch || !department || !designation) {
+            console.error("Branch, Department, or Designation not found");
+            return res.status(500).json({ message: "Branch, Department, or Designation not found" });
+          }
+    
+          const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+              user: emailSetting.mailUsername,
+              pass: emailSetting.mailPassword,
+            },
+          });
+    
+          const emailTemplate = await EmailTemplate.findOne({});
+          if (!emailTemplate) {
+            console.error("Email template not found in the database");
+            return res.status(500).json({ message: "Email template not found" });
+          }
+    
+          const emailContent = emailTemplate.content
+            .replace("{app_name}", "HRMSync")
+            .replace("{company_name}", companySettings.company_name)
+            .replace("{employee_name}", name)
+            .replace("{employee_email}", email)
+            .replace("{employee_password}", password)
+            .replace("{employee_branch}", branch.branchName) 
+        .replace("{employee_department}", department.departmentName) 
+        .replace("{employee_designation}", designation.designationName);
+            // .replace("{app_name}", name)
+            // .replace("{company_name}", companySettings.company_name);
+    
+          const mailOptions = {
+            from: `"${emailSetting.mailFromName}" <${emailSetting.mailFromAddress}>`,
+            to: email,
+            subject: emailTemplate.subject || "Welcome to Our Platform",
+            html: emailContent, 
+          };
+    
+          transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+              console.error("Error sending email:", error);
+            } else {
+              console.log("Email sent:", info.response);
+            }
+          });
+        }
 
     return res.status(201).json({
       message: "Employee created successfully!",

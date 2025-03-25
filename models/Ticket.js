@@ -50,7 +50,10 @@ const ticketSchema = new mongoose.Schema({
   updated_date: {
     type: Date,
     default: Date.now, 
-  }
+  },
+  newTicketToggle: {
+    type: Boolean
+  },
 });
 
 

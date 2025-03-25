@@ -8,14 +8,13 @@ const trainingSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['Pending', 'Started', 'Completed', 'Terminated'], // Define enum values
+    enum: ['Pending', 'Started', 'Completed', 'Terminated'], 
     required: true,
     default: 'Pending'
   },
   Performance: {
     type: String,
-    enum: ['Not Concluded', 'Satisfactory', 'Average', 'Poor', 'Excellent'], // Define enum values
-    // required: true,
+    enum: ['Not Concluded', 'Satisfactory', 'Average', 'Poor', 'Excellent'], 
     default: 'Not Concluded'
   },
   Remark: {

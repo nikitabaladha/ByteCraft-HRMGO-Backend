@@ -119,6 +119,8 @@ const jobCategoryRoutes = require("./jobcategory");
 
 const upload = require("../controllers/uploadFiles");
 
+const templateRoutes = require("./EmailTemplates.js")
+
 const uploadFiles = (req, res, next) => {
   console.log("Request files:", req.files);
   upload.fields([{ name: "profileImage", maxCount: 1 }])(req, res, (err) => {
@@ -287,4 +289,6 @@ module.exports = (app) => {
   app.use("/api", contractTypeRoutes); // This mounts Contract Type Routes the  routes
 
   app.use("/api", jobCategoryRoutes); // This mounts Job Category Routes the  routes
+
+  app.use("/api", templateRoutes);
 };
