@@ -8,8 +8,20 @@ const NewTicketCreate = require("./New Ticket/NewTicketSaveOrUpdate")
 const getNewTicketContent = require("./New Ticket/getNewTicket")
 const NewAwardCreate = require("./New Award/newAwardTempCreate")
 const getNewAward = require("./New Award/getNewAward")
-const EmployeeTransferCreate = require("./Employee Transfer/EmployeeTransferCreate")
-const getEmployeeTransfer = require("./Employee Transfer/getEmployeeTransfer")
+const EmployeeResignationCreate = require("./Employee Resignation/EmployeeResignationCreate")
+const getEmployeeResignation = require("./Employee Resignation/getEmployeeResignation")
+const EmplPromotionCreate = require("./Employee Promotion/EmpPromotionCreate")
+const getEmpPromotion = require("./Employee Promotion/getEmpPromotion")
+const EmplComplaintCreate = require("./Employee Complaint/EmpComplainCreate")
+const getEmpComplaint = require("./Employee Complaint/getEmployeeComplaint")
+const EmplTerminationCreate = require("./Employee termination/EmpTerminationCreate")
+const getEmpTermination = require("./Employee termination/getEmpTermination")
+const EmplWarningCreate = require("./Employee Warning/EmpWarningCreate")
+const getEmpWarning = require("./Employee Warning/getEmpWarning")
+const LeaveStatusCreate = require("./Leave Status/LeaveStatusCreate")
+const getLeaveStatus = require("./Leave Status/getLeaveStatus")
+const contractCreateContent = require("./Contract/ContractCreateContent")
+const getContractContent = require("./Contract/getContractContent")
 
 module.exports = {
   createOrUpdateNewUser,
@@ -22,6 +34,18 @@ module.exports = {
   getNewTicketContent,
   NewAwardCreate,
   getNewAward,
-  EmployeeTransferCreate,
-  getEmployeeTransfer
+  EmployeeResignationCreate,
+  getEmployeeResignation,
+  EmplPromotionCreate,
+  getEmpPromotion,
+  EmplComplaintCreate,
+  getEmpComplaint,
+  EmplTerminationCreate,
+  getEmpTermination,
+  EmplWarningCreate,
+  getEmpWarning,
+  LeaveStatusCreate,
+  getLeaveStatus,
+  contractCreateContent,
+  getContractContent
 };

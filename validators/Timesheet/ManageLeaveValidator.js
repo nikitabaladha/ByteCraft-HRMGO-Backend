@@ -23,6 +23,9 @@ const baseSchema = Joi.object({
     "string.base": "Reason must be a string",
     "string.min": "Reason must be at least 5 characters long",
   }),
+   LeaveStatusToggle: Joi.boolean().messages({
+              "boolean.base": "LeaveStatusToggle must be true or false.",
+            }),
 });
 
 const createSchema = baseSchema.keys({

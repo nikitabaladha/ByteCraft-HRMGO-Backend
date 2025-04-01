@@ -19,6 +19,9 @@ const ResignationSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    EmpResignationToggle: {
+      type: Boolean
+    },
   },
   {
     timestamps: true,

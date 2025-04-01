@@ -36,6 +36,9 @@ const ContractCreateValidator = Joi.object({
   description: Joi.string().optional().messages({
     "string.base": "Description must be a string.",
   }),
+   contractToggle: Joi.boolean().messages({
+              "boolean.base": "contractToggle must be true or false.",
+            }),
 });
 
 const ContractUpdateValidator = Joi.object({

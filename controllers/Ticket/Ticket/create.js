@@ -38,7 +38,7 @@ const createTicket = async (req, res) => {
     await newTicket.save();
 
     if (newTicketToggle) {
-      // Fetch employee email using employee_name (which is actually the name field in Employee model)
+     
       const employee = await Employee.findOne({ name: employee_name });
       if (!employee) {
         console.error("Employee not found in the database");

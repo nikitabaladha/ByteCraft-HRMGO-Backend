@@ -21,6 +21,9 @@ const PromotionCreateValidator = Joi.object({
     "any.required": "Description is required.",
     "string.empty": "Description cannot be empty.",
   }),
+  EmpPromotionToggle: Joi.boolean().messages({
+      "boolean.base": " EmpPromotionToggle must be true or false.",
+    }),
 });
 
 const PromotionUpdateValidator = Joi.object({

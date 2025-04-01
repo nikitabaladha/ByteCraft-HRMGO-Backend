@@ -19,6 +19,9 @@ const ComplaintSchema = new mongoose.Schema(
     },
     complaintDate: { type: Date, required: true },
     description: { type: String, required: true },
+    EmployeeComplaintToggle: {
+      type: Boolean
+    },
   },
   {
     timestamps: true,

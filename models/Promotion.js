@@ -19,6 +19,9 @@ const PromotionSchema = new mongoose.Schema(
     },
     promotionDate: { type: Date, required: true },
     description: { type: String, required: true },
+    EmpPromotionToggle: {
+      type: Boolean
+    },
   },
   {
     timestamps: true,

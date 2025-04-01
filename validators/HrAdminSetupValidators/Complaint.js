@@ -20,6 +20,9 @@ const ComplaintCreateValidator = Joi.object({
     "any.required": "Description is required.",
     "string.empty": "Description cannot be empty.",
   }),
+    EmployeeComplaintToggle: Joi.boolean().messages({
+            "boolean.base": " EmployeeComplaintToggle must be true or false.",
+          }),
 });
 
 const ComplaintUpdateValidator = Joi.object({

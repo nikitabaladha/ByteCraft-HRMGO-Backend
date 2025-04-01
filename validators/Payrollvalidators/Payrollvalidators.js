@@ -42,7 +42,10 @@ const createPayrollValidator = Joi.object({
   year: Joi.number().required().messages({
     'number.base': 'Year should be a valid number',
     'any.required': 'Year is required'
-  })
+  }),
+  newPayrollToggle: Joi.boolean().messages({
+                "boolean.base": "newPayrollToggle must be true or false.",
+              }),
 });
 
 module.exports = createPayrollValidator;

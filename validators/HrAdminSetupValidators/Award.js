@@ -21,6 +21,9 @@ const AwardCreateValidator = Joi.object({
     "any.required": "Description is required.",
     "string.empty": "Description cannot be empty.",
   }),
+   newAwardToggle: Joi.boolean().messages({
+        "boolean.base": "newAwardToggle must be true or false.",
+      }),
 });
 
 const AwardUpdateValidator = Joi.object({
@@ -40,6 +43,9 @@ const AwardUpdateValidator = Joi.object({
     "any.required": "Description is required.",
     "string.empty": "Description cannot be empty.",
   }),
+  //  newAwardToggle: Joi.boolean().messages({
+  //       "boolean.base": "newAwardToggle must be true or false.",
+  //     }),
 });
 
 module.exports = { AwardCreateValidator, AwardUpdateValidator };

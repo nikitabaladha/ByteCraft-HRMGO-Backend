@@ -25,6 +25,10 @@ const ResignationCreateValidator = Joi.object({
     "any.required": "Reason is required.",
     "string.empty": "Reason cannot be empty.",
   }),
+  EmpResignationToggle: Joi.boolean().messages({
+          "boolean.base": "EmpResignationToggle must be true or false.",
+        }),
+       
 });
 
 const ResignationUpdateValidator = Joi.object({

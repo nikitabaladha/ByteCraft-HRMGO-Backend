@@ -22,6 +22,9 @@ const ManageLeaveSchema = new mongoose.Schema(
       enum: ["Approved", "Rejected", "Pending"],
       default: "Pending",
     },
+    LeaveStatusToggle: {
+      type: Boolean,
+    }
   },
   {
     timestamps: true,

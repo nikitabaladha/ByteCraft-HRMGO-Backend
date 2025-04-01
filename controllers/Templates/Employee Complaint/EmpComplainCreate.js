@@ -1,4 +1,4 @@
-const EmailTemplate = require('../../../models/EmployeeTransferTemplate');
+const EmailTemplate = require('../../../models/EmpComplaints');
 
 const saveEmailSettings = async (req, res) => {
   const { mail_from_name, subject, content } = req.body;

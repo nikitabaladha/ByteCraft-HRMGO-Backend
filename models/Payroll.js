@@ -31,6 +31,9 @@ const salarySchema = new mongoose.Schema(
     statusPayDate: {
       type: Date,
     },
+    newPayrollToggle: {
+      type: Boolean,
+    }
   },
   { timestamps: true }
 );

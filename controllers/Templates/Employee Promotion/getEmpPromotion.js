@@ -1,4 +1,4 @@
-const EmailTemplate = require('../../../models/EmployeeTransferTemplate');
+const EmailTemplate = require('../../../models/EmpPromotion');
 
 const getEmailSettings = async (req, res) => {
   try {

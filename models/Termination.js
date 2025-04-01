@@ -15,6 +15,7 @@ const TerminationSchema = new mongoose.Schema(
     noticeDate: { type: Date, required: true },
     terminationDate: { type: Date, required: true },
     description: { type: String, required: true },
+    EmpTerminationToggle: {type: Boolean},
   },
   {
     timestamps: true,

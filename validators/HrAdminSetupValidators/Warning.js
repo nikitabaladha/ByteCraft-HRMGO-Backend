@@ -20,6 +20,9 @@ const WarningCreateValidator = Joi.object({
     "any.required": "Description is required.",
     "string.empty": "Description cannot be empty.",
   }),
+   EmpWarningToggle: Joi.boolean().messages({
+            "boolean.base": "EmpWarningToggle must be true or false.",
+          }),
 });
 
 const WarningUpdateValidator = Joi.object({

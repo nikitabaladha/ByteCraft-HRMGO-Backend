@@ -27,6 +27,9 @@ const TerminationCreateValidator = Joi.object({
     "any.required": "Description is required.",
     "string.empty": "Description cannot be empty.",
   }),
+   EmpTerminationToggle: Joi.boolean().messages({
+            "boolean.base": "EmpTerminationToggle must be true or false.",
+          }),
 });
 
 const TerminationUpdateValidator = Joi.object({

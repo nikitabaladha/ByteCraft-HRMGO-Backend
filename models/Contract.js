@@ -41,6 +41,9 @@ const ContractSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    contractToggle: {
+      type: Boolean,
+    },
   },
   {
     timestamps: true,

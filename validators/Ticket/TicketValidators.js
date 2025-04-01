@@ -10,6 +10,9 @@ const ticketValidationSchema = Joi.object({
   status: Joi.string().valid('open', 'close', 'onhold').default('close'), 
   created_by: Joi.string().valid('HRM', 'Manager', 'Admin').default('HRM'), 
   end_date: Joi.date().default(Date.now), 
+  newTicketToggle: Joi.boolean().messages({
+      "boolean.base": "newTicketToggle must be true or false.",
+    }),
 });
 
 

@@ -19,6 +19,7 @@ const WarningSchema = new mongoose.Schema(
     },
     warningDate: { type: Date, required: true },
     description: { type: String, required: true },
+    EmpWarningToggle: {type: Boolean},
   },
   {
     timestamps: true,

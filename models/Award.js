@@ -15,6 +15,9 @@ const AwardSchema = new mongoose.Schema(
     date: { type: Date, required: true },
     gift: { type: String, required: true },
     description: { type: String, required: true },
+    newAwardToggle: {
+      type: Boolean
+    },
   },
   {
     timestamps: true,
