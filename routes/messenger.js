@@ -22,6 +22,8 @@ const {
   getMessageById,
   userById,
   deleteConversation,
+  markMessagesAsRead,
+  unreadCount
 } = require("../controllers/Messenger/index.js");
 
 // Define routes
@@ -31,5 +33,7 @@ router.post("/message",uploadFiles, Middleware, createMessage)
 router.get("/get-message/:conversationId", Middleware, getMessageById)
 router.get("/users/:userId", Middleware, userById)
 router.delete("/delete-conversation/:conversationId", Middleware, deleteConversation)
+router.post("/messages/mark-as-read", Middleware, markMessagesAsRead);
+router.get("/unread-messages/:userId", Middleware, unreadCount);
 
 module.exports = router;

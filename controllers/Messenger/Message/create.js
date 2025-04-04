@@ -54,11 +54,20 @@ const createMessage = async (req, res) => {
       }
     }
  
+    // const newMessage = new Messages({
+    //   conversationId: conversation._id,
+    //   senderId,
+    //   message: message || null,
+    //   messageFile: messageFile || null,
+    // });
+
     const newMessage = new Messages({
       conversationId: conversation._id,
       senderId,
+      receiverId, // Add receiverId to the message
       message: message || null,
       messageFile: messageFile || null,
+      isRead: false // Messages start as unread
     });
     await newMessage.save();
  

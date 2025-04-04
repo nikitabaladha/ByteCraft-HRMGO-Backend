@@ -32,33 +32,49 @@ io.on("connection", (socket) => {
     }
   });
 
-  socket.on(
-    "sendMessage",
-    async ({ senderId, receiverId, message, conversationId }) => {
-      const receiver = users.find((user) => user.userId === receiverId);
-      const sender = users.find((user) => user.userId === senderId);
-      const user = await Users.findById(senderId);
-      if (receiver) {
-        io.to(receiver.socketId)
-          .to(sender.socketId)
-          .emit("getMessage", {
-            senderId,
-            receiverId,
-            conversationId,
-            message,
-            user: { id: user._id, name: user.name, email: user.email },
-          });
-      } else {
-        io.to(sender.socketId).emit("getMessage", {
+socket.on(
+  "sendMessage",
+  async ({ senderId, receiverId, message, conversationId }) => {
+    const receiver = users.find((user) => user.userId === receiverId);
+    const sender = users.find((user) => user.userId === senderId);
+    const user = await Users.findById(senderId);
+    
+    if (receiver) {
+      io.to(receiver.socketId).emit("newMessageNotification", {
+        senderId,
+        conversationId
+      });
+      
+      io.to(receiver.socketId)
+        .to(sender.socketId)
+        .emit("getMessage", {
           senderId,
           receiverId,
           conversationId,
           message,
           user: { id: user._id, name: user.name, email: user.email },
         });
-      }
+    } else {
+      io.to(sender.socketId).emit("getMessage", {
+        senderId,
+        receiverId,
+        conversationId,
+        message,
+        user: { id: user._id, name: user.name, email: user.email },
+      });
     }
-  );
+  }
+);
+
+// In your app.js (socket.io part)
+socket.on("messagesRead", ({ conversationId, userId }) => {
+  // Notify all devices of this user that messages were read
+  const userSockets = users.filter(user => user.userId === userId);
+  
+  userSockets.forEach(user => {
+    io.to(user.socketId).emit("updateUnreadCount");
+  });
+});
 
   socket.on("disconnet", () => {
     users = users.filter((user) => user.socketId !== socket.id);

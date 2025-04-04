@@ -4,6 +4,8 @@ const createMessage = require("./Message/create")
 const getMessageById = require("./Message/getMessage")
 const userById = require("./Message/users")
 const deleteConversation = require("./Message/deleteConversation")
+const markMessagesAsRead = require("./Message/notification")
+const unreadCount = require("./Message/unReadCount")
 
 module.exports = {
   createConversation,
@@ -12,4 +14,6 @@ module.exports = {
   getMessageById,
   userById,
   deleteConversation,
+  markMessagesAsRead,
+  unreadCount,
 };
