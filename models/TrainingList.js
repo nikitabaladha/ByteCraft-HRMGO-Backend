@@ -28,7 +28,6 @@ const trainingSchema = new mongoose.Schema({
   },
   trainingType: {
     type: String,
-    enum: ['Job Training', 'Management Training'], 
     required: true,
   },
   trainer: {
